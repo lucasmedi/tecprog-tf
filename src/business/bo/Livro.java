@@ -1,11 +1,19 @@
 package business.bo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Livro {
 	private int codigo;
 	private String titulo;
 	private int ano;
 	private Editora editora;
+    private List<Autor> autores;
 	
+    public Livro() {
+    	autores = new ArrayList<>();
+    }
+    
 	public int getCodigo() {
 		return codigo;
 	}
@@ -36,5 +44,13 @@ public class Livro {
 	
 	public void setEditora(Editora editora) {
 		this.editora = editora;
+	}
+
+	public List<Autor> getAutores() {
+		return autores;
+	}
+
+	public void addAutor(Autor autor) {
+		this.autores.add(autor);
 	}
 }

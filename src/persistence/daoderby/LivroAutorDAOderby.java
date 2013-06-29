@@ -87,7 +87,14 @@ public class LivroAutorDAOderby {
 			statement.setInt(1, livroAutor.getCodigoAutor());
 			statement.setInt(1, livroAutor.getCodigoLivro());
 			result = statement.executeUpdate();
+			
+			connection.commit();
 		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
+			}
 			throw new PersistenceException("Erro ao executar inserção: " + e.getMessage(), e);
 		} finally {
 			try {
@@ -115,7 +122,14 @@ public class LivroAutorDAOderby {
 			statement.setInt(1, livroAutor.getCodigoAutor());
 			statement.setInt(2, livroAutor.getCodigoLivro());
 			result = statement.executeUpdate();
+			
+			connection.commit();
 		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
+			}
 			throw new PersistenceException("Erro ao executar a atualização: " + e.getMessage() , e);
 		} finally {
 			try {

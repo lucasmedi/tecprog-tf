@@ -72,6 +72,38 @@ public class LivroDAOderby {
 		return livros;
 	}
 	
+	public List<LivroDTO> buscarPorAutor(int codigo) throws PersistenceException, ConnectionException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		
+		List<LivroDTO> livros = new ArrayList<>();
+		try {
+			connection = ConnectionFactory.getInstanceDerby();
+			
+			String query = "select liv.* " +
+				"from Livros liv " +
+				"inner join LivrosAutores lau on liv.CodLivro = lau.CodLivro " +
+				"where lau.CodAutor = ?";
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, codigo);
+			ResultSet result = statement.executeQuery();
+			while (result.next()) {
+				livros.add(parseLivroDTO(result));
+			}
+		} catch (Exception e) {
+			throw new PersistenceException("Erro ao executar busca: " + e.getMessage(), e);
+		} finally {
+			try {
+				statement.close();
+				connection.close();
+			} catch (SQLException e) {
+				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
+			}
+		}
+		
+		return livros;
+	}
+	
 	public LivroDTO buscarPorCodigo(int codigo) throws PersistenceException, ConnectionException {
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -116,7 +148,14 @@ public class LivroDAOderby {
 			statement.setInt(3, livro.getAno());
 			statement.setInt(4, livro.getCodigoEditora());
 			result = statement.executeUpdate();
+			
+			connection.commit();
 		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
+			}
 			throw new PersistenceException("Erro ao executar inserção: " + e.getMessage(), e);
 		} finally {
 			try {
@@ -146,7 +185,14 @@ public class LivroDAOderby {
 			statement.setInt(3, livro.getCodigoEditora());
 			statement.setInt(4, livro.getCodigo());
 			result = statement.executeUpdate();
+			
+			connection.commit();
 		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
+			}
 			throw new PersistenceException("Erro ao executar a atualização: " + e.getMessage() , e);
 		} finally {
 			try {

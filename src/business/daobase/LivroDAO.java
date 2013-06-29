@@ -7,8 +7,9 @@ import exceptions.PersistenceException;
 
 public interface LivroDAO {
 	List<Livro> buscarTodos() throws PersistenceException;
-	Livro buscarPorCodigo(int codigo) throws PersistenceException;
 	List<Livro> buscarPorEditora(int codigo) throws PersistenceException;
+	List<Livro> buscarPorAutor(int codigo) throws PersistenceException;
+	Livro buscarPorCodigo(int codigo) throws PersistenceException;
 	void inserir(Livro livro) throws PersistenceException;
 	void alterar(Livro livro) throws PersistenceException;
 }

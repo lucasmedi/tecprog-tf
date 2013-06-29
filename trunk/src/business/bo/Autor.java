@@ -1,9 +1,18 @@
 package business.bo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Autor {
 	private int codigo;
 	private String primeiroNome;
 	private String ultimoNome;
+	
+	private List<Livro> livros;
+	
+	public Autor() {
+		livros = new ArrayList<>();
+	}
 	
 	public int getCodigo() {
 		return codigo;
@@ -27,5 +36,13 @@ public class Autor {
 	
 	public void setUltimoNome(String ultimoNome) {
 		this.ultimoNome = ultimoNome;
+	}
+
+	public List<Livro> getLivros() {
+		return livros;
+	}
+
+	public void addLivro(Livro livro) {
+		this.livros.add(livro);
 	}
 }

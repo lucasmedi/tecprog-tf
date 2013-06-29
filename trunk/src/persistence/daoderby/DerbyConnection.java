@@ -14,6 +14,7 @@ public class DerbyConnection implements IConnection {
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             connection = DriverManager.getConnection("jdbc:derby:cadastro");
+            connection.setAutoCommit(false);
         } catch (SQLException | ClassNotFoundException ex) {
         	throw new ConnectionException(ex);
         }

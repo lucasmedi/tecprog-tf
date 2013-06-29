@@ -85,7 +85,14 @@ public class EditoraDAOderby {
 			statement.setInt(1, ed.getCodigo());
 			statement.setString(2, ed.getNome());
 			result = statement.executeUpdate();
+			
+			connection.commit();
 		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
+			}
 			throw new PersistenceException("Erro ao executar inserção: " + e.getMessage(), e);
 		} finally {
 			try {
@@ -113,7 +120,14 @@ public class EditoraDAOderby {
 			statement.setString(1, ed.getNome());
 			statement.setInt(2, ed.getCodigo());
 			result = statement.executeUpdate();
+			
+			connection.commit();
 		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
+			}
 			throw new PersistenceException("Erro ao executar a atualização: " + e.getMessage(), e);
 		} finally {
 			try {

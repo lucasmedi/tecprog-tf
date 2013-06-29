@@ -119,7 +119,14 @@ public class AutorDAOderby {
 			statement.setString(2, autor.getPrimeiroNome());
 			statement.setString(3, autor.getUltimoNome());
 			result = statement.executeUpdate();
+			
+			connection.commit();
 		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
+			}
 			throw new PersistenceException("Erro ao executar inserção: " + e.getMessage(), e);
 		} finally {
 			try {
@@ -148,7 +155,14 @@ public class AutorDAOderby {
 			statement.setString(2, autor.getUltimoNome());
 			statement.setInt(3, autor.getCodigo());
 			result = statement.executeUpdate();
+			
+			connection.commit();
 		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
+			}
 			throw new PersistenceException("Erro ao executar a atualização: " + e.getMessage() , e);
 		} finally {
 			try {

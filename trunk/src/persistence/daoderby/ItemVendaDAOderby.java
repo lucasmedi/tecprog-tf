@@ -88,7 +88,14 @@ public class ItemVendaDAOderby {
 			statement.setInt(2, itemVenda.getCodigoLivro());
 			statement.setInt(3, itemVenda.getQuantidade());
 			result = statement.executeUpdate();
+			
+			connection.commit();
 		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
+			}
 			throw new PersistenceException("Erro ao executar inserção: " + e.getMessage(), e);
 		} finally {
 			try {
@@ -117,7 +124,14 @@ public class ItemVendaDAOderby {
 			statement.setInt(2, itemVenda.getCodigoVenda());
 			statement.setInt(3, itemVenda.getCodigoLivro());
 			result = statement.executeUpdate();
+			
+			connection.commit();
 		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
+			}
 			throw new PersistenceException("Erro ao executar a atualização: " + e.getMessage() , e);
 		} finally {
 			try {

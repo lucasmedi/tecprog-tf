@@ -1,0 +1,10 @@
+----------------------------------------------------------------
+Sat Jun 29 00:16:07 BRT 2013:
+ Inicializando o Derby versão The Apache Software Foundation - Apache Derby - 10.8.2.2 - (1181258): instância a816c00e-013f-8dee-3b9d-000000d0c210
+no diretório de banco de dados C:\Users\Lucas\Desktop\TECPROG_TF\trunk\cadastro  
+
+java.vendor=Oracle Corporation
+java.runtime.version=1.7.0_25-b17
+user.dir=C:\Users\Lucas\Desktop\TECPROG_TF\trunk
+derby.system.home=null
+Carregador de classe do banco de dados iniciado - derby.database.classpath=''

@@ -57,6 +57,20 @@ public class LivroDAOTest {
 	}
 	
 	@Test
+	public void buscarPorTituloTest() {
+		LivroDAOderby dao = new LivroDAOderby();
+		
+		List<LivroDTO> livros = null;
+		try {
+			livros = dao.buscarPorTitulo("Harry Potter");
+		} catch (PersistenceException | ConnectionException e) {
+			e.printStackTrace();
+		}
+		
+		Assert.assertTrue(livros != null);
+	}
+	
+	@Test
 	public void buscarPorCodigoTest() {
 		LivroDAOderby dao = new LivroDAOderby();
 		

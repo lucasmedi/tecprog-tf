@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import mapping.ItemVendaDAOMapping;
+import exceptions.BusinessException;
+import exceptions.MappingException;
+
 public class Venda {
 	private int codigo;
 	private String nomeCliente;
@@ -57,15 +61,17 @@ public class Venda {
 		this.data = data;
 	}
 
-	public int getItensCount() {
-		return itensVenda.size();
+	public List<ItemVenda> getItensVenda() throws BusinessException {
+		if (itensVenda == null)
+			try {
+				itensVenda = (new ItemVendaDAOMapping()).buscarPorCodigoVenda(this.codigo);
+			} catch (MappingException e) {
+				throw new BusinessException(e);
+			}
+		return itensVenda;
 	}
 	
-	public ItemVenda getItemVenda(int index) {
-		return itensVenda.get(index);
-	}
-	
-	public void addItemVenda(ItemVenda item) {
-		itensVenda.add(item);
+	public void setItemVenda(List<ItemVenda> itens) {
+		this.itensVenda = itens;
 	}
 }

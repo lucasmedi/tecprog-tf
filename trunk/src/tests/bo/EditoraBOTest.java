@@ -41,4 +41,18 @@ public class EditoraBOTest {
 		
 		Assert.assertTrue(editora != null);
 	}
+	
+	@Test
+	public void buscarUmPorNomeTest() {
+		EditoraDAO dao = new EditoraDAOMapping();
+		
+		Editora editora = null;
+		try {
+			editora = dao.buscarUmPorNome("tante");
+		} catch (MappingException e) {
+			e.printStackTrace();
+		}
+		
+		Assert.assertTrue(editora != null);
+	}
 }

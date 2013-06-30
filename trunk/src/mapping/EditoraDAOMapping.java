@@ -40,6 +40,20 @@ public class EditoraDAOMapping implements EditoraDAO, IMapping<Editora, EditoraD
 		
 		return editora;
 	}
+	
+	@Override
+	public Editora buscarUmPorNome(String nome) throws MappingException {
+		Editora editora = null;
+		
+		try {
+			EditoraDAOderby dao = new EditoraDAOderby();
+			editora = parseBO(dao.buscarUmPorNome(nome));
+		} catch (Exception ex) {
+			throw new MappingException(ex);
+		}
+		
+		return editora;
+	}
 
 	@Override
 	public void inserir(Editora editora) {

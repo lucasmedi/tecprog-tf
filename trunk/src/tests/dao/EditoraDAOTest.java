@@ -41,4 +41,18 @@ public class EditoraDAOTest {
 		
 		Assert.assertTrue(editora != null);
 	}
+	
+	@Test
+	public void buscarUmPorNomeTest() {
+		EditoraDAOderby dao = new EditoraDAOderby();
+		
+		EditoraDTO editora = null;
+		try {
+			editora = dao.buscarUmPorNome("Rocco");
+		} catch (PersistenceException | ConnectionException e) {
+			e.printStackTrace();
+		}
+		
+		Assert.assertTrue(editora != null);
+	}
 }

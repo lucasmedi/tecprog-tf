@@ -55,4 +55,18 @@ public class AutorDAOTest {
 		
 		Assert.assertTrue(autor != null);
 	}
+	
+	@Test
+	public void buscarUmPorNomeTest() {
+		AutorDAOderby dao = new AutorDAOderby();
+		
+		AutorDTO autor = null;
+		try {
+			autor = dao.buscarUmPorNome("n Tol");
+		} catch (PersistenceException | ConnectionException e) {
+			e.printStackTrace();
+		}
+		
+		Assert.assertTrue(autor != null);
+	}
 }

@@ -107,6 +107,36 @@ public class LivroDAOderby {
 		return livros;
 	}
 	
+	public List<LivroDTO> buscarPorTitulo(String titulo) throws PersistenceException, ConnectionException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		
+		List<LivroDTO> livros = new ArrayList<>();
+		try {
+			connection = ConnectionFactory.getInstanceDerby();
+			connection.setAutoCommit(true);
+			
+			String query = "select * from Livros where Titulo like ?";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, "%" + titulo + "%");
+			ResultSet result = statement.executeQuery();
+			while (result.next()) {
+				livros.add(parseLivroDTO(result));
+			}
+		} catch (Exception e) {
+			throw new PersistenceException("Erro ao executar busca: " + e.getMessage(), e);
+		} finally {
+			try {
+				statement.close();
+				connection.close();
+			} catch (SQLException e) {
+				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
+			}
+		}
+		
+		return livros;
+	}
+	
 	public LivroDTO buscarPorCodigo(int codigo) throws PersistenceException, ConnectionException {
 		Connection connection = null;
 		PreparedStatement statement = null;

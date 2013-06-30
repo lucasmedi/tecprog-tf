@@ -55,4 +55,18 @@ public class AutorBOTest {
 		
 		Assert.assertTrue(autor != null);
 	}
+	
+	@Test
+	public void buscarUmPorNomeTest() {
+		AutorDAO dao = new AutorDAOMapping();
+		
+		Autor autor = null;
+		try {
+			autor = dao.buscarUmPorNome("Joanne Row");
+		} catch (MappingException e) {
+			e.printStackTrace();
+		}
+		
+		Assert.assertTrue(autor != null);
+	}
 }

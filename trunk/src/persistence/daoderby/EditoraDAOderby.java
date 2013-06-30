@@ -73,6 +73,36 @@ public class EditoraDAOderby {
 		
 		return editora;
 	}
+	
+	public EditoraDTO buscarUmPorNome(String nome) throws PersistenceException, ConnectionException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+	
+		EditoraDTO editora = null;
+		try {
+			connection = ConnectionFactory.getInstanceDerby();
+			connection.setAutoCommit(true);
+			
+			String query = "select * from Editoras where Nome like ?";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, "%" + nome + "%");
+			ResultSet result = statement.executeQuery();
+			if (result.next()) {
+				editora = parseEditoraDTO(result);
+			}
+		} catch (Exception e) {
+			throw new PersistenceException("Erro ao executar busca: " + e.getMessage(), e);
+		} finally {
+			try {
+				statement.close();
+				connection.close();
+			} catch (SQLException e) {
+				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
+			}
+		}
+		
+		return editora;
+	}
 
 	public void inserir(EditoraDTO ed) throws PersistenceException, ConnectionException {
 		Connection connection = null;

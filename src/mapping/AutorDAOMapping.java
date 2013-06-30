@@ -1,36 +1,58 @@
 package mapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import persistence.daoderby.AutorDAOderby;
 import persistence.dto.AutorDTO;
 import business.bo.Autor;
 import business.daobase.AutorDAO;
-import exceptions.PersistenceException;
+import exceptions.MappingException;
 
 public class AutorDAOMapping implements AutorDAO, IMapping<Autor, AutorDTO> {
 
 	@Override
-	public List<Autor> buscarTodos() throws PersistenceException {
-		return null;
+	public List<Autor> buscarTodos() throws MappingException {
+		List<Autor> res = new ArrayList<>();
+		
+		try {
+			AutorDAOderby dao = new AutorDAOderby();
+			for (AutorDTO dto : dao.buscarTodos()) {
+				res.add(parseBO(dto));
+			}
+		} catch (Exception ex) {
+			throw new MappingException(ex);
+		}
+		
+		return res;
 	}
 
 	@Override
-	public Autor buscarPorCodigo(int codigo) throws PersistenceException {
+	public List<Autor> buscarPorNome(String nome) {
 		return null;
 	}
-
+	
 	@Override
-	public List<Autor> buscarPorNome(String nome) throws PersistenceException {
-		return null;
+	public Autor buscarPorCodigo(int codigo) throws MappingException {
+		Autor autor = null;
+		
+		try {
+			AutorDAOderby dao = new AutorDAOderby();
+			autor = parseBO(dao.buscarPorCodigo(codigo));
+		} catch (Exception ex) {
+			throw new MappingException(ex);
+		}
+		
+		return autor;
 	}
-
+	
 	@Override
-	public void inserir(Autor autor) throws PersistenceException {
+	public void inserir(Autor autor) {
 		
 	}
 
 	@Override
-	public void alterar(Autor autor) throws PersistenceException {
+	public void alterar(Autor autor) {
 		
 	}
 	

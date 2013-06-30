@@ -22,6 +22,7 @@ public class LivroDAOderby {
 		
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
+			connection.setAutoCommit(true);
 			statement = connection.createStatement();
 			
 			String query = "select * from Livros";
@@ -50,6 +51,7 @@ public class LivroDAOderby {
 		List<LivroDTO> livros = new ArrayList<>();
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
+			connection.setAutoCommit(true);
 			
 			String query = "select * from Livros where CodEditora = ?";
 			statement = connection.prepareStatement(query);
@@ -79,10 +81,11 @@ public class LivroDAOderby {
 		List<LivroDTO> livros = new ArrayList<>();
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
+			connection.setAutoCommit(true);
 			
 			String query = "select liv.* " +
 				"from Livros liv " +
-				"inner join LivrosAutores lau on liv.CodLivro = lau.CodLivro " +
+				"inner join LivrosAutores lau on liv.Codigo = lau.CodLivro " +
 				"where lau.CodAutor = ?";
 			statement = connection.prepareStatement(query);
 			statement.setInt(1, codigo);
@@ -111,8 +114,9 @@ public class LivroDAOderby {
 		LivroDTO livro = null;
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
+			connection.setAutoCommit(true);
 			
-			String query = "select * from livros where codigo = ?";
+			String query = "select * from Livros where Codigo = ?";
 			statement = connection.prepareStatement(query);
 			statement.setInt(1,codigo);
 			ResultSet result = statement.executeQuery();
@@ -141,12 +145,11 @@ public class LivroDAOderby {
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
 			
-			String query = "insert into Livros (Codigo, Titulo, Ano, CodEditora) values (?, ?, ?, ?)";
+			String query = "insert into Livros (Titulo, Ano, CodEditora) values (?, ?, ?)";
 			statement = connection.prepareStatement(query);
-			statement.setInt(1, livro.getCodigo());
-			statement.setString(2, livro.getTitulo());
-			statement.setInt(3, livro.getAno());
-			statement.setInt(4, livro.getCodigoEditora());
+			statement.setString(1, livro.getTitulo());
+			statement.setInt(2, livro.getAno());
+			statement.setInt(3, livro.getCodigoEditora());
 			result = statement.executeUpdate();
 			
 			connection.commit();

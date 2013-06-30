@@ -21,6 +21,7 @@ public class LivroAutorDAOderby {
 		List<LivroAutorDTO> livroAutor = new ArrayList<>();
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
+			connection.setAutoCommit(true);
 			
 			String query = "select * from LivrosAutores where CodAutor = ?";
 			statement = connection.prepareStatement(query);
@@ -51,6 +52,7 @@ public class LivroAutorDAOderby {
 		List<LivroAutorDTO> livroAutor = new ArrayList<>();
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
+			connection.setAutoCommit(true);
 			
 			String query = "select * from LivrosAutores where CodLivro = ?";
 			statement = connection.prepareStatement(query);

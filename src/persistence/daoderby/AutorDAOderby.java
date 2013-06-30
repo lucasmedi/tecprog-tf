@@ -22,6 +22,7 @@ public class AutorDAOderby {
 		
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
+			connection.setAutoCommit(true);
 			statement = connection.createStatement();
 			
 			String query = "select * from Autores";
@@ -51,8 +52,9 @@ public class AutorDAOderby {
 		List<AutorDTO> autores = new ArrayList<>();
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
+			connection.setAutoCommit(true);
 			
-			String query = "select * from Autores where PrimeiroNome like '%?%' or UltimoNome like '%?%'";
+			String query = "select * from Autores where PrimeiroNome like ? or UltimoNome like ?";
 			statement = connection.prepareStatement(query);
 			statement.setString(1, nome);
 			statement.setString(2, nome);
@@ -82,6 +84,7 @@ public class AutorDAOderby {
 		AutorDTO autor = null;
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
+			connection.setAutoCommit(true);
 			
 			String query = "select * from Autores where Codigo = ?";
 			statement = connection.prepareStatement(query);
@@ -113,11 +116,10 @@ public class AutorDAOderby {
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
 			
-			String query = "insert into Autores (Codigo, PrimeiroNome, UltimoNome) values (?, ?, ?)";
+			String query = "insert into Autores (PrimeiroNome, UltimoNome) values (?, ?)";
 			statement = connection.prepareStatement(query);
-			statement.setInt(1, autor.getCodigo());
-			statement.setString(2, autor.getPrimeiroNome());
-			statement.setString(3, autor.getUltimoNome());
+			statement.setString(1, autor.getPrimeiroNome());
+			statement.setString(2, autor.getUltimoNome());
 			result = statement.executeUpdate();
 			
 			connection.commit();

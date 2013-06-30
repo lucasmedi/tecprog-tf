@@ -1,32 +1,53 @@
 package mapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import persistence.daoderby.VendaDAOderby;
 import persistence.dto.VendaDTO;
-
 import business.bo.Venda;
 import business.daobase.VendaDAO;
-import exceptions.PersistenceException;
+import exceptions.MappingException;
 
 public class VendaDAOMapping implements VendaDAO, IMapping<Venda, VendaDTO> {
 
 	@Override
-	public List<Venda> buscarTodos() throws PersistenceException {
-		return null;
+	public List<Venda> buscarTodos() throws MappingException {
+		List<Venda> res = new ArrayList<>();
+		
+		try {
+			VendaDAOderby dao = new VendaDAOderby();
+			for (VendaDTO dto : dao.buscarTodos()) {
+				res.add(parseBO(dto));
+			}
+		} catch (Exception ex) {
+			throw new MappingException(ex);
+		}
+		
+		return res;
 	}
 
 	@Override
-	public Venda buscarPorCodigo(int codigo) throws PersistenceException {
-		return null;
+	public Venda buscarPorCodigo(int codigo) throws MappingException {
+		Venda venda = null;
+		
+		try {
+			VendaDAOderby dao = new VendaDAOderby();
+			venda = parseBO(dao.buscarPorCodigo(codigo));
+		} catch (Exception ex) {
+			throw new MappingException(ex);
+		}
+		
+		return venda;
 	}
 
 	@Override
-	public void inserir(Venda venda) throws PersistenceException {
+	public void inserir(Venda venda) {
 		
 	}
 
 	@Override
-	public void alterar(Venda venda) throws PersistenceException {
+	public void alterar(Venda venda) {
 		
 	}
 

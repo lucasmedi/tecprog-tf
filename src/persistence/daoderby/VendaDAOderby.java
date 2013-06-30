@@ -22,6 +22,7 @@ public class VendaDAOderby {
 		
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
+			connection.setAutoCommit(true);
 			statement = connection.createStatement();
 			
 			String query = "select * from Vendas";
@@ -51,6 +52,7 @@ public class VendaDAOderby {
 		VendaDTO venda = null;
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
+			connection.setAutoCommit(true);
 			
 			String query = "select * from Vendas where Codigo = ?";
 			statement = connection.prepareStatement(query);
@@ -82,12 +84,11 @@ public class VendaDAOderby {
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
 			
-			String query = "insert into Vendas (Codigo, NomeCliente, CpfCliente, CnpjCliente, Data) values (?, ?, ?, ?, SYSDATE)";
+			String query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values (?, ?, ?, SYSDATE)";
 			statement = connection.prepareStatement(query);
-			statement.setInt(1, venda.getCodigo());
-			statement.setString(2, venda.getNomeCliente());
-			statement.setString(3, venda.getCpfCliente());
-			statement.setString(4, venda.getCnpjCliente());
+			statement.setString(1, venda.getNomeCliente());
+			statement.setString(2, venda.getCpfCliente());
+			statement.setString(3, venda.getCnpjCliente());
 			result = statement.executeUpdate();
 			
 			connection.commit();

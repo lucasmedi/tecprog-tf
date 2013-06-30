@@ -1,31 +1,53 @@
 package mapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import persistence.daoderby.EditoraDAOderby;
 import persistence.dto.EditoraDTO;
 import business.bo.Editora;
 import business.daobase.EditoraDAO;
-import exceptions.PersistenceException;
+import exceptions.MappingException;
 
 public class EditoraDAOMapping implements EditoraDAO, IMapping<Editora, EditoraDTO> {
 
 	@Override
-	public List<Editora> buscarTodos() throws PersistenceException {
-		return null;
+	public List<Editora> buscarTodos() throws MappingException {
+		List<Editora> res = new ArrayList<>();
+		
+		try {
+			EditoraDAOderby dao = new EditoraDAOderby();
+			for (EditoraDTO dto : dao.buscarTodos()) {
+				res.add(parseBO(dto));
+			}
+		} catch (Exception ex) {
+			throw new MappingException(ex);
+		}
+		
+		return res;
 	}
 
 	@Override
-	public Editora buscarPorCodigo(int codigo) throws PersistenceException {
-		return null;
+	public Editora buscarPorCodigo(int codigo) throws MappingException {
+		Editora editora = null;
+		
+		try {
+			EditoraDAOderby dao = new EditoraDAOderby();
+			editora = parseBO(dao.buscarPorCodigo(codigo));
+		} catch (Exception ex) {
+			throw new MappingException(ex);
+		}
+		
+		return editora;
 	}
 
 	@Override
-	public void inserir(Editora editora) throws PersistenceException {
+	public void inserir(Editora editora) {
 		
 	}
 
 	@Override
-	public void alterar(Editora editora) throws PersistenceException {
+	public void alterar(Editora editora) {
 		
 	}
 

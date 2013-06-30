@@ -59,6 +59,21 @@ public class LivroDAOMapping implements LivroDAO, IMapping<Livro, LivroDTO> {
 		return res;
 	}
 	
+	public List<Livro> buscarPorTitulo(String titulo) throws MappingException {
+		List<Livro> res = new ArrayList<>();
+		
+		try {
+			LivroDAOderby dao = new LivroDAOderby();
+			for (LivroDTO dto : dao.buscarPorTitulo(titulo)) {
+				res.add(parseBO(dto));
+			}
+		} catch (Exception ex) {
+			throw new MappingException(ex);
+		}
+		
+		return res;
+	}
+	
 	@Override
 	public Livro buscarPorCodigo(int codigo) throws MappingException {
 		Livro livro = null;

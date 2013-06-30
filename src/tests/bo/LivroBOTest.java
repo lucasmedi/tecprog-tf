@@ -57,6 +57,20 @@ public class LivroBOTest {
 	}
 	
 	@Test
+	public void buscarPorTituloTest() {
+		LivroDAO dao = new LivroDAOMapping();
+		
+		List<Livro> livros = null;
+		try {
+			livros = dao.buscarPorTitulo("Duna");
+		} catch (MappingException e) {
+			e.printStackTrace();
+		}
+		
+		Assert.assertTrue(!livros.isEmpty());
+	}
+	
+	@Test
 	public void buscarPorCodigoTest() {
 		LivroDAO dao = new LivroDAOMapping();
 		

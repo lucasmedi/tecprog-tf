@@ -108,6 +108,37 @@ public class AutorDAOderby {
 		return autor;
 	}
 	
+	public AutorDTO buscarUmPorNome(String nome) throws PersistenceException, ConnectionException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		
+		AutorDTO autor = null;
+		try {
+			connection = ConnectionFactory.getInstanceDerby();
+			connection.setAutoCommit(true);
+			
+			String query = "select * from Autores where PrimeiroNome || ' ' || UltimoNome like ?";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, "%" + nome + "%");
+			
+			ResultSet result = statement.executeQuery();
+			if (result.next()) {
+				autor = parseAutorDTO(result);
+			}
+		} catch (Exception e) {
+			throw new PersistenceException("Erro ao executar busca: " + e.getMessage(), e);
+		} finally {
+			try {
+				statement.close();
+				connection.close();
+			} catch (SQLException e) {
+				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
+			}
+		}
+		
+		return autor;
+	}
+	
 	public void inserir(AutorDTO autor) throws PersistenceException, ConnectionException {
 		Connection connection = null;
 		PreparedStatement statement = null;

@@ -12,5 +12,9 @@ public class ConsoleApp {
         
         System.out.println("populate db");
         //InitializeDb.PopulateDb();
+        
+        // Buscar todos os livros
+        
+        
 	}
 }

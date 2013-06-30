@@ -56,6 +56,20 @@ public class AutorDAOMapping implements AutorDAO, IMapping<Autor, AutorDTO> {
 		
 		return autor;
 	}
+
+	@Override
+	public Autor buscarUmPorNome(String nome) throws MappingException {
+		Autor autor = null;
+		
+		try {
+			AutorDAOderby dao = new AutorDAOderby();
+			autor = parseBO(dao.buscarUmPorNome(nome));
+		} catch (Exception ex) {
+			throw new MappingException(ex);
+		}
+		
+		return autor;
+	}
 	
 	@Override
 	public void inserir(Autor autor) {

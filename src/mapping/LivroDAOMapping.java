@@ -28,13 +28,35 @@ public class LivroDAOMapping implements LivroDAO, IMapping<Livro, LivroDTO> {
 	}
 
 	@Override
-	public List<Livro> buscarPorEditora(int codigo) {
-		return null;
+	public List<Livro> buscarPorEditora(int codigo) throws MappingException {
+		List<Livro> res = new ArrayList<>();
+		
+		try {
+			LivroDAOderby dao = new LivroDAOderby();
+			for (LivroDTO dto : dao.buscarPorEditora(codigo)) {
+				res.add(parseBO(dto));
+			}
+		} catch (Exception ex) {
+			throw new MappingException(ex);
+		}
+		
+		return res;
 	}
 
 	@Override
-	public List<Livro> buscarPorAutor(int codigo) {
-		return null;
+	public List<Livro> buscarPorAutor(int codigo) throws MappingException {
+		List<Livro> res = new ArrayList<>();
+		
+		try {
+			LivroDAOderby dao = new LivroDAOderby();
+			for (LivroDTO dto : dao.buscarPorAutor(codigo)) {
+				res.add(parseBO(dto));
+			}
+		} catch (Exception ex) {
+			throw new MappingException(ex);
+		}
+		
+		return res;
 	}
 	
 	@Override
@@ -62,11 +84,14 @@ public class LivroDAOMapping implements LivroDAO, IMapping<Livro, LivroDTO> {
 	}
 	
 	@Override
-	public Livro parseBO(LivroDTO dto) {
+	public Livro parseBO(LivroDTO dto) throws MappingException {
+		EditoraDAOMapping dao = new EditoraDAOMapping();
+		
 		Livro bo = new Livro();
 		bo.setCodigo(dto.getCodigo());
 		bo.setTitulo(dto.getTitulo());
 		bo.setAno(dto.getAno());
+		bo.setEditora(dao.buscarPorCodigo(dto.getCodigoEditora()));
 		return bo;
 	}
 	

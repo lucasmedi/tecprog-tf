@@ -25,7 +25,7 @@ public class AutorBOTest {
 			e.printStackTrace();
 		}
 		
-		Assert.assertTrue(list.size() > 0);
+		Assert.assertTrue(!list.isEmpty());
 	}
 	
 	@Test
@@ -39,7 +39,7 @@ public class AutorBOTest {
 			e.printStackTrace();
 		}
 		
-		Assert.assertTrue(list != null && list.size() > 0);
+		Assert.assertTrue(!list.isEmpty());
 	}
 	
 	@Test

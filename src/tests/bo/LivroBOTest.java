@@ -25,7 +25,7 @@ public class LivroBOTest {
 			e.printStackTrace();
 		}
 		
-		Assert.assertTrue(list.size() > 0);
+		Assert.assertTrue(!list.isEmpty());
 	}
 	
 	@Test
@@ -39,7 +39,7 @@ public class LivroBOTest {
 			e.printStackTrace();
 		}
 		
-		Assert.assertTrue(livros != null);
+		Assert.assertTrue(!livros.isEmpty());
 	}
 	
 	@Test
@@ -53,7 +53,7 @@ public class LivroBOTest {
 			e.printStackTrace();
 		}
 		
-		Assert.assertTrue(livros != null);
+		Assert.assertTrue(!livros.isEmpty());
 	}
 	
 	@Test

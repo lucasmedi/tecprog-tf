@@ -25,7 +25,7 @@ public class EditoraBOTest {
 			e.printStackTrace();
 		}
 		
-		Assert.assertTrue(list.size() > 0);
+		Assert.assertTrue(!list.isEmpty());
 	}
 	
 	@Test

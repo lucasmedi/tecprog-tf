@@ -3,6 +3,10 @@ package business.bo;
 import java.util.ArrayList;
 import java.util.List;
 
+import mapping.LivroDAOMapping;
+import exceptions.BusinessException;
+import exceptions.MappingException;
+
 public class Autor {
 	private int codigo;
 	private String primeiroNome;
@@ -38,11 +42,17 @@ public class Autor {
 		this.ultimoNome = ultimoNome;
 	}
 
-	public List<Livro> getLivros() {
+	public List<Livro> getLivros() throws BusinessException {
+		if (livros == null)
+			try {
+				livros = (new LivroDAOMapping()).buscarPorAutor(this.codigo);
+			} catch (MappingException e) {
+				throw new BusinessException(e);
+			}
 		return livros;
 	}
 
-	public void addLivro(Livro livro) {
-		this.livros.add(livro);
+	public void setLivro(List<Livro> livros) {
+		this.livros = livros;
 	}
 }

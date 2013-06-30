@@ -13,7 +13,7 @@ public class ItemVendaDAOMapping implements ItemVendaDAO, IMapping<ItemVenda, It
 
 	@Override
 	public List<ItemVenda> buscarPorCodigoVenda(int codigo) throws MappingException {
-		List<ItemVenda> res = new ArrayList<>();
+		List<ItemVenda> res = new ArrayList<ItemVenda>();
 		
 		try {
 			ItemVendaDAOderby dao = new ItemVendaDAOderby();
@@ -29,7 +29,7 @@ public class ItemVendaDAOMapping implements ItemVendaDAO, IMapping<ItemVenda, It
 
 	@Override
 	public List<ItemVenda> buscarPorCodigoLivro(int codigo) throws MappingException {
-		List<ItemVenda> res = new ArrayList<>();
+		List<ItemVenda> res = new ArrayList<ItemVenda>();
 		
 		try {
 			ItemVendaDAOderby dao = new ItemVendaDAOderby();

@@ -18,7 +18,7 @@ public class LivroAutorDAOderby {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		
-		List<LivroAutorDTO> livroAutor = new ArrayList<>();
+		List<LivroAutorDTO> livroAutor = new ArrayList<LivroAutorDTO>();
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
 			connection.setAutoCommit(true);

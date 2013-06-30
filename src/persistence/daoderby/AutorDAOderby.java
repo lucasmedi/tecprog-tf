@@ -16,7 +16,7 @@ import exceptions.PersistenceException;
 public class AutorDAOderby {
 
 	public List<AutorDTO> buscarTodos() throws PersistenceException, ConnectionException {
-		List<AutorDTO> autores = new ArrayList<>();
+		List<AutorDTO> autores = new ArrayList<AutorDTO>();
 		Connection connection = null;
 		Statement statement = null;
 		

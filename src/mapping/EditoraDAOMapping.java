@@ -13,7 +13,7 @@ public class EditoraDAOMapping implements EditoraDAO, IMapping<Editora, EditoraD
 
 	@Override
 	public List<Editora> buscarTodos() throws MappingException {
-		List<Editora> res = new ArrayList<>();
+		List<Editora> res = new ArrayList<Editora>();
 		
 		try {
 			EditoraDAOderby dao = new EditoraDAOderby();

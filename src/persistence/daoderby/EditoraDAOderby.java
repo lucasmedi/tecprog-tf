@@ -16,7 +16,7 @@ import exceptions.PersistenceException;
 public class EditoraDAOderby {
 
 	public List<EditoraDTO> buscarTodos() throws PersistenceException, ConnectionException {
-		List<EditoraDTO> editoras = new ArrayList<>();
+		List<EditoraDTO> editoras = new ArrayList<EditoraDTO>();
 		Connection connection = null;
 		Statement statement = null;
 		

@@ -3,11 +3,11 @@ package business.daobase;
 import java.util.List;
 
 import business.bo.Venda;
-import exceptions.PersistenceException;
+import exceptions.MappingException;
 
 public interface VendaDAO {
-    List<Venda> buscarTodos() throws PersistenceException;
-    Venda buscarPorCodigo(int codigo) throws PersistenceException;
-    void inserir(Venda venda) throws PersistenceException;
-    void alterar(Venda venda) throws PersistenceException;
+    List<Venda> buscarTodos() throws MappingException;
+    Venda buscarPorCodigo(int codigo) throws MappingException;
+    void inserir(Venda venda) throws MappingException;
+    void alterar(Venda venda) throws MappingException;
 }

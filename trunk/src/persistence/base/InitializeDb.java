@@ -107,4 +107,224 @@ public class InitializeDb {
     	
     	statement.executeUpdate(sql);
     }
+	
+	public static void PopulateDb() throws Exception {
+		Connection connection = connectDb();
+		connection.setAutoCommit(false);
+		Statement statement = connection.createStatement();
+		
+		try {
+		insertEditoras(statement);
+		insertAutores(statement);
+		insertLivros(statement);
+		insertLivrosAutores(statement);
+		} catch (Exception ex) {
+			connection.rollback();
+			throw ex;
+		}
+		
+		connection.commit();
+	}
+	
+	private static void insertEditoras(Statement statement) throws SQLException {
+		String query = null;
+		
+		query = "insert into Editoras (Nome) values ('Martins Fontes Ltda')";
+		statement.executeUpdate(query);
+		
+		query = "insert into Editoras (Nome) values ('Rocco Ltda')";
+		statement.executeUpdate(query);
+		
+		query = "insert into Editoras (Nome) values ('L&PM Pocket')";
+		statement.executeUpdate(query);
+		
+		query = "insert into Editoras (Nome) values ('Ponto de Leitura')";
+		statement.executeUpdate(query);
+		
+		query = "insert into Editoras (Nome) values ('Aleph')";
+		statement.executeUpdate(query);
+		
+		query = "insert into Editoras (Nome) values ('Sextante')";
+		statement.executeUpdate(query);
+	}
+	
+	private static void insertAutores(Statement statement) throws SQLException {
+		String query = null;
+		
+		query = "insert into Autores (PrimeiroNome, UltimoNome) values ('John', 'Tolkien')";
+		statement.executeUpdate(query);
+		
+		query = "insert into Autores (PrimeiroNome, UltimoNome) values ('Joanne', 'Rowling')";
+		statement.executeUpdate(query);
+		
+		query = "insert into Autores (PrimeiroNome, UltimoNome) values ('Friedrich', 'Nietzsche')";
+		statement.executeUpdate(query);
+		
+		query = "insert into Autores (PrimeiroNome, UltimoNome) values ('Frank', 'Herbert')";
+		statement.executeUpdate(query);
+		
+		query = "insert into Autores (PrimeiroNome, UltimoNome) values ('Philip', 'Pullman')";
+		statement.executeUpdate(query);
+		
+		query = "insert into Autores (PrimeiroNome, UltimoNome) values ('Douglas', 'Adams')";
+		statement.executeUpdate(query);	
+	}
+
+	private static void insertLivros(Statement statement) throws SQLException {
+		String query = null;
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('O Senhor dos Anéis: A Sociedade do Anel', 2001, (select Codigo from Editoras where Nome = 'Martins Fontes Ltda'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('O Senhor dos Anéis: As Duas Torres', 2002, (select Codigo from Editoras where Nome = 'Martins Fontes Ltda'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('O Senhor dos Anéis: O Retorno do Rei', 2003, (select Codigo from Editoras where Nome = 'Martins Fontes Ltda'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('Harry Potter e a Pedra Filosofal', 1997, (select Codigo from Editoras where Nome = 'Rocco Ltda'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('Harry Potter e a Câmara Secreta', 1998, (select Codigo from Editoras where Nome = 'Rocco Ltda'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('Harry Potter e o Prisioneiro de Azkaban', 1999, (select Codigo from Editoras where Nome = 'Rocco Ltda'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('Harry Potter e o Cálice de Fogo', 2000, (select Codigo from Editoras where Nome = 'Rocco Ltda'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('Harry Potter e a Ordem da Fênix', 2003, (select Codigo from Editoras where Nome = 'Rocco Ltda'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('Harry Potter e o Enigma do Príncipe', 2005, (select Codigo from Editoras where Nome = 'Rocco Ltda'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('Harry Potter e as Relíquias da Morte', 2007, (select Codigo from Editoras where Nome = 'Rocco Ltda'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('O Anticristo', 2008, (select Codigo from Editoras where Nome = 'L&PM Pocket'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('A Bússola Dourada', 2010, (select Codigo from Editoras where Nome = 'Ponto de Leitura'))";
+		statement.executeUpdate(query);
+
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('A Faca Sutil', 2010, (select Codigo from Editoras where Nome = 'Ponto de Leitura'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('A Luneta Âmbar', 2010, (select Codigo from Editoras where Nome = 'Ponto de Leitura'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('Duna', 2010, (select Codigo from Editoras where Nome = 'Aleph'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('O Messias de Duna', 2010, (select Codigo from Editoras where Nome = 'Aleph'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('Os Filhos de Duna', 2010, (select Codigo from Editoras where Nome = 'Aleph'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('O Imperador-Deus de Duna', 2010, (select Codigo from Editoras where Nome = 'Aleph'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('Os Hereges de Duna', 2010, (select Codigo from Editoras where Nome = 'Aleph'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('As Herdeiras de Duna', 2010, (select Codigo from Editoras where Nome = 'Aleph'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('O Guia do Mochileiro das Galáxias', 2010, (select Codigo from Editoras where Nome = 'Sextante'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('O Restaurante no Fim do Universo', 2010, (select Codigo from Editoras where Nome = 'Sextante'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('A Vida, o Universo e Tudo Mais', 2010, (select Codigo from Editoras where Nome = 'Sextante'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('Até Mais, e Obrigado Pelos Peixes!', 2010, (select Codigo from Editoras where Nome = 'Sextante'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into Livros (Titulo, Ano, CodEditora) values ('Praticamente Inofensiva', 2010, (select Codigo from Editoras where Nome = 'Sextante'))";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertLivrosAutores(Statement statement) throws SQLException {
+		String query = null;
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'John'), (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: A Sociedade do Anel'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'John'), (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: As Duas Torres'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'John'), (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: O Retorno do Rei'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Joanne'), (select Codigo from Livros where Titulo = 'Harry Potter e a Pedra Filosofal'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Joanne'), (select Codigo from Livros where Titulo = 'Harry Potter e a Câmara Secreta'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Joanne'), (select Codigo from Livros where Titulo = 'Harry Potter e o Prisioneiro de Azkaban'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Joanne'), (select Codigo from Livros where Titulo = 'Harry Potter e o Cálice de Fogo'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Joanne'), (select Codigo from Livros where Titulo = 'Harry Potter e a Ordem da Fênix'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Joanne'), (select Codigo from Livros where Titulo = 'Harry Potter e o Enigma do Príncipe'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Joanne'), (select Codigo from Livros where Titulo = 'Harry Potter e as Relíquias da Morte'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Friedrich'), (select Codigo from Livros where Titulo = 'O Anticristo'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Philip'), (select Codigo from Livros where Titulo = 'A Bússola Dourada'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Philip'), (select Codigo from Livros where Titulo = 'A Faca Sutil'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Philip'), (select Codigo from Livros where Titulo = 'A Luneta Âmbar'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Frank'), (select Codigo from Livros where Titulo = 'Duna'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Frank'), (select Codigo from Livros where Titulo = 'O Messias de Duna'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Frank'), (select Codigo from Livros where Titulo = 'Os Filhos de Duna'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Frank'), (select Codigo from Livros where Titulo = 'O Imperador-Deus de Duna'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Frank'), (select Codigo from Livros where Titulo = 'Os Hereges de Duna'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Frank'), (select Codigo from Livros where Titulo = 'As Herdeiras de Duna'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Douglas'), (select Codigo from Livros where Titulo = 'O Guia do Mochileiro das Galáxias'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Douglas'), (select Codigo from Livros where Titulo = 'O Restaurante no Fim do Universo'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Douglas'), (select Codigo from Livros where Titulo = 'A Vida, o Universo e Tudo Mais'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Douglas'), (select Codigo from Livros where Titulo = 'Até Mais, e Obrigado Pelos Peixes!'))";
+		statement.executeUpdate(query);
+		
+		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Douglas'), (select Codigo from Livros where Titulo = 'Praticamente Inofensiva'))";
+		statement.executeUpdate(query);
+	}
 }

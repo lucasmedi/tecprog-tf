@@ -22,6 +22,7 @@ public class EditoraDAOderby {
 		
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
+			connection.setAutoCommit(true);
 			statement = connection.createStatement();
 			
 			String query = "select * from Editoras";
@@ -50,6 +51,7 @@ public class EditoraDAOderby {
 		EditoraDTO editora = null;
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
+			connection.setAutoCommit(true);
 			
 			String query = "select * from Editoras where Codigo = ?";
 			statement = connection.prepareStatement(query);
@@ -80,10 +82,9 @@ public class EditoraDAOderby {
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
 		
-			String query = "insert into Editoras (Codigo, Nome) values (?, ?)";
+			String query = "insert into Editoras (Nome) values (?)";
 			statement = connection.prepareStatement(query);
-			statement.setInt(1, ed.getCodigo());
-			statement.setString(2, ed.getNome());
+			statement.setString(1, ed.getNome());
 			result = statement.executeUpdate();
 			
 			connection.commit();

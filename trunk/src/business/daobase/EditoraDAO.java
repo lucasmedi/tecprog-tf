@@ -3,11 +3,11 @@ package business.daobase;
 import java.util.List;
 
 import business.bo.Editora;
-import exceptions.PersistenceException;
+import exceptions.MappingException;
 
 public interface EditoraDAO {
-	List<Editora> buscarTodos() throws PersistenceException;
-	Editora buscarPorCodigo(int codigo) throws PersistenceException;
-	void inserir(Editora editora) throws PersistenceException;
-	void alterar(Editora editora) throws PersistenceException;
+	List<Editora> buscarTodos() throws MappingException;
+	Editora buscarPorCodigo(int codigo) throws MappingException;
+	void inserir(Editora editora) throws MappingException;
+	void alterar(Editora editora) throws MappingException;
 }

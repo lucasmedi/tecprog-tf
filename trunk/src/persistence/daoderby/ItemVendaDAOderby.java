@@ -21,6 +21,7 @@ public class ItemVendaDAOderby {
 		List<ItemVendaDTO> itensVenda = new ArrayList<>();
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
+			connection.setAutoCommit(true);
 			
 			String query = "select * from ItensVenda where CodVenda = ?";
 			statement = connection.prepareStatement(query);
@@ -51,6 +52,7 @@ public class ItemVendaDAOderby {
 		List<ItemVendaDTO> itensVenda = new ArrayList<>();
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
+			connection.setAutoCommit(true);
 			
 			String query = "select * from ItensVenda where CodLivro = ?";
 			statement = connection.prepareStatement(query);

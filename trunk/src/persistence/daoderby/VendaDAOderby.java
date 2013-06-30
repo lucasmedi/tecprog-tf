@@ -16,7 +16,7 @@ import exceptions.PersistenceException;
 public class VendaDAOderby {
 
 	public List<VendaDTO> buscarTodos() throws PersistenceException, ConnectionException {
-		List<VendaDTO> vendas = new ArrayList<>();
+		List<VendaDTO> vendas = new ArrayList<VendaDTO>();
 		Connection connection = null;
 		Statement statement = null;
 		

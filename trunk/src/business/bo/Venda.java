@@ -14,7 +14,7 @@ public class Venda {
 	private List<ItemVenda> itensVenda;
 	
 	public Venda() {
-		itensVenda = new ArrayList<>();
+		itensVenda = new ArrayList<ItemVenda>();
 	}
 	
 	public int getCodigo() {

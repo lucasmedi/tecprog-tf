@@ -18,7 +18,7 @@ public class ItemVendaDAOderby {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		
-		List<ItemVendaDTO> itensVenda = new ArrayList<>();
+		List<ItemVendaDTO> itensVenda = new ArrayList<ItemVendaDTO>();
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
 			connection.setAutoCommit(true);

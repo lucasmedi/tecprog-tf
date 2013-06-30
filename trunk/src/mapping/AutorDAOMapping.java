@@ -13,7 +13,7 @@ public class AutorDAOMapping implements AutorDAO, IMapping<Autor, AutorDTO> {
 
 	@Override
 	public List<Autor> buscarTodos() throws MappingException {
-		List<Autor> res = new ArrayList<>();
+		List<Autor> res = new ArrayList<Autor>();
 		
 		try {
 			AutorDAOderby dao = new AutorDAOderby();
@@ -29,7 +29,7 @@ public class AutorDAOMapping implements AutorDAO, IMapping<Autor, AutorDTO> {
 
 	@Override
 	public List<Autor> buscarPorNome(String nome) throws MappingException {
-		List<Autor> res = new ArrayList<>();
+		List<Autor> res = new ArrayList<Autor>();
 		
 		try {
 			AutorDAOderby dao = new AutorDAOderby();

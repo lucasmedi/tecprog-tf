@@ -11,7 +11,7 @@ public class Livro {
     private List<Autor> autores;
 	
     public Livro() {
-    	autores = new ArrayList<>();
+    	autores = new ArrayList<Autor>();
     }
     
 	public int getCodigo() {

@@ -16,7 +16,7 @@ import exceptions.PersistenceException;
 public class LivroDAOderby {
 
 	public List<LivroDTO> buscarTodos() throws PersistenceException, ConnectionException {
-		List<LivroDTO> livros = new ArrayList<>();
+		List<LivroDTO> livros = new ArrayList<LivroDTO>();
 		Connection connection = null;
 		Statement statement = null;
 		

@@ -13,6 +13,12 @@
 </ui:include>
 	<h2>Editora</h2>
 	<h:form>
+		Nome: <h:inputText value="#{editoraView.editora.nome}" /><br/>
+		
+		<h:commandButton action="#{editoraView.inserirEditora}" value="Inserir Novo Livro"/>
+        <h:commandButton action="#{editoraView.alterarEditora}" value="Alterar Livro" />
+            
+            
 	
 	</h:form>
 </h:body>

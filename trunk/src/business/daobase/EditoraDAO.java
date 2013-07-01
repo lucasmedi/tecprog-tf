@@ -7,6 +7,7 @@ import exceptions.MappingException;
 
 public interface EditoraDAO {
 	List<Editora> buscarTodos() throws MappingException;
+	List<Editora> buscarPorNome(String nome) throws MappingException;
 	Editora buscarPorCodigo(int codigo) throws MappingException;
 	Editora buscarUmPorNome(String nome) throws MappingException;
 	int inserir(Editora editora) throws MappingException;

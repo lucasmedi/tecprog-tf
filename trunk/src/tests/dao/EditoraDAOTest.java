@@ -28,6 +28,20 @@ public class EditoraDAOTest {
 	}
 	
 	@Test
+	public void buscarPorNomeTest() {
+		EditoraDAOderby dao = new EditoraDAOderby();
+		
+		List<EditoraDTO> list = new ArrayList<>();
+		try {
+			list = dao.buscarPorNome("Ponto");
+		} catch (PersistenceException | ConnectionException e) {
+			e.printStackTrace();
+		}
+		
+		Assert.assertTrue(list.size() > 0);
+	}
+	
+	@Test
 	public void buscarPorCodigoTest() {
 		EditoraDAOderby dao = new EditoraDAOderby();
 		

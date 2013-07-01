@@ -12,6 +12,19 @@ import business.bo.Livro;
 import exceptions.BusinessException;
 
 public class LivroRepository {
+	public List<Livro> buscarTodos() throws BusinessException {
+		List<Livro> livros = new ArrayList<>();
+		
+		try {
+			LivroDAOMapping livroDAO = new LivroDAOMapping();
+			livros = livroDAO.buscarTodos();
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
+		
+		return livros;
+	}
+	
 	public List<Livro> buscarLivrosPorAutor(String nome) throws BusinessException {
 		List<Livro> livros = new ArrayList<>();
 		

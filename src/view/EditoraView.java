@@ -13,6 +13,15 @@ public class EditoraView {
 	private Editora editora;
 	private DataModel<Editora> editoras;
 	
+	public String inserirEditora(){
+		editora = new Editora();
+		System.out.println("-----" + editora.getNome());
+		return "Sucesso";
+	}
+	public String alterarEditora(){
+		return "Sucesso";
+	}
+	
 	public Editora getEditora() {
 		return editora;
 	}

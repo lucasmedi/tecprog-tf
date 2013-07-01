@@ -7,18 +7,53 @@
 <h:head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Editora - Página Inicial</title>
+
+<script src="http://code.jquery.com/jquery-1.10.1.min.js" />
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js" />
+<script src="script/editora.js" type="text/javascript" />
 </h:head>
 <h:body>
 <ui:include src="menu.xhtml">
 </ui:include>
 	<h2>Editora</h2>
-	<h:form>
-		Nome: <h:inputText value="#{editoraView.editora.nome}" /><br/>
+	<h:form id="form">
+		Nome: <h:inputText value="#{editoraView.editora.nome}" id="nome"/><br/>
 		
-		<h:commandButton action="#{editoraView.inserirEditora}" value="Inserir Novo Livro"/>
-        <h:commandButton action="#{editoraView.alterarEditora}" value="Alterar Livro" />
-            
-            
+		<h:commandButton action="#{editoraView.inserirEditora}" id="incluir" class="incluir" value="Incluir"/>
+        <h:button action="#{editoraView.alterarEditora}" id="alterar" class="alterar" value="alterar"/>
+        
+        
+        <h:dataTable var="editora" value="#{editoraView.listarEditora}">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Códico"/>
+                </f:facet>
+                <h:outputText value="#{editora.codigo}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Nome"/>
+                </f:facet>
+                <h:outputText value="#{editora.nome}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Alterar"/>
+                </f:facet>
+                <h:form>
+                    <h:button action="#{editoraView.preparaAlterarEditora}" class="preparaAlterar" name="preparaAlterar" value="Alterar"/>
+                    </h:form>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Excluir"/>
+                </f:facet>
+                <h:form>
+                    <h:commandButton action="#{editoraView.excluirEditora}" value="Excluir"/>
+                    </h:form>
+            </h:column>
+        </h:dataTable>
+        
 	
 	</h:form>
 </h:body>

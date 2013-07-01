@@ -12,6 +12,14 @@ import exceptions.BusinessException;
 public class LivroRepositoryTest {
 	
 	@Test
+	public void buscarTodos() throws BusinessException {
+		LivroRepository repo = new LivroRepository();
+		List<Livro> livros = repo.buscarTodos();
+		
+		Assert.assertTrue(!livros.isEmpty());
+	}
+	
+	@Test
 	public void buscarLivrosPorAutorTest() throws BusinessException {
 		LivroRepository repo = new LivroRepository();
 		List<Livro> livros = repo.buscarLivrosPorAutor("John Tolkien");

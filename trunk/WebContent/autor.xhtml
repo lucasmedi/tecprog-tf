@@ -6,7 +6,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Editora</title>
+<title>Autor</title>
 
 <script src="http://code.jquery.com/jquery-1.10.1.min.js" />
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js" />
@@ -15,34 +15,41 @@
 <h:body>
 <ui:include src="menu.xhtml">
 </ui:include>
-	<h2>Editora</h2>
+	<h2>Autor</h2>
 	<h:form id="form">
-		Nome: <h:inputText value="#{editoraView.editora.nome}" id="nome"/><br/>
+		<label>Primeiro Nome: </label><h:inputText value="#{autorView.autor.primeiroNome}" id="primeiroNome"/><br/>
+		<label>Último Nome: </label><h:inputText value="#{autorView.autor.ultimoNome}" id="ultimoNome"/><br/>
 		
-		<h:commandButton action="#{editoraView.cadastrarEditora}" id="cadastrar" class="cadastrar" value="Incluir"/>
-        <h:button action="#{editoraView.pesquisarEditora}" id="pesquisar" class="pesquisar" value="Pesquisar"/>
+		<h:commandButton action="#{autorView.cadastrarAutor}" id="cadastrar" class="cadastrar" value="Incluir"/>
+        <h:button action="#{autorView.pesquisarAutor}" id="pesquisar" class="pesquisar" value="Pesquisar"/>
         
         <br/>
         
-        <h:dataTable var="editora" value="#{editoraView.listarEditora}">
+        <h:dataTable var="autor" value="#{autorView.listarAutor}">
             <h:column>
                 <f:facet name="header">
                     <h:outputText value="Código"/>
                 </f:facet>
-                <h:outputText value="#{editora.codigo}" />
+                <h:outputText value="#{autor.codigo}" />
             </h:column>
             <h:column>
                 <f:facet name="header">
-                    <h:outputText value="Nome"/>
+                    <h:outputText value="Primeiro Nome"/>
                 </f:facet>
-                <h:outputText value="#{editora.nome}"/>
+                <h:outputText value="#{autor.primeiroNome}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Último Nome"/>
+                </f:facet>
+                <h:outputText value="#{autor.ultimoNome}"/>
             </h:column>
             <h:column>
                 <f:facet name="header">
                     <h:outputText value="Alterar"/>
                 </f:facet>
                 <h:form>
-                    <h:button action="#{editoraView.preparaAlterarEditora}" class="alterar" name="alterar" value="Alterar"/>
+                    <h:button action="#{autorView.preparaAlterarAutor}" class="alterar" name="alterar" value="Alterar"/>
                     </h:form>
             </h:column>
             <h:column>
@@ -50,7 +57,7 @@
                     <h:outputText value="Excluir"/>
                 </f:facet>
                 <h:form>
-                    <h:commandButton action="#{editoraView.excluirEditora}" value="Excluir"/>
+                    <h:commandButton action="#{autorView.excluirAutor}" value="Excluir"/>
                     </h:form>
             </h:column>
         </h:dataTable>

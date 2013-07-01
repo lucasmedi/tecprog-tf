@@ -30,6 +30,22 @@ public class EditoraDAOMapping implements EditoraDAO, IMapping<Editora, EditoraD
 	}
 
 	@Override
+	public List<Editora> buscarPorNome(String nome) throws MappingException {
+		List<Editora> res = new ArrayList<Editora>();
+		
+		try {
+			EditoraDAOderby dao = new EditoraDAOderby();
+			for (EditoraDTO dto : dao.buscarPorNome(nome)) {
+				res.add(parseBO(dto));
+			}
+		} catch (Exception ex) {
+			throw new MappingException(ex);
+		}
+		
+		return res;
+	}
+	
+	@Override
 	public Editora buscarPorCodigo(int codigo) throws MappingException {
 		Editora editora = null;
 		

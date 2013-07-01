@@ -29,6 +29,20 @@ public class EditoraBOTest {
 	}
 	
 	@Test
+	public void buscarPorNomeTest() {
+		EditoraDAO dao = new EditoraDAOMapping();
+		
+		List<Editora> list = new ArrayList<>();
+		try {
+			list = dao.buscarPorNome("Rocco");
+		} catch (MappingException e) {
+			e.printStackTrace();
+		}
+		
+		Assert.assertTrue(!list.isEmpty());
+	}
+	
+	@Test
 	public void buscarPorCodigoTest() {
 		EditoraDAO dao = new EditoraDAOMapping();
 		

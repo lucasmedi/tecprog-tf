@@ -1,25 +1,53 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 
-import business.bo.Editora;
+import business.bo.*;
 
-@ManagedBean
+@ManagedBean(name="editoraView")
 @SessionScoped
 public class EditoraView {
 
 	private Editora editora;
 	private DataModel<Editora> editoras;
 	
-	public String inserirEditora(){
-		editora = new Editora();
-		System.out.println("-----" + editora.getNome());
-		return "Sucesso";
+	@PostConstruct
+	public void init() {
+	    editora = new Editora();
 	}
-	public String alterarEditora(){
-		return "Sucesso";
+	
+	public String inserirEditora(){
+		System.out.println("-----" + editora.getNome());
+		editora.setCodigo(0);
+		List<Editora> list = new ArrayList<Editora>();
+		list.add(editora);
+		editoras = new ListDataModel<>(list);
+		return "editora";
+	}
+	
+	
+	public void alterarEditora(){
+		//return "editora";
+	}
+	
+	public void preparaAlterarEditora(){
+		editora.setCodigo(1);
+		editora.setNome("Giovanni");
+		//return "editora";
+	}
+	
+	public String excluirEditora(){
+		return "editora";
+	}
+	public DataModel<Editora> getListarEditora(){
+		return editoras;
 	}
 	
 	public Editora getEditora() {

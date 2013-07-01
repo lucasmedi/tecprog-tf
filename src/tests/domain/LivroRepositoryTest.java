@@ -2,12 +2,11 @@ package tests.domain;
 
 import java.util.List;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import business.bo.Livro;
-import domain.LivroRepository;
+import business.domain.LivroRepository;
 import exceptions.BusinessException;
 
 public class LivroRepositoryTest {

@@ -14,6 +14,16 @@ import exceptions.PersistenceException;
 
 public class ItemVendaDAOderby {
 	
+	private Connection connection;
+	
+	public ItemVendaDAOderby() {
+		
+	}
+	
+	public ItemVendaDAOderby(Connection connection) {
+		this.connection = connection;
+	}
+	
 	public List<ItemVendaDTO> buscarPorCodigoVenda(int codigo) throws PersistenceException, ConnectionException {
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -77,32 +87,21 @@ public class ItemVendaDAOderby {
 	}
 	
 	public void inserir(ItemVendaDTO itemVenda) throws PersistenceException, ConnectionException {
-		Connection connection = null;
 		PreparedStatement statement = null;
 		
 		int result = 0;
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			
 			String query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (?, ?, ?)";
-			statement = connection.prepareStatement(query);
+			statement = this.connection.prepareStatement(query);
 			statement.setInt(1, itemVenda.getCodigoVenda());
 			statement.setInt(2, itemVenda.getCodigoLivro());
 			statement.setInt(3, itemVenda.getQuantidade());
 			result = statement.executeUpdate();
-			
-			connection.commit();
 		} catch (Exception e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
-			}
 			throw new PersistenceException("Erro ao executar inserção: " + e.getMessage(), e);
 		} finally {
 			try {
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}
@@ -113,32 +112,21 @@ public class ItemVendaDAOderby {
 	}
 	
 	public void alterar(ItemVendaDTO itemVenda) throws PersistenceException, ConnectionException {
-		Connection connection = null;
 		PreparedStatement statement = null;
 		
 		int result = 0;		
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			
 			String query = "update ItensVenda set Quantidade = ? where CodVenda = ? and CodLivro = ?";
-			statement = connection.prepareStatement(query);
+			statement = this.connection.prepareStatement(query);
 			statement.setInt(1, itemVenda.getQuantidade());
 			statement.setInt(2, itemVenda.getCodigoVenda());
 			statement.setInt(3, itemVenda.getCodigoLivro());
 			result = statement.executeUpdate();
-			
-			connection.commit();
 		} catch (Exception e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
-			}
 			throw new PersistenceException("Erro ao executar a atualização: " + e.getMessage() , e);
 		} finally {
 			try {
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}

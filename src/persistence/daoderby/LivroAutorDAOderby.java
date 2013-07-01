@@ -14,6 +14,16 @@ import exceptions.PersistenceException;
 
 public class LivroAutorDAOderby {
 	
+	private Connection connection;
+	
+	public LivroAutorDAOderby() {
+		
+	}
+	
+	public LivroAutorDAOderby(Connection connection) {
+		this.connection = connection;
+	}
+	
 	public List<LivroAutorDTO> buscarPorCodigoAutor(int codigo) throws PersistenceException, ConnectionException {
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -77,31 +87,20 @@ public class LivroAutorDAOderby {
 	}
 	
 	public void inserir(LivroAutorDTO livroAutor) throws PersistenceException, ConnectionException {
-		Connection connection = null;
 		PreparedStatement statement = null;
 		
 		int result = 0;
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			
 			String query = "insert into LivrosAutores (CodAutor, CodLivro) values (?, ?)";
-			statement = connection.prepareStatement(query);
+			statement = this.connection.prepareStatement(query);
 			statement.setInt(1, livroAutor.getCodigoAutor());
 			statement.setInt(1, livroAutor.getCodigoLivro());
 			result = statement.executeUpdate();
-			
-			connection.commit();
-		} catch (Exception e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
-			}
+		} catch (Exception e) {			
 			throw new PersistenceException("Erro ao executar inserção: " + e.getMessage(), e);
 		} finally {
 			try {
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}
@@ -112,31 +111,20 @@ public class LivroAutorDAOderby {
 	}
 	
 	public void deletar(LivroAutorDTO livroAutor) throws PersistenceException, ConnectionException {
-		Connection connection = null;
 		PreparedStatement statement = null;
 		
-		int result = 0;		
+		int result = 0;
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			
 			String query = "delete LivrosAutores where CodAutor = ? and CodLivro = ?";
-			statement = connection.prepareStatement(query);
+			statement = this.connection.prepareStatement(query);
 			statement.setInt(1, livroAutor.getCodigoAutor());
 			statement.setInt(2, livroAutor.getCodigoLivro());
 			result = statement.executeUpdate();
-			
-			connection.commit();
 		} catch (Exception e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
-			}
 			throw new PersistenceException("Erro ao executar a atualização: " + e.getMessage() , e);
 		} finally {
 			try {
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}

@@ -11,6 +11,6 @@ public interface LivroDAO {
 	List<Livro> buscarPorAutor(int codigo) throws MappingException;
 	List<Livro> buscarPorTitulo(String titulo) throws MappingException;
 	Livro buscarPorCodigo(int codigo) throws MappingException;
-	void inserir(Livro livro) throws MappingException;
+	int inserir(Livro livro) throws MappingException;
 	void alterar(Livro livro) throws MappingException;
 }

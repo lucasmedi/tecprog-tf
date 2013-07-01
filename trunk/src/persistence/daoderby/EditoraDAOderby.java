@@ -104,19 +104,24 @@ public class EditoraDAOderby {
 		return editora;
 	}
 
-	public void inserir(EditoraDTO ed) throws PersistenceException, ConnectionException {
+	public int inserir(EditoraDTO ed) throws PersistenceException, ConnectionException {
 		Connection connection = null;
 		PreparedStatement statement = null;
+		ResultSet generatedKeys = null;
+		int id = 0;
 		
 		int result = 0;
 		try {
 			connection = ConnectionFactory.getInstanceDerby();
 		
 			String query = "insert into Editoras (Nome) values (?)";
-			statement = connection.prepareStatement(query);
+			statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, ed.getNome());
 			result = statement.executeUpdate();
 			
+			generatedKeys = statement.getGeneratedKeys();
+	        if (generatedKeys.next())
+	            id = generatedKeys.getInt(1);
 			connection.commit();
 		} catch (Exception e) {
 			try {
@@ -127,6 +132,7 @@ public class EditoraDAOderby {
 			throw new PersistenceException("Erro ao executar inserção: " + e.getMessage(), e);
 		} finally {
 			try {
+				generatedKeys.close();
 				statement.close();
 				connection.close();
 			} catch (SQLException e) {
@@ -136,6 +142,8 @@ public class EditoraDAOderby {
 		
 		if (result == 0)
 			throw new PersistenceException("Erro ao executar inserção.");
+		
+		return id;
 	}
 	
 	public void alterar(EditoraDTO ed) throws PersistenceException, ConnectionException {

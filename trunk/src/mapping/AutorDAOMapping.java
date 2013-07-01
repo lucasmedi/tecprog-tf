@@ -72,12 +72,12 @@ public class AutorDAOMapping implements AutorDAO, IMapping<Autor, AutorDTO> {
 	}
 	
 	@Override
-	public void inserir(Autor autor) {
-		
+	public int inserir(Autor autor) throws MappingException {
+		return 0;
 	}
 
 	@Override
-	public void alterar(Autor autor) {
+	public void alterar(Autor autor) throws MappingException {
 		
 	}
 	

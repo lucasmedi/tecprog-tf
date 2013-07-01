@@ -10,7 +10,7 @@ import business.daobase.VendaDAO;
 import exceptions.MappingException;
 
 public class VendaDAOMapping implements VendaDAO, IMapping<Venda, VendaDTO> {
-
+	
 	@Override
 	public List<Venda> buscarTodos() throws MappingException {
 		List<Venda> res = new ArrayList<Venda>();
@@ -42,7 +42,8 @@ public class VendaDAOMapping implements VendaDAO, IMapping<Venda, VendaDTO> {
 	}
 
 	@Override
-	public void inserir(Venda venda) {
+	public int inserir(Venda venda) {
+		return 0;
 		
 	}
 

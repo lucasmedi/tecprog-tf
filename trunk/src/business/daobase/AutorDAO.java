@@ -10,6 +10,6 @@ public interface AutorDAO {
 	List<Autor> buscarPorNome(String nome) throws MappingException;
 	Autor buscarPorCodigo(int codigo) throws MappingException;
 	Autor buscarUmPorNome(String nome) throws MappingException;
-	void inserir(Autor autor) throws MappingException;
+	int inserir(Autor autor) throws MappingException;
 	void alterar(Autor autor) throws MappingException;
 }

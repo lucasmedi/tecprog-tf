@@ -7,10 +7,12 @@ import persistence.daoderby.EditoraDAOderby;
 import persistence.dto.EditoraDTO;
 import business.bo.Editora;
 import business.daobase.EditoraDAO;
+import exceptions.ConnectionException;
 import exceptions.MappingException;
+import exceptions.PersistenceException;
 
 public class EditoraDAOMapping implements EditoraDAO, IMapping<Editora, EditoraDTO> {
-
+	
 	@Override
 	public List<Editora> buscarTodos() throws MappingException {
 		List<Editora> res = new ArrayList<Editora>();
@@ -56,13 +58,27 @@ public class EditoraDAOMapping implements EditoraDAO, IMapping<Editora, EditoraD
 	}
 
 	@Override
-	public void inserir(Editora editora) {
+	public int inserir(Editora editora) throws MappingException {
+		EditoraDAOderby dao = new EditoraDAOderby();
+		int id = 0;
+		try {
+			id = dao.inserir(parseDTO(editora));
+		} catch (PersistenceException | ConnectionException e) {
+			throw new MappingException("Erro ao inserir editora.", e);
+		}
 		
+		return id;
 	}
 
 	@Override
-	public void alterar(Editora editora) {
+	public void alterar(Editora editora) throws MappingException {
+		EditoraDAOderby dao = new EditoraDAOderby();
 		
+		try {
+			dao.alterar(parseDTO(editora));
+		} catch (PersistenceException | ConnectionException e) {
+			throw new MappingException("Erro ao atualizar editora.", e);
+		}
 	}
 
 	@Override

@@ -3,9 +3,9 @@ package tests.bo;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
 import mapping.EditoraDAOMapping;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import business.bo.Editora;

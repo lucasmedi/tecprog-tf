@@ -8,6 +8,6 @@ import exceptions.MappingException;
 public interface VendaDAO {
     List<Venda> buscarTodos() throws MappingException;
     Venda buscarPorCodigo(int codigo) throws MappingException;
-    void inserir(Venda venda) throws MappingException;
+    int inserir(Venda venda) throws MappingException;
     void alterar(Venda venda) throws MappingException;
 }

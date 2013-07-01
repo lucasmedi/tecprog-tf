@@ -7,7 +7,9 @@ import persistence.daoderby.LivroDAOderby;
 import persistence.dto.LivroDTO;
 import business.bo.Livro;
 import business.daobase.LivroDAO;
+import exceptions.ConnectionException;
 import exceptions.MappingException;
+import exceptions.PersistenceException;
 
 public class LivroDAOMapping implements LivroDAO, IMapping<Livro, LivroDTO> {
 
@@ -89,13 +91,28 @@ public class LivroDAOMapping implements LivroDAO, IMapping<Livro, LivroDTO> {
 	}
 	
 	@Override
-	public void inserir(Livro livro) {
+	public int inserir(Livro livro) throws MappingException {
+		LivroDTO livroDTO = parseDTO(livro);
+		LivroDAOderby livroDAO = new LivroDAOderby();
+		try {
+			int codigo = livroDAO.inserir(livroDTO);
+			livroDTO.setCodigo(codigo);
+		} catch (PersistenceException | ConnectionException e) {
+			throw new MappingException(e);
+		}
 		
+		return livroDTO.getCodigo();
 	}
 
 	@Override
-	public void alterar(Livro livro) {
-		
+	public void alterar(Livro livro) throws MappingException {
+		LivroDTO livroDTO = parseDTO(livro);
+		LivroDAOderby livroDAO = new LivroDAOderby();
+		try {
+			livroDAO.alterar(livroDTO);
+		} catch (PersistenceException | ConnectionException e) {
+			throw new MappingException(e);
+		}
 	}
 	
 	@Override

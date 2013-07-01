@@ -15,6 +15,16 @@ import exceptions.PersistenceException;
 
 public class VendaDAOderby {
 
+	private Connection connection;
+	
+	public VendaDAOderby() {
+		
+	}
+	
+	public VendaDAOderby(Connection connection) {
+		this.connection = connection;
+	}
+	
 	public List<VendaDTO> buscarTodos() throws PersistenceException, ConnectionException {
 		List<VendaDTO> vendas = new ArrayList<VendaDTO>();
 		Connection connection = null;
@@ -76,33 +86,29 @@ public class VendaDAOderby {
 		return venda;
 	}
 	
-	public void inserir(VendaDTO venda) throws PersistenceException, ConnectionException {
-		Connection connection = null;
+	public int inserir(VendaDTO venda) throws PersistenceException, ConnectionException {
 		PreparedStatement statement = null;
+		ResultSet generatedKeys = null;
+		int id = 0;
 		
 		int result = 0;
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			
 			String query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values (?, ?, ?, SYSDATE)";
-			statement = connection.prepareStatement(query);
+			statement = this.connection.prepareStatement(query);
 			statement.setString(1, venda.getNomeCliente());
 			statement.setString(2, venda.getCpfCliente());
 			statement.setString(3, venda.getCnpjCliente());
 			result = statement.executeUpdate();
 			
-			connection.commit();
+			generatedKeys = statement.getGeneratedKeys();
+	        if (generatedKeys.next())
+	            id = generatedKeys.getInt(1);
 		} catch (Exception e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
-			}
 			throw new PersistenceException("Erro ao executar inserção: " + e.getMessage(), e);
 		} finally {
 			try {
+				generatedKeys.close();
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}
@@ -110,36 +116,27 @@ public class VendaDAOderby {
 		
 		if (result == 0)
 			throw new PersistenceException("Erro ao executar inserção.");
+		
+		return id;
 	}
 	
 	public void alterar(VendaDTO venda) throws PersistenceException, ConnectionException {
-		Connection connection = null;
 		PreparedStatement statement = null;
 		
 		int result = 0;		
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			
 			String query = "update Vendas set NomeCliente = ?, CpfCliente = ?, CnpjCliente = ? where Codigo = ?";
-			statement = connection.prepareStatement(query);
+			statement = this.connection.prepareStatement(query);
 			statement.setString(1, venda.getNomeCliente());
 			statement.setString(2, venda.getCpfCliente());
 			statement.setString(3, venda.getCnpjCliente());
 			statement.setInt(4, venda.getCodigo());
 			result = statement.executeUpdate();
-			
-			connection.commit();
 		} catch (Exception e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
-			}
 			throw new PersistenceException("Erro ao executar a atualização: " + e.getMessage() , e);
 		} finally {
 			try {
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}

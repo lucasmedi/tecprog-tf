@@ -19,11 +19,20 @@ public class InitializeDb {
         createEditoras(statement);
         createLivros(statement);
         createLivrosAutores(statement);
+        //dropTables(statement);
         createVendas(statement);
         createItensVenda(statement);
         
         statement.close();
         connection.close();
+    }
+    
+    private static void dropTables(Statement statement) throws SQLException {
+    	String sqlItensVendas = "DROP TABLE ItensVenda";
+		statement.executeUpdate(sqlItensVendas);
+		
+    	String sqlVendas = "DROP TABLE Vendas";
+		statement.executeUpdate(sqlVendas);
     }
     
     private static void createAutores(Statement statement) throws SQLException {
@@ -77,7 +86,7 @@ public class InitializeDb {
     }
     	
 	private static void createVendas(Statement statement) throws SQLException {
-    	String sql = "CREATE TABLE VENDAS" +
+		String sql = "CREATE TABLE VENDAS" +
     	"(" +
     		"CODIGO int NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
     		"NOMECLIENTE varchar(200) NOT NULL," +
@@ -110,12 +119,13 @@ public class InitializeDb {
 		Statement statement = connection.createStatement();
 		
 		try {
-			delete(statement);
+			//delete(statement);
 			
-			insertEditoras(statement);
-			insertAutores(statement);
-			insertLivros(statement);
-			insertLivrosAutores(statement);
+			//insertEditoras(statement);
+			//insertAutores(statement);
+			//insertLivros(statement);
+			//insertLivrosAutores(statement);
+			insertVendas(statement);
 		} catch (Exception ex) {
 			connection.rollback();
 			throw ex;
@@ -339,6 +349,859 @@ public class InitializeDb {
 		statement.executeUpdate(query);
 		
 		query = "insert into LivrosAutores (CodAutor, CodLivro) values ((select Codigo from Autores where PrimeiroNome = 'Douglas'), (select Codigo from Livros where Titulo = 'Praticamente Inofensiva'))";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVendas(Statement statement) throws SQLException {
+		insertVenda1(statement);
+		insertVenda2(statement);
+		insertVenda3(statement);
+		insertVenda4(statement);
+		insertVenda5(statement);
+		
+		insertVenda6(statement);
+		insertVenda7(statement);
+		insertVenda8(statement);
+		insertVenda9(statement);
+		insertVenda10(statement);
+		
+		insertVenda11(statement);
+		insertVenda12(statement);
+		insertVenda13(statement);
+		insertVenda14(statement);
+		insertVenda15(statement);
+		
+		insertVenda16(statement);
+		insertVenda17(statement);
+		insertVenda18(statement);
+		insertVenda19(statement);
+		insertVenda20(statement);
+		
+		insertVenda21(statement);
+		insertVenda22(statement);
+		insertVenda23(statement);
+		insertVenda24(statement);
+		insertVenda25(statement);
+		
+		insertVenda26(statement);
+		insertVenda27(statement);
+		insertVenda28(statement);
+		insertVenda29(statement);
+		insertVenda30(statement);
+		
+		insertVenda31(statement);
+		insertVenda32(statement);
+		insertVenda33(statement);
+		insertVenda34(statement);
+		insertVenda35(statement);
+		
+		insertVenda36(statement);
+		insertVenda37(statement);
+		insertVenda38(statement);
+		insertVenda39(statement);
+		insertVenda40(statement);
+		
+		insertVenda41(statement);
+		insertVenda42(statement);
+		insertVenda43(statement);
+		insertVenda44(statement);
+		insertVenda45(statement);
+		
+		insertVenda46(statement);
+		insertVenda47(statement);
+		insertVenda48(statement);
+		insertVenda49(statement);
+		insertVenda50(statement);
+	}
+	
+	
+	private static void insertVenda1(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Lucas Cunha', '05746388294', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (1, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: A Sociedade do Anel'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (1, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: As Duas Torres'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (1, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: O Retorno do Rei'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (1, (select Codigo from Livros where Titulo = 'O Anticristo'), 1)";
+		statement.executeUpdate(query);
+	}
+	
+	private static void insertVenda2(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Giovanni Carlos', '84635158467', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (2, (select Codigo from Livros where Titulo = 'Harry Potter e a Pedra Filosofal'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (2, (select Codigo from Livros where Titulo = 'Harry Potter e a Câmara Secreta'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (2, (select Codigo from Livros where Titulo = 'Harry Potter e o Prisioneiro de Azkaban'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda3(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Professor James Moriarty', '6548738565', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (3, (select Codigo from Livros where Titulo = 'O Guia do Mochileiro das Galáxias'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (3, (select Codigo from Livros where Titulo = 'O Restaurante no Fim do Universo'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (3, (select Codigo from Livros where Titulo = 'A Vida, o Universo e Tudo Mais'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (3, (select Codigo from Livros where Titulo = 'Até Mais, e Obrigado Pelos Peixes!'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (3, (select Codigo from Livros where Titulo = 'Praticamente Inofensiva'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda4(Statement statement) throws SQLException {
+		String query = null;
+		
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Sherlock Holmes', '76378297424', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (4, (select Codigo from Livros where Titulo = 'Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (4, (select Codigo from Livros where Titulo = 'O Messias de Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (4, (select Codigo from Livros where Titulo = 'Os Filhos de Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (4, (select Codigo from Livros where Titulo = 'O Imperador-Deus de Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (4, (select Codigo from Livros where Titulo = 'Os Hereges de Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (4, (select Codigo from Livros where Titulo = 'As Herdeiras de Duna'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda5(Statement statement) throws SQLException {
+		String query = null;
+		
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('John Locke', '14796427853', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (5, (select Codigo from Livros where Titulo = 'A Bússola Dourada'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (5, (select Codigo from Livros where Titulo = 'A Faca Sutil'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (5, (select Codigo from Livros where Titulo = 'A Luneta Âmbar'), 1)";
+		statement.executeUpdate(query);
+	}
+
+
+	private static void insertVenda6(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Kurosaki Ichigo', '90874296545', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (6, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: A Sociedade do Anel'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (6, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: As Duas Torres'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (6, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: O Retorno do Rei'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda7(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Uzumaki Naruto', '79092387261', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (7, (select Codigo from Livros where Titulo = 'Harry Potter e a Pedra Filosofal'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (7, (select Codigo from Livros where Titulo = 'Harry Potter e a Câmara Secreta'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (7, (select Codigo from Livros where Titulo = 'Harry Potter e o Prisioneiro de Azkaban'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (7, (select Codigo from Livros where Titulo = 'Harry Potter e o Cálice de Fogo'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (7, (select Codigo from Livros where Titulo = 'Harry Potter e a Ordem da Fênix'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (7, (select Codigo from Livros where Titulo = 'Harry Potter e o Enigma do Príncipe'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (7, (select Codigo from Livros where Titulo = 'Harry Potter e as Relíquias da Morte'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda8(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Monkey D. Luffy', '98700773186', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (8, (select Codigo from Livros where Titulo = 'A Bússola Dourada'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda9(Statement statement) throws SQLException {
+		String query = null;
+		
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Roronoa Zoro', '95365654682', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (9, (select Codigo from Livros where Titulo = 'O Guia do Mochileiro das Galáxias'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (9, (select Codigo from Livros where Titulo = 'A Faca Sutil'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (9, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: O Retorno do Rei'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (9, (select Codigo from Livros where Titulo = 'Até Mais, e Obrigado Pelos Peixes!'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda10(Statement statement) throws SQLException {
+		String query = null;
+
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Hanauta no Brook', '28249457585', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (10, (select Codigo from Livros where Titulo = 'Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (10, (select Codigo from Livros where Titulo = 'Os Filhos de Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (10, (select Codigo from Livros where Titulo = 'O Imperador-Deus de Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (10, (select Codigo from Livros where Titulo = 'As Herdeiras de Duna'), 1)";
+		statement.executeUpdate(query);
+	}
+
+
+	private static void insertVenda11(Statement statement) throws SQLException {
+		String query = null;
+		
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Marca Diabo Ltda.', null, '56834534834008', CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (11, (select Codigo from Livros where Titulo = 'O Anticristo'), 150)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda12(Statement statement) throws SQLException {
+		String query = null;
+		
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('CHE Enterprise', null, '27847164896742', CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (12, (select Codigo from Livros where Titulo = 'Harry Potter e a Pedra Filosofal'), 15)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (12, (select Codigo from Livros where Titulo = 'Harry Potter e a Câmara Secreta'), 15)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (12, (select Codigo from Livros where Titulo = 'Harry Potter e o Prisioneiro de Azkaban'), 15)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (12, (select Codigo from Livros where Titulo = 'Harry Potter e o Cálice de Fogo'), 15)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (12, (select Codigo from Livros where Titulo = 'Harry Potter e a Ordem da Fênix'), 15)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (12, (select Codigo from Livros where Titulo = 'Harry Potter e o Enigma do Príncipe'), 15)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (12, (select Codigo from Livros where Titulo = 'Harry Potter e as Relíquias da Morte'), 15)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda13(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Três Diamantes', null, '74538307475247', CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (13, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: A Sociedade do Anel'), 20)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (13, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: As Duas Torres'), 20)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (13, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: O Retorno do Rei'), 20)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda14(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Furd S.A.', null, '97846138008874', CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (14, (select Codigo from Livros where Titulo = 'A Bússola Dourada'), 5)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (14, (select Codigo from Livros where Titulo = 'A Faca Sutil'), 5)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (14, (select Codigo from Livros where Titulo = 'A Luneta Âmbar'), 5)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (14, (select Codigo from Livros where Titulo = 'O Anticristo'), 10)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda15(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Chronos', null, '45920047976536', CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (15, (select Codigo from Livros where Titulo = 'O Guia do Mochileiro das Galáxias'), 30)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (15, (select Codigo from Livros where Titulo = 'O Restaurante no Fim do Universo'), 30)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (15, (select Codigo from Livros where Titulo = 'A Vida, o Universo e Tudo Mais'), 30)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (15, (select Codigo from Livros where Titulo = 'Até Mais, e Obrigado Pelos Peixes!'), 30)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (15, (select Codigo from Livros where Titulo = 'Praticamente Inofensiva'), 30)";
+		statement.executeUpdate(query);
+	}
+
+
+	private static void insertVenda16(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Odebrecht', null, '70075953345607', CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (16, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: A Sociedade do Anel'), 20)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (16, (select Codigo from Livros where Titulo = 'O Guia do Mochileiro das Galáxias'), 20)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (16, (select Codigo from Livros where Titulo = 'A Bússola Dourada'), 20)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (16, (select Codigo from Livros where Titulo = 'Duna'), 20)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda17(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Terra Networks', null, '46576656376657', CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (17, (select Codigo from Livros where Titulo = 'O Guia do Mochileiro das Galáxias'), 60)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (17, (select Codigo from Livros where Titulo = 'O Restaurante no Fim do Universo'), 60)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (17, (select Codigo from Livros where Titulo = 'A Vida, o Universo e Tudo Mais'), 60)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (17, (select Codigo from Livros where Titulo = 'Até Mais, e Obrigado Pelos Peixes!'), 60)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (17, (select Codigo from Livros where Titulo = 'Praticamente Inofensiva'), 60)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda18(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Hewlett-Packard', null, '84697558624590', CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (18, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: A Sociedade do Anel'), 10)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (18, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: As Duas Torres'), 10)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (18, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: O Retorno do Rei'), 10)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda19(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Dell Computers Inc.', null, '38547443846739', CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (19, (select Codigo from Livros where Titulo = 'A Bússola Dourada'), 15)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (19, (select Codigo from Livros where Titulo = 'A Faca Sutil'), 15)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (19, (select Codigo from Livros where Titulo = 'A Luneta Âmbar'), 15)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (19, (select Codigo from Livros where Titulo = 'O Anticristo'), 15)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda20(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Texxon Chemicals Inc.', null, '75366758765789', CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (20, (select Codigo from Livros where Titulo = 'Duna'), 25)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (20, (select Codigo from Livros where Titulo = 'O Messias de Duna'), 25)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (20, (select Codigo from Livros where Titulo = 'Os Filhos de Duna'), 25)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (20, (select Codigo from Livros where Titulo = 'O Imperador-Deus de Duna'), 25)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (20, (select Codigo from Livros where Titulo = 'Os Hereges de Duna'), 25)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (20, (select Codigo from Livros where Titulo = 'As Herdeiras de Duna'), 25)";
+		statement.executeUpdate(query);
+	}
+
+
+	private static void insertVenda21(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Lucas Cunha', '05746388294', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (21, (select Codigo from Livros where Titulo = 'O Guia do Mochileiro das Galáxias'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (21, (select Codigo from Livros where Titulo = 'O Restaurante no Fim do Universo'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (21, (select Codigo from Livros where Titulo = 'A Vida, o Universo e Tudo Mais'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (21, (select Codigo from Livros where Titulo = 'Até Mais, e Obrigado Pelos Peixes!'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (21, (select Codigo from Livros where Titulo = 'Praticamente Inofensiva'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda22(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Giovanni Carlos', '84635158467', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (22, (select Codigo from Livros where Titulo = 'Harry Potter e o Cálice de Fogo'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (22, (select Codigo from Livros where Titulo = 'Harry Potter e a Ordem da Fênix'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (22, (select Codigo from Livros where Titulo = 'Harry Potter e o Enigma do Príncipe'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (22, (select Codigo from Livros where Titulo = 'Harry Potter e as Relíquias da Morte'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda23(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Professor James Moriarty', '6548738565', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (23, (select Codigo from Livros where Titulo = 'Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (23, (select Codigo from Livros where Titulo = 'O Messias de Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (23, (select Codigo from Livros where Titulo = 'Os Filhos de Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (23, (select Codigo from Livros where Titulo = 'O Imperador-Deus de Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (23, (select Codigo from Livros where Titulo = 'Os Hereges de Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (23, (select Codigo from Livros where Titulo = 'As Herdeiras de Duna'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda24(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Sherlock Holmes', '76378297424', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (24, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: A Sociedade do Anel'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (24, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: As Duas Torres'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (24, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: O Retorno do Rei'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda25(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('John Locke', '14796427853', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (25, (select Codigo from Livros where Titulo = 'O Guia do Mochileiro das Galáxias'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (25, (select Codigo from Livros where Titulo = 'O Restaurante no Fim do Universo'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (25, (select Codigo from Livros where Titulo = 'A Vida, o Universo e Tudo Mais'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (25, (select Codigo from Livros where Titulo = 'O Anticristo'), 1)";
+		statement.executeUpdate(query);
+	}
+
+
+	private static void insertVenda26(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Kurosaki Ichigo', '90874296545', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (26, (select Codigo from Livros where Titulo = 'A Bússola Dourada'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda27(Statement statement) throws SQLException {
+		String query = null;
+		
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Uzumaki Naruto', '79092387261', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (27, (select Codigo from Livros where Titulo = 'O Guia do Mochileiro das Galáxias'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (27, (select Codigo from Livros where Titulo = 'A Faca Sutil'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (27, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: O Retorno do Rei'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (27, (select Codigo from Livros where Titulo = 'Até Mais, e Obrigado Pelos Peixes!'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda28(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Monkey D. Luffy', '98700773186', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (28, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: A Sociedade do Anel'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (28, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: As Duas Torres'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (28, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: O Retorno do Rei'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda29(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Roronoa Zoro', '95365654682', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (29, (select Codigo from Livros where Titulo = 'Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (29, (select Codigo from Livros where Titulo = 'Os Filhos de Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (29, (select Codigo from Livros where Titulo = 'O Imperador-Deus de Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (29, (select Codigo from Livros where Titulo = 'As Herdeiras de Duna'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda30(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Hanauta no Brook', '28249457585', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (30, (select Codigo from Livros where Titulo = 'Harry Potter e a Pedra Filosofal'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (30, (select Codigo from Livros where Titulo = 'Harry Potter e a Câmara Secreta'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (30, (select Codigo from Livros where Titulo = 'Harry Potter e o Prisioneiro de Azkaban'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (30, (select Codigo from Livros where Titulo = 'Harry Potter e o Cálice de Fogo'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (30, (select Codigo from Livros where Titulo = 'Harry Potter e a Ordem da Fênix'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (30, (select Codigo from Livros where Titulo = 'Harry Potter e o Enigma do Príncipe'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (30, (select Codigo from Livros where Titulo = 'Harry Potter e as Relíquias da Morte'), 1)";
+		statement.executeUpdate(query);
+	}
+
+
+	private static void insertVenda31(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Marca Diabo Ltda.', null, '56834534834008', CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (31, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: A Sociedade do Anel'), 20)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (31, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: As Duas Torres'), 20)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (31, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: O Retorno do Rei'), 20)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda32(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('CHE Enterprise', null, '27847164896742', CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (32, (select Codigo from Livros where Titulo = 'A Bússola Dourada'), 5)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (32, (select Codigo from Livros where Titulo = 'A Faca Sutil'), 5)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (32, (select Codigo from Livros where Titulo = 'A Luneta Âmbar'), 5)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (32, (select Codigo from Livros where Titulo = 'O Anticristo'), 10)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda33(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Três Diamantes', null, '74538307475247', CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (33, (select Codigo from Livros where Titulo = 'O Guia do Mochileiro das Galáxias'), 30)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (33, (select Codigo from Livros where Titulo = 'O Restaurante no Fim do Universo'), 30)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (33, (select Codigo from Livros where Titulo = 'A Vida, o Universo e Tudo Mais'), 30)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (33, (select Codigo from Livros where Titulo = 'Até Mais, e Obrigado Pelos Peixes!'), 30)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (33, (select Codigo from Livros where Titulo = 'Praticamente Inofensiva'), 30)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda34(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Furd S.A.', null, '97846138008874', CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (34, (select Codigo from Livros where Titulo = 'Harry Potter e a Pedra Filosofal'), 15)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (34, (select Codigo from Livros where Titulo = 'Harry Potter e a Câmara Secreta'), 15)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (34, (select Codigo from Livros where Titulo = 'Harry Potter e o Prisioneiro de Azkaban'), 15)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (34, (select Codigo from Livros where Titulo = 'Harry Potter e o Cálice de Fogo'), 15)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (34, (select Codigo from Livros where Titulo = 'Harry Potter e a Ordem da Fênix'), 15)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (34, (select Codigo from Livros where Titulo = 'Harry Potter e o Enigma do Príncipe'), 15)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (34, (select Codigo from Livros where Titulo = 'Harry Potter e as Relíquias da Morte'), 15)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda35(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Chronos', null, '45920047976536', CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (35, (select Codigo from Livros where Titulo = 'O Anticristo'), 150)";
+		statement.executeUpdate(query);
+	}
+
+
+	private static void insertVenda36(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Odebrecht', null, '70075953345607', CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (36, (select Codigo from Livros where Titulo = 'Duna'), 25)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (36, (select Codigo from Livros where Titulo = 'O Messias de Duna'), 25)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (36, (select Codigo from Livros where Titulo = 'Os Filhos de Duna'), 25)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (36, (select Codigo from Livros where Titulo = 'O Imperador-Deus de Duna'), 25)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (36, (select Codigo from Livros where Titulo = 'Os Hereges de Duna'), 25)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (36, (select Codigo from Livros where Titulo = 'As Herdeiras de Duna'), 25)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda37(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Terra Networks', null, '46576656376657', CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (37, (select Codigo from Livros where Titulo = 'O Guia do Mochileiro das Galáxias'), 60)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (37, (select Codigo from Livros where Titulo = 'O Restaurante no Fim do Universo'), 60)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (37, (select Codigo from Livros where Titulo = 'A Vida, o Universo e Tudo Mais'), 60)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (37, (select Codigo from Livros where Titulo = 'Até Mais, e Obrigado Pelos Peixes!'), 60)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (37, (select Codigo from Livros where Titulo = 'Praticamente Inofensiva'), 60)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda38(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Hewlett-Packard', null, '84697558624590', CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (38, (select Codigo from Livros where Titulo = 'A Bússola Dourada'), 15)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (38, (select Codigo from Livros where Titulo = 'A Faca Sutil'), 15)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (38, (select Codigo from Livros where Titulo = 'A Luneta Âmbar'), 15)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (38, (select Codigo from Livros where Titulo = 'O Anticristo'), 15)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda39(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Dell Computers Inc.', null, '38547443846739', CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (39, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: A Sociedade do Anel'), 20)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (39, (select Codigo from Livros where Titulo = 'O Guia do Mochileiro das Galáxias'), 20)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (39, (select Codigo from Livros where Titulo = 'A Bússola Dourada'), 20)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (39, (select Codigo from Livros where Titulo = 'Duna'), 20)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda40(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Texxon Chemicals Inc.', null, '75366758765789', CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (40, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: A Sociedade do Anel'), 10)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (40, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: As Duas Torres'), 10)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (40, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: O Retorno do Rei'), 10)";
+		statement.executeUpdate(query);
+	}
+
+
+	private static void insertVenda41(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Lucas Cunha', '05746388294', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (41, (select Codigo from Livros where Titulo = 'Harry Potter e a Pedra Filosofal'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (41, (select Codigo from Livros where Titulo = 'Harry Potter e a Câmara Secreta'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (41, (select Codigo from Livros where Titulo = 'Harry Potter e o Prisioneiro de Azkaban'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (41, (select Codigo from Livros where Titulo = 'Harry Potter e o Cálice de Fogo'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (41, (select Codigo from Livros where Titulo = 'Harry Potter e a Ordem da Fênix'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (41, (select Codigo from Livros where Titulo = 'Harry Potter e o Enigma do Príncipe'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (41, (select Codigo from Livros where Titulo = 'Harry Potter e as Relíquias da Morte'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda42(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Giovanni Carlos', '84635158467', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (42, (select Codigo from Livros where Titulo = 'O Guia do Mochileiro das Galáxias'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (42, (select Codigo from Livros where Titulo = 'O Restaurante no Fim do Universo'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (42, (select Codigo from Livros where Titulo = 'A Vida, o Universo e Tudo Mais'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (42, (select Codigo from Livros where Titulo = 'Até Mais, e Obrigado Pelos Peixes!'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (42, (select Codigo from Livros where Titulo = 'Praticamente Inofensiva'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda43(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Professor James Moriarty', '6548738565', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (43, (select Codigo from Livros where Titulo = 'O Anticristo'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (43, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: A Sociedade do Anel'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (43, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: As Duas Torres'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (43, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: O Retorno do Rei'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda44(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Sherlock Holmes', '76378297424', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (44, (select Codigo from Livros where Titulo = 'A Bússola Dourada'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (44, (select Codigo from Livros where Titulo = 'A Faca Sutil'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (44, (select Codigo from Livros where Titulo = 'A Luneta Âmbar'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda45(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('John Locke', '14796427853', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (45, (select Codigo from Livros where Titulo = 'Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (45, (select Codigo from Livros where Titulo = 'O Messias de Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (45, (select Codigo from Livros where Titulo = 'Os Filhos de Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (45, (select Codigo from Livros where Titulo = 'O Imperador-Deus de Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (45, (select Codigo from Livros where Titulo = 'Os Hereges de Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (45, (select Codigo from Livros where Titulo = 'As Herdeiras de Duna'), 1)";
+		statement.executeUpdate(query);
+	}
+
+
+	private static void insertVenda46(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Thomas Edison', '', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (46, (select Codigo from Livros where Titulo = 'Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (46, (select Codigo from Livros where Titulo = 'O Messias de Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (46, (select Codigo from Livros where Titulo = 'Os Filhos de Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (46, (select Codigo from Livros where Titulo = 'O Imperador-Deus de Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (46, (select Codigo from Livros where Titulo = 'Os Hereges de Duna'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (46, (select Codigo from Livros where Titulo = 'As Herdeiras de Duna'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda47(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Jean-Jacques Rousseau', '', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (47, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: A Sociedade do Anel'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (47, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: As Duas Torres'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (47, (select Codigo from Livros where Titulo = 'O Senhor dos Anéis: O Retorno do Rei'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda48(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Charles-Louis de Secondat', '', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (48, (select Codigo from Livros where Titulo = 'O Guia do Mochileiro das Galáxias'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (48, (select Codigo from Livros where Titulo = 'O Restaurante no Fim do Universo'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (48, (select Codigo from Livros where Titulo = 'A Vida, o Universo e Tudo Mais'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (48, (select Codigo from Livros where Titulo = 'Até Mais, e Obrigado Pelos Peixes!'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (48, (select Codigo from Livros where Titulo = 'Praticamente Inofensiva'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda49(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('François Marie Arouet', '', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (49, (select Codigo from Livros where Titulo = 'A Bússola Dourada'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (49, (select Codigo from Livros where Titulo = 'A Faca Sutil'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (49, (select Codigo from Livros where Titulo = 'A Luneta Âmbar'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (49, (select Codigo from Livros where Titulo = 'O Anticristo'), 1)";
+		statement.executeUpdate(query);
+	}
+
+	private static void insertVenda50(Statement statement) throws SQLException {
+		String query = null;
+	
+		query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values ('Benjamin Franklin', '', null, CURRENT_DATE)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (50, (select Codigo from Livros where Titulo = 'Harry Potter e a Pedra Filosofal'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (50, (select Codigo from Livros where Titulo = 'Harry Potter e a Câmara Secreta'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (50, (select Codigo from Livros where Titulo = 'Harry Potter e o Prisioneiro de Azkaban'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (50, (select Codigo from Livros where Titulo = 'Harry Potter e o Cálice de Fogo'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (50, (select Codigo from Livros where Titulo = 'Harry Potter e a Ordem da Fênix'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (50, (select Codigo from Livros where Titulo = 'Harry Potter e o Enigma do Príncipe'), 1)";
+		statement.executeUpdate(query);
+		query = "insert into ItensVenda (CodVenda, CodLivro, Quantidade) values (50, (select Codigo from Livros where Titulo = 'Harry Potter e as Relíquias da Morte'), 1)";
 		statement.executeUpdate(query);
 	}
 }

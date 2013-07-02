@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mapping.ItemVendaDAOMapping;
+import mapping.VendaDAOMapping;
 import business.bo.ItemVenda;
 import business.bo.Livro;
+import business.bo.Venda;
 import exceptions.BusinessException;
 import exceptions.MappingException;
 import framework.IConnection;
@@ -17,6 +19,18 @@ public class VendaRepository {
 		if (connection == null)
 			throw new BusinessException("Conexão não informada.");
 		this.connection = connection;
+	}
+	
+	public List<Venda> buscarTodos() throws BusinessException {
+		VendaDAOMapping venda = new VendaDAOMapping(connection);
+		List<Venda> vendas = new ArrayList<>(0);
+		try {
+			vendas = venda.buscarTodos();
+		} catch (MappingException e) {
+			throw new BusinessException(e);
+		}
+
+		return vendas;
 	}
 	
 	public int buscarQuantidadeVendidaPorLivro(Livro livro) throws BusinessException {

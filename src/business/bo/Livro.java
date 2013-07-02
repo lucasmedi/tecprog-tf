@@ -3,10 +3,6 @@ package business.bo;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.*;
-
-@ManagedBean
-@SessionScoped
 public class Livro {
 	private int codigo;
 	private String titulo;
@@ -14,10 +10,6 @@ public class Livro {
 	private Editora editora;
     private List<Autor> autores;
 	
-    public String getMessage(){
-    	return "giovanni";
-    }
-    
     public Livro() {
     	autores = new ArrayList<Autor>();
     }

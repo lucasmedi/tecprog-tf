@@ -20,7 +20,7 @@ public class EditoraView {
 
 	private Editora editora;
 	private EditoraRepository editoraRepository;
-	private DataModel editoraDataModel;
+	private List<Editora> editoras;
 	
 	@PostConstruct
 	public void init() {
@@ -36,14 +36,14 @@ public class EditoraView {
 		editora.setCodigo(0);
 		List<Editora> list = new ArrayList<Editora>();
 		list.add(editora);
-		editoraDataModel = new ListDataModel<>(list);
+		//editoraDataModel = new ListDataModel<>(list);
 		return "editora";
 	}
 	
 	public void pesquisarEditora() {
 		try {
 			List<Editora> list = editoraRepository.buscarTodos();
-			editoraDataModel = new ListDataModel<>(list);
+			//editoraDataModel = new ListDataModel<>(list);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
@@ -59,6 +59,20 @@ public class EditoraView {
 		return "editora";
 	}
 	
+	
+	public List<Editora> getListarEditora() {
+		try {
+			editoras = editoraRepository.buscarTodos();
+			//editoraDataModel = new ListDataModel<>(list);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+		return editoras;
+		
+	}
+
+	
+	//GETs and SETs 
 	public Editora getEditora() {
 		return editora;
 	}
@@ -66,18 +80,21 @@ public class EditoraView {
 	public void setEditora(Editora editora) {
 		this.editora = editora;
 	}
-	
-	public DataModel getListarEditora() {
-		
-		return getEditoraDataModel();
-		
-	}
-	
-	public DataModel getEditoraDataModel() {
-		return editoraDataModel;
+	public EditoraRepository getEditoraRepository() {
+		return editoraRepository;
 	}
 
-	public void setEditoraDataModel(DataModel editoraDataModel) {
-		this.editoraDataModel = editoraDataModel;
-	}	
-}
+	public void setEditoraRepository(EditoraRepository editoraRepository) {
+		this.editoraRepository = editoraRepository;
+	}
+
+	public List<Editora> getEditoras() {
+		return editoras;
+	}
+
+	public void setEditoras(List<Editora> editoras) {
+		this.editoras = editoras;
+	}
+	
+	
+	}

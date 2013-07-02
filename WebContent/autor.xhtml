@@ -1,44 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Autor</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Autor</title>
 
-<script src="http://code.jquery.com/jquery-1.10.1.min.js" />
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js" />
-<script src="script/editora.js" type="text/javascript" />
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js" />
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js" />
+	<script src="script/editora.js" type="text/javascript" />
 </h:head>
 <h:body>
-<ui:include src="menu.xhtml">
-</ui:include>
+	<ui:include src="menu.xhtml">
+	</ui:include>
 	<h2>Autor</h2>
 	<h:form id="form">
-		<label>Primeiro Nome: </label><h:inputText value="#{autorView.autor.primeiroNome}" id="primeiroNome"/><br/>
-		<label>Último Nome: </label><h:inputText value="#{autorView.autor.ultimoNome}" id="ultimoNome"/><br/>
+		<h:messages id="messages" globalOnly="true"
+			infoStyle="color:darkgreen" errorStyle="color:red" />
+
+		<label>Primeiro Nome: </label>
+		<h:inputText value="#{autorView.autor.primeiroNome}" id="primeiroNome" />
+		<br />
+		<br />
 		
-		<h:commandButton action="#{autorView.cadastrarAutor}" id="cadastrar" class="cadastrar" value="Incluir"/>
-        <h:button actionListener="#{autorView.pesquisarAutor}" id="pesquisar" class="pesquisar" value="Pesquisar"/>
-        
-        <br/>
-           <h:dataTable value="#{autorView.autores}" var="item">
-         <h:column>    				
-            <f:facet name="header">Código</f:facet>    				
+		<label>Último Nome: </label>
+		<h:inputText value="#{autorView.autor.ultimoNome}" id="ultimoNome" />
+		<br />
+		<br />
+
+		<h:commandButton actionListener="#{autorView.cadastrarAutor}"
+			id="cadastrar" class="cadastrar" value="Incluir" update=":messages" />
+		<h:commandButton actionListener="#{autorView.pesquisarAutor}"
+			id="pesquisar" class="pesquisar" value="Pesquisar" />
+		<br />
+		<br />
+		
+		<h:dataTable value="#{autorView.autores}" var="item">
+			<h:column>
+				<f:facet name="header">Código</f:facet>    				
             #{item.codigo}
          </h:column>
-         <h:column>
-            <f:facet name="header">Primeiro Nome</f:facet>
+			<h:column>
+				<f:facet name="header">Primeiro Nome</f:facet>
             #{item.primeiroNome}
          </h:column>
-         <h:column>
-            <f:facet name="header">Último Nome</f:facet>
+			<h:column>
+				<f:facet name="header">Último Nome</f:facet>
             #{item.ultimoNome}
          </h:column>
-      </h:dataTable>
-	
+		</h:dataTable>
+
 	</h:form>
 </h:body>
 </html>

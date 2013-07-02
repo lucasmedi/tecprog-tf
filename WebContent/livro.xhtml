@@ -1,16 +1,79 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Editora - Página Inicial</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Livro</title>
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js" />
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js" />
+	<script src="script/editora.js" type="text/javascript" />
 </h:head>
 <h:body>
-<ui:include src="menu.xhtml">
-</ui:include>
-	<p>1</p>
+	<ui:include src="menu.xhtml">
+	</ui:include>
+
+	<h2>Livros</h2>
+	<h:form id="form">
+
+		<h:messages id="messages" globalOnly="true"
+			infoStyle="color:darkgreen" errorStyle="color:red" />
+		<label>Título: </label>
+		<h:inputText value="#{livroView.livro.titulo}" id="titulo" />
+		<br />
+		<br />
+
+		<label>Ano: </label>
+		<h:inputText value="#{livroView.livro.ano}" id="ano" />
+		<br />
+		<br />
+
+		<label>Editora: </label>
+		<h:selectOneListbox value="#{livroView.editoraSelecionada}">
+			<f:selectItems value="#{livroView.editoras}" />
+		</h:selectOneListbox>
+		<br />
+		<br />
+		<!-- <label>Autores: </label>
+		<h:selectManyMenu value="">
+			<f:selectItems value="#{livroView.editoras}" />
+		</h:selectManyMenu>
+		<br />
+		<br /> -->
+
+		<h:commandButton actionListener="#{livroView.cadastrarLivro}"
+			id="cadastrar" class="cadastrar" value="Incluir" update=":messages" />
+		<h:commandButton actionListener="#{livroView.pesquisarLivro}"
+			id="pesquisar" class="pesquisar" value="Pesquisar" />
+		<br />
+
+		<h:dataTable value="#{livroView.livros}" var="item">
+			<h:column>
+				<f:facet name="header">Código</f:facet>    				
+            	#{item.codigo}
+	         </h:column>
+			<h:column>
+				<f:facet name="header">Título</f:facet>
+	            #{item.titulo}
+	         </h:column>
+			<h:column>
+				<f:facet name="header">Ano</f:facet>
+	            #{item.ano}
+	         </h:column>
+			<h:column>
+				<f:facet name="header">Editora</f:facet>
+	            #{item.editora.nome}
+	         </h:column>
+			<!-- <h:column>
+				<f:facet name="header">Autores</f:facet>
+	            #{item.nomeAutores}
+	         </h:column> -->
+		</h:dataTable>
+
+
+	</h:form>
+
 </h:body>
 </html>

@@ -1,47 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Editora</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Editora</title>
 
-<script src="http://code.jquery.com/jquery-1.10.1.min.js" />
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js" />
-<script src="script/editora.js" type="text/javascript" />
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js" />
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js" />
+	<script src="script/editora.js" type="text/javascript" />
 </h:head>
 <h:body>
-<ui:include src="menu.xhtml">
-</ui:include>
+	<ui:include src="menu.xhtml">
+	</ui:include>
 	<h2>Editora</h2>
 	<h:form id="form">
-		<h:messages id="messages" globalOnly="true" infoStyle="color:darkgreen" errorStyle="color:red" />
+		<h:messages id="messages" globalOnly="true"
+			infoStyle="color:darkgreen" errorStyle="color:red" />
 		
-		Nome: <h:inputText value="#{editoraView.editora.nome}" id="nome"/><br/>
-		
-		<h:commandButton actionListener="#{editoraView.cadastrarEditora}" id="cadastrar" class="cadastrar" value="Incluir" update=":messages" />
-		<h:commandButton actionListener="#{editoraView.pesquisarEditora}" id="pesquisar" class="pesquisar" value="Pesquisar"/>
-		
+		Nome: <h:inputText value="#{editoraView.editora.nome}" id="nome" />
+		<br />
+		<br />
 
-        <h:dataTable value="#{editoraView.editoras}" var="item">
-         <h:column>    				
-            <f:facet name="header">Código</f:facet>    				
-            #{item.codigo}
-         </h:column>
-         <h:column>
-            <f:facet name="header">Nome</f:facet>
-            #{item.nome}
-         </h:column>
-         <h:column>
-            <f:facet name="header"></f:facet>
-            <h:commandButton actionListener="#{editoraView.excluirEditora}" id="excluir" class="excluir" value="Excluir"/>
-         </h:column>
-         
-        
-      </h:dataTable>
-	
+		<h:commandButton actionListener="#{editoraView.cadastrarEditora}"
+			id="cadastrar" class="cadastrar" value="Incluir" update=":messages" />
+		<h:commandButton actionListener="#{editoraView.pesquisarEditora}"
+			id="pesquisar" class="pesquisar" value="Pesquisar" />
+
+		<br />
+		<br />
+
+		<h:dataTable value="#{editoraView.editoras}" var="item">
+			<h:column>
+				<f:facet name="header">Código</f:facet>    				
+            	#{item.codigo}
+	         </h:column>
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+	            #{item.nome}
+	         </h:column>
+		</h:dataTable>
+
 	</h:form>
 </h:body>
 </html>

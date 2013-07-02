@@ -1,8 +1,5 @@
 package view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -16,9 +13,6 @@ import business.domain.EditoraContext;
 import business.domain.EditoraRepository;
 import exceptions.BusinessException;
 import exceptions.ConnectionException;
-import framework.ConnectionFactory;
-import framework.DbType;
-import framework.IConnection;
 
 @ManagedBean(name="editoraView")
 @SessionScoped
@@ -37,10 +31,9 @@ public class EditoraView extends View {
 	public void init() {
 		editora = new Editora();
 		try {
-			IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
 			editoraRepository = new EditoraRepository(connection);
 			editoraContext = new EditoraContext(connection);
-		} catch (BusinessException | ConnectionException e) {
+		} catch (BusinessException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,e.getMessage() , null));
 		}
 	}
@@ -73,14 +66,6 @@ public class EditoraView extends View {
 		}
 	}
 
-	public String preparaAlterarEditora() {
-		editora = editoras.getRowData();
-		return "editora";
-	}
-
-	public void excluirEditora() {
-		//return "editora";
-	}
 
 	//GETs and SETs 
 	public Editora getEditora() {

@@ -6,11 +6,10 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Editora</title>
+	<title>Venda</title>
 
 	<script src="http://code.jquery.com/jquery-1.10.1.min.js" />
 	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js" />
-	<script src="script/editora.js" type="text/javascript" />
 </h:head>
 <h:body>
 	<ui:include src="menu.xhtml">
@@ -18,32 +17,49 @@
 	<h2>Vendas</h2>
 		<br />
 		<br />
-	<h:form id="form">
+	<h:form id="formVenda">
 		<h:messages id="messages" globalOnly="true"
 			infoStyle="color:darkgreen" errorStyle="color:red" />
 		
-		<h4>Dados do cliente</h4>
+		<h4>Dados do cliente:</h4>
 		
-		Nome: <h:inputText value="#{vendaView.venda.nome}" id="nome" />
+		Nome: <h:inputText value="#{vendaView.venda.nomeCliente}" id="nomeCLiente" />
+		CPF: <h:inputText value="#{vendaView.venda.cpfCliente}" id="cpf" />
+		CNPJ: <h:inputText value="#{vendaView.venda.cnpjCliente}" id="cnpj" />
 		<br />
 		<br />
+		
+		<h4>Dados da compra:</h4>
+		
+		Data: <h:inputText value="#{vendaView.venda.nomeCliente}" id="data" />
+		
+		Nome do Livro: <h:inputText value="#{vendaView.nomeLivro}" id="nomeLivro" />
+		Quantidade : <h:inputText value="#{vendaView.quantidade}" id="quantidade" />
 
-		<h:commandButton actionListener="#{editoraView.cadastrarEditora}"
+		<h:commandButton actionListener="#{vendaView.cadastrarVenda}"
 			id="cadastrar" class="cadastrar" value="Incluir" update=":messages" />
-		<h:commandButton actionListener="#{editoraView.pesquisarEditora}"
+		<h:commandButton actionListener="#{vendaView.pesquisarVenda}"
 			id="pesquisar" class="pesquisar" value="Pesquisar" />
 
 		<br />
 		<br />
 
-		<h:dataTable value="#{editoraView.editoras}" var="item">
+		<h:dataTable value="#{vendaView.vendas}" var="item">
 			<h:column>
 				<f:facet name="header">Código</f:facet>    				
             	#{item.codigo}
 	         </h:column>
 			<h:column>
-				<f:facet name="header">Nome</f:facet>
-	            #{item.nome}
+				<f:facet name="header">Nome do Cliente</f:facet>
+	            #{item.nomeCliente}
+	         </h:column>
+	         <h:column>
+				<f:facet name="header">CPF</f:facet>
+	            #{item.cpfCliente}
+	         </h:column>
+	         <h:column>
+				<f:facet name="header">CNPJ</f:facet>
+	            #{item.cnpj}
 	         </h:column>
 		</h:dataTable>
 

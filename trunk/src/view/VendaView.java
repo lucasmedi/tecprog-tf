@@ -6,6 +6,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 
 import business.bo.ItemVenda;
 import business.bo.Livro;
@@ -26,6 +27,8 @@ public class VendaView extends View {
 	
 	private ItemVenda itemVenda;
 	private Livro livro;
+	private String nomeLivro;
+	private int quantidade;
 	
 
 	public VendaView() throws ConnectionException {
@@ -60,15 +63,12 @@ public class VendaView extends View {
 	}
 
 	public void pesquisarVenda() {
-		/*try {
-			if(venda.getNome() !=null && !venda.getNome().isEmpty())
-				vendas= new ListDataModel<>(vendaRepository.buscarPorNome(venda.getNome()));
-			else
-				vendas= new ListDataModel<>(vendaRepository.buscarTodos());
+		try {
+			vendas= new ListDataModel<>(vendaRepository.buscarTodos());
 				
 		} catch (BusinessException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,e.getMessage() , null));
-		}*/
+		}
 	}
 
 	//GETs and SETs 
@@ -118,6 +118,22 @@ public class VendaView extends View {
 
 	public void setLivro(Livro livro) {
 		this.livro = livro;
+	}
+
+	public String getNomeLivro() {
+		return nomeLivro;
+	}
+
+	public void setNomeLivro(String nomeLivro) {
+		this.nomeLivro = nomeLivro;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}
 
 

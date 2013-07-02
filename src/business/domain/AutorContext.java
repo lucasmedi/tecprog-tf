@@ -5,10 +5,17 @@ import business.bo.Autor;
 import exceptions.BusinessException;
 import exceptions.ConnectionException;
 import exceptions.MappingException;
+import framework.ConnectionFactory;
+import framework.DbType;
 import framework.IConnection;
 
 public class AutorContext {
 	private IConnection connection;
+	
+	public AutorContext() throws BusinessException, ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		this.connection = connection;
+	}
 	
 	public AutorContext(IConnection connection) throws BusinessException {
 		if (connection == null)

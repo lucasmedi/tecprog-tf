@@ -5,17 +5,10 @@ import business.bo.Autor;
 import exceptions.BusinessException;
 import exceptions.ConnectionException;
 import exceptions.MappingException;
-import framework.ConnectionFactory;
-import framework.DbType;
 import framework.IConnection;
 
 public class AutorContext {
 	private IConnection connection;
-	
-	public AutorContext() throws BusinessException, ConnectionException {
-		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
-		this.connection = connection;
-	}
 	
 	public AutorContext(IConnection connection) throws BusinessException {
 		if (connection == null)
@@ -35,17 +28,9 @@ public class AutorContext {
 		
 		AutorDAOMapping dao = new AutorDAOMapping(connection);
 		try {
-			connection.open();
-			connection.openTransaction();
-			
 			dao.inserir(autor);
-			
-			connection.commit();
 		} catch (MappingException e) {
-			connection.rollback();
 			throw new BusinessException("Erro ao cadastrar Autor.");
-		} finally {
-			connection.close();
 		}
 	}
 	

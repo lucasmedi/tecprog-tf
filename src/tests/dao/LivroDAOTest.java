@@ -105,4 +105,22 @@ public class LivroDAOTest {
 		
 		Assert.assertTrue(livro != null);
 	}
+	
+	@Test
+	public void buscarLivroPorTituloTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		LivroDAOderby dao = new LivroDAOderby(connection);
+		
+		LivroDTO livro = null;
+		try {
+			livro = dao.buscarLivroPorTitulo("Antic");
+		} catch (PersistenceException | ConnectionException e) {
+			e.printStackTrace();
+		}
+		
+		connection.close();
+		
+		Assert.assertTrue(livro != null);
+	}
 }

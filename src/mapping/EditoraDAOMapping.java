@@ -106,7 +106,7 @@ public class EditoraDAOMapping implements EditoraDAO, IMapping<Editora, EditoraD
 
 	@Override
 	public Editora parseBO(EditoraDTO dto) {
-		if(dto == null){
+		if (dto == null)
 			return null;
 			
 		Editora bo = new Editora();
@@ -117,7 +117,7 @@ public class EditoraDAOMapping implements EditoraDAO, IMapping<Editora, EditoraD
 
 	@Override
 	public EditoraDTO parseDTO(Editora bo) {
-		if(bo == null){
+		if (bo == null)
 			return null;
 			
 		EditoraDTO dto = new EditoraDTO();

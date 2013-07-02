@@ -79,8 +79,8 @@ public class VendaDAOderby {
 		
 		int result = 0;
 		try {
-			String query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values (?, ?, ?, SYSDATE)";
-			statement = connection.getConnection().prepareStatement(query);
+			String query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values (?, ?, ?, CURRENT_DATE)";
+			statement = connection.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, venda.getNomeCliente());
 			statement.setString(2, venda.getCpfCliente());
 			statement.setString(3, venda.getCnpjCliente());
@@ -104,32 +104,6 @@ public class VendaDAOderby {
 			throw new PersistenceException("Erro ao executar inserção.");
 		
 		return id;
-	}
-	
-	public void alterar(VendaDTO venda) throws PersistenceException, ConnectionException {
-		PreparedStatement statement = null;
-		
-		int result = 0;		
-		try {
-			String query = "update Vendas set NomeCliente = ?, CpfCliente = ?, CnpjCliente = ? where Codigo = ?";
-			statement = connection.getConnection().prepareStatement(query);
-			statement.setString(1, venda.getNomeCliente());
-			statement.setString(2, venda.getCpfCliente());
-			statement.setString(3, venda.getCnpjCliente());
-			statement.setInt(4, venda.getCodigo());
-			result = statement.executeUpdate();
-		} catch (Exception e) {
-			throw new PersistenceException("Erro ao executar a atualização: " + e.getMessage() , e);
-		} finally {
-			try {
-				statement.close();
-			} catch (SQLException e) {
-				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
-			}
-		}
-		
-		if (result == 0)
-			throw new PersistenceException("Erro ao executar a atualização.");
 	}
 	
 	private VendaDTO parseVendaDTO(ResultSet o) throws SQLException {

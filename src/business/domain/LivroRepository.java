@@ -10,18 +10,10 @@ import business.bo.Autor;
 import business.bo.Editora;
 import business.bo.Livro;
 import exceptions.BusinessException;
-import exceptions.ConnectionException;
-import framework.ConnectionFactory;
-import framework.DbType;
 import framework.IConnection;
 
 public class LivroRepository {
 	private IConnection connection;
-	
-	public LivroRepository() throws BusinessException, ConnectionException {
-		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
-		this.connection = connection;
-	}
 	
 	public LivroRepository(IConnection connection) throws BusinessException {
 		if (connection == null)
@@ -105,5 +97,18 @@ public class LivroRepository {
 		}
 		
 		return livros;
+	}
+
+	public Livro buscarLivroPorTitulo(String titulo) throws BusinessException {
+		Livro livro = null;
+		
+		try {
+			LivroDAOMapping livroDAO = new LivroDAOMapping(connection);
+			livro = livroDAO.buscarLivroPorTitulo(titulo);
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
+		
+		return livro;
 	}
 }

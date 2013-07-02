@@ -8,7 +8,7 @@ public class ConsoleApp {
         InitializeDb.initialize();
         
         System.out.println("create db");
-        InitializeDb.createDb();
+        //InitializeDb.createDb();
         
         System.out.println("populate db");
         InitializeDb.PopulateDb();

@@ -11,10 +11,6 @@ public class InitializeDb {
         Class.forName("org.apache.derby.jdbc.ClientDriver");
     }
     
-    public static Connection connectDb() throws Exception {
-        return DriverManager.getConnection("jdbc:derby:cadastro");
-    }
-    
     public static void createDb() throws Exception {
         Connection connection = DriverManager.getConnection("jdbc:derby://localhost:1527/cadastro;create=true");
         Statement statement = connection.createStatement();
@@ -109,7 +105,7 @@ public class InitializeDb {
     }
 	
 	public static void PopulateDb() throws Exception {
-		Connection connection = connectDb();
+		Connection connection = DriverManager.getConnection("jdbc:derby://localhost:1527/cadastro");
 		connection.setAutoCommit(false);
 		Statement statement = connection.createStatement();
 		

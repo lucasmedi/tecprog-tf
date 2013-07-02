@@ -21,47 +21,23 @@
 		<label>Último Nome: </label><h:inputText value="#{autorView.autor.ultimoNome}" id="ultimoNome"/><br/>
 		
 		<h:commandButton action="#{autorView.cadastrarAutor}" id="cadastrar" class="cadastrar" value="Incluir"/>
-        <h:button action="#{autorView.pesquisarAutor}" id="pesquisar" class="pesquisar" value="Pesquisar"/>
+        <h:button actionListener="#{autorView.pesquisarAutor}" id="pesquisar" class="pesquisar" value="Pesquisar"/>
         
         <br/>
-        
-        <h:dataTable var="autor" value="#{autorView.listarAutor}">
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Código"/>
-                </f:facet>
-                <h:outputText value="#{autor.codigo}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Primeiro Nome"/>
-                </f:facet>
-                <h:outputText value="#{autor.primeiroNome}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Último Nome"/>
-                </f:facet>
-                <h:outputText value="#{autor.ultimoNome}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Alterar"/>
-                </f:facet>
-                <h:form>
-                    <h:button action="#{autorView.preparaAlterarAutor}" class="alterar" name="alterar" value="Alterar"/>
-                    </h:form>
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Excluir"/>
-                </f:facet>
-                <h:form>
-                    <h:commandButton action="#{autorView.excluirAutor}" value="Excluir"/>
-                    </h:form>
-            </h:column>
-        </h:dataTable>
-        
+           <h:dataTable value="#{autorView.autores}" var="item">
+         <h:column>    				
+            <f:facet name="header">Código</f:facet>    				
+            #{item.codigo}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Primeiro Nome</f:facet>
+            #{item.primeiroNome}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Último Nome</f:facet>
+            #{item.ultimoNome}
+         </h:column>
+      </h:dataTable>
 	
 	</h:form>
 </h:body>

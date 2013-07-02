@@ -22,7 +22,7 @@ public class LivroDAOTest {
 		
 		LivroDAOderby dao = new LivroDAOderby(connection);
 		
-		List<LivroDTO> list = new ArrayList<>();
+		List<LivroDTO> list = new ArrayList<>(0);
 		try {
 			list = dao.buscarTodos();
 		} catch (PersistenceException | ConnectionException e) {

@@ -21,7 +21,7 @@ public class VendaDAOderby {
 	}
 	
 	public List<VendaDTO> buscarTodos() throws PersistenceException, ConnectionException {
-		List<VendaDTO> vendas = new ArrayList<VendaDTO>();
+		List<VendaDTO> vendas = new ArrayList<VendaDTO>(0);
 		Statement statement = null;
 		
 		try {

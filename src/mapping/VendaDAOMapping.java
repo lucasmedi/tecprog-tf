@@ -20,7 +20,7 @@ public class VendaDAOMapping implements VendaDAO, IMapping<Venda, VendaDTO> {
 	
 	@Override
 	public List<Venda> buscarTodos() throws MappingException {
-		List<Venda> res = new ArrayList<Venda>();
+		List<Venda> res = new ArrayList<Venda>(0);
 		
 		try {
 			VendaDAOderby dao = new VendaDAOderby(connection);

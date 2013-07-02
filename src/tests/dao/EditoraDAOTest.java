@@ -22,7 +22,7 @@ public class EditoraDAOTest {
 		
 		EditoraDAOderby dao = new EditoraDAOderby(connection);
 		
-		List<EditoraDTO> list = new ArrayList<>();
+		List<EditoraDTO> list = new ArrayList<>(0);
 		try {
 			list = dao.buscarTodos();
 		} catch (PersistenceException | ConnectionException e) {

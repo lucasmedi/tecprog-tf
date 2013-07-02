@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import persistence.daoderby.AutorDAOderby;
 import persistence.dto.AutorDTO;
+import persistence.dto.EditoraDTO;
 import exceptions.ConnectionException;
 import exceptions.PersistenceException;
 import framework.ConnectionFactory;
@@ -22,7 +23,7 @@ public class AutorDAOTest {
 			
 		AutorDAOderby dao = new AutorDAOderby(connection);
 			
-		List<AutorDTO> list = new ArrayList<>();
+		List<AutorDTO> list = new ArrayList<>(0);
 		try {
 			list = dao.buscarTodos();
 		} catch (PersistenceException | ConnectionException e) {
@@ -38,9 +39,27 @@ public class AutorDAOTest {
 	
 		AutorDAOderby dao = new AutorDAOderby(connection);
 		
-		List<AutorDTO> list = new ArrayList<>();
+		List<AutorDTO> list = new ArrayList<>(0);
 		try {
 			list = dao.buscarPorNome("Philip");
+		} catch (PersistenceException | ConnectionException e) {
+			e.printStackTrace();
+		}
+		
+		Assert.assertTrue(list.size() > 0);
+	}
+	
+	@Test
+	public void buscarPorEditoraTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+	
+		AutorDAOderby dao = new AutorDAOderby(connection);
+		
+		List<AutorDTO> list = new ArrayList<>(0);
+		try {
+			EditoraDTO dto = new EditoraDTO();
+			dto.setCodigo(1);
+			list = dao.buscarPorEditora(dto);
 		} catch (PersistenceException | ConnectionException e) {
 			e.printStackTrace();
 		}

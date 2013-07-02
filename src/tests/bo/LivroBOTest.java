@@ -24,7 +24,7 @@ public class LivroBOTest {
 		
 		LivroDAO dao = new LivroDAOMapping(connection);
 		
-		List<Livro> list = new ArrayList<>();
+		List<Livro> list = new ArrayList<>(0);
 		try {
 			list = dao.buscarTodos();
 		} catch (MappingException e) {

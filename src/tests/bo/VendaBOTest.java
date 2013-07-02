@@ -1,31 +1,32 @@
-package tests.dao;
+package tests.bo;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import mapping.VendaDAOMapping;
+
 import org.junit.Assert;
 import org.junit.Test;
 
-import persistence.daoderby.VendaDAOderby;
-import persistence.dto.VendaDTO;
+import business.bo.Venda;
 import exceptions.ConnectionException;
-import exceptions.PersistenceException;
+import exceptions.MappingException;
 import framework.ConnectionFactory;
 import framework.DbType;
 import framework.IConnection;
 
-public class VendaDAOTest {
+public class VendaBOTest {
 	
 	@Test
 	public void buscarTodosTest() throws ConnectionException {
 		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
 			
-		VendaDAOderby dao = new VendaDAOderby(connection);
+		VendaDAOMapping dao = new VendaDAOMapping(connection);
 			
-		List<VendaDTO> list = new ArrayList<>(0);
+		List<Venda> list = new ArrayList<>(0);
 		try {
 			list = dao.buscarTodos();
-		} catch (PersistenceException | ConnectionException e) {
+		} catch (MappingException e) {
 			e.printStackTrace();
 		}
 		
@@ -36,12 +37,12 @@ public class VendaDAOTest {
 	public void buscarPorCodigoTest() throws ConnectionException {
 		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
 			
-		VendaDAOderby dao = new VendaDAOderby(connection);
+		VendaDAOMapping dao = new VendaDAOMapping(connection);
 			
-		VendaDTO venda = null;
+		Venda venda = null;
 		try {
 			venda = dao.buscarPorCodigo(1);
-		} catch (PersistenceException | ConnectionException e) {
+		} catch (MappingException e) {
 			e.printStackTrace();
 		}
 		

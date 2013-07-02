@@ -22,7 +22,7 @@ public class EditoraDAOMapping implements EditoraDAO, IMapping<Editora, EditoraD
 	
 	@Override
 	public List<Editora> buscarTodos() throws MappingException {
-		List<Editora> res = new ArrayList<Editora>();
+		List<Editora> res = new ArrayList<Editora>(0);
 		
 		try {
 			EditoraDAOderby dao = new EditoraDAOderby(connection);
@@ -38,7 +38,7 @@ public class EditoraDAOMapping implements EditoraDAO, IMapping<Editora, EditoraD
 
 	@Override
 	public List<Editora> buscarPorNome(String nome) throws MappingException {
-		List<Editora> res = new ArrayList<Editora>();
+		List<Editora> res = new ArrayList<Editora>(0);
 		
 		try {
 			EditoraDAOderby dao = new EditoraDAOderby(connection);

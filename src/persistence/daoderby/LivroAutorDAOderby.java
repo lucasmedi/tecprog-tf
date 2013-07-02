@@ -22,7 +22,7 @@ public class LivroAutorDAOderby {
 	public List<LivroAutorDTO> buscarPorCodigoAutor(int codigo) throws PersistenceException, ConnectionException {
 		PreparedStatement statement = null;
 		
-		List<LivroAutorDTO> livroAutor = new ArrayList<LivroAutorDTO>();
+		List<LivroAutorDTO> livroAutor = new ArrayList<LivroAutorDTO>(0);
 		try {
 			String query = "select * from LivrosAutores where CodAutor = ?";
 			statement = connection.getConnection().prepareStatement(query);
@@ -48,7 +48,7 @@ public class LivroAutorDAOderby {
 	public List<LivroAutorDTO> buscarPorCodigoLivro(int codigo) throws PersistenceException, ConnectionException {
 		PreparedStatement statement = null;
 		
-		List<LivroAutorDTO> livroAutor = new ArrayList<>();
+		List<LivroAutorDTO> livroAutor = new ArrayList<>(0);
 		try {
 			String query = "select * from LivrosAutores where CodLivro = ?";
 			statement = connection.getConnection().prepareStatement(query);

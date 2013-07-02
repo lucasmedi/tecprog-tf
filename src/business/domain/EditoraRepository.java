@@ -54,4 +54,21 @@ public class EditoraRepository {
 		
 		return editoras;
 	}
+
+	public Editora buscarUmPorNome(String nome) throws BusinessException {
+		Editora editora = null;
+		
+		if (nome == null || nome.isEmpty())
+			throw new BusinessException("Nome não informado.");
+		
+		try {
+			EditoraDAOMapping editoraDAO = new EditoraDAOMapping(connection);
+			editora = editoraDAO.buscarUmPorNome(nome);
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
+		
+		return editora;
+	}
+
 }

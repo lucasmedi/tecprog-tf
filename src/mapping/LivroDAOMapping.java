@@ -22,7 +22,7 @@ public class LivroDAOMapping implements LivroDAO, IMapping<Livro, LivroDTO> {
 	
 	@Override
 	public List<Livro> buscarTodos() throws MappingException {
-		List<Livro> res = new ArrayList<Livro>();
+		List<Livro> res = new ArrayList<Livro>(0);
 		
 		try {
 			LivroDAOderby dao = new LivroDAOderby(connection);
@@ -38,7 +38,7 @@ public class LivroDAOMapping implements LivroDAO, IMapping<Livro, LivroDTO> {
 
 	@Override
 	public List<Livro> buscarPorEditora(int codigo) throws MappingException {
-		List<Livro> res = new ArrayList<Livro>();
+		List<Livro> res = new ArrayList<Livro>(0);
 		
 		try {
 			LivroDAOderby dao = new LivroDAOderby(connection);
@@ -54,7 +54,7 @@ public class LivroDAOMapping implements LivroDAO, IMapping<Livro, LivroDTO> {
 
 	@Override
 	public List<Livro> buscarPorAutor(int codigo) throws MappingException {
-		List<Livro> res = new ArrayList<Livro>();
+		List<Livro> res = new ArrayList<Livro>(0);
 		
 		try {
 			LivroDAOderby dao = new LivroDAOderby(connection);
@@ -69,7 +69,7 @@ public class LivroDAOMapping implements LivroDAO, IMapping<Livro, LivroDTO> {
 	}
 	
 	public List<Livro> buscarPorTitulo(String titulo) throws MappingException {
-		List<Livro> res = new ArrayList<>();
+		List<Livro> res = new ArrayList<>(0);
 		
 		try {
 			LivroDAOderby dao = new LivroDAOderby(connection);

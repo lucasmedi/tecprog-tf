@@ -6,6 +6,7 @@ import java.util.List;
 import persistence.daoderby.AutorDAOderby;
 import persistence.dto.AutorDTO;
 import business.bo.Autor;
+import business.bo.Editora;
 import business.daobase.AutorDAO;
 import exceptions.MappingException;
 import framework.IConnection;
@@ -20,7 +21,7 @@ public class AutorDAOMapping implements AutorDAO, IMapping<Autor, AutorDTO> {
 	
 	@Override
 	public List<Autor> buscarTodos() throws MappingException {
-		List<Autor> res = new ArrayList<Autor>();
+		List<Autor> res = new ArrayList<Autor>(0);
 		
 		try {
 			AutorDAOderby dao = new AutorDAOderby(connection);
@@ -36,11 +37,29 @@ public class AutorDAOMapping implements AutorDAO, IMapping<Autor, AutorDTO> {
 
 	@Override
 	public List<Autor> buscarPorNome(String nome) throws MappingException {
-		List<Autor> res = new ArrayList<Autor>();
+		List<Autor> res = new ArrayList<Autor>(0);
 		
 		try {
 			AutorDAOderby dao = new AutorDAOderby(connection);
 			for (AutorDTO dto : dao.buscarPorNome(nome)) {
+				res.add(parseBO(dto));
+			}
+		} catch (Exception ex) {
+			throw new MappingException(ex);
+		}
+		
+		return res;
+	}
+	
+	@Override
+	public List<Autor> buscarPorEditora(Editora editora) throws MappingException {
+		List<Autor> res = new ArrayList<Autor>(0);
+		
+		EditoraDAOMapping editoraDAO = new EditoraDAOMapping(connection);
+		
+		try {
+			AutorDAOderby dao = new AutorDAOderby(connection);
+			for (AutorDTO dto : dao.buscarPorEditora(editoraDAO.parseDTO(editora))) {
 				res.add(parseBO(dto));
 			}
 		} catch (Exception ex) {

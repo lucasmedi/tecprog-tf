@@ -24,7 +24,7 @@ public class EditoraBOTest {
 		
 		EditoraDAO dao = new EditoraDAOMapping(connection);
 		
-		List<Editora> list = new ArrayList<>();
+		List<Editora> list = new ArrayList<>(0);
 		try {
 			list = dao.buscarTodos();
 		} catch (MappingException e) {

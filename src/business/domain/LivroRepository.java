@@ -60,6 +60,22 @@ public class LivroRepository {
 		return livros;
 	}
 	
+	public List<Livro> buscarLivrosPorAutor(Autor autor) throws BusinessException {
+		List<Livro> livros = new ArrayList<>();
+		
+		if (autor == null || autor.getCodigo() <= 0)
+			throw new BusinessException("Autor não informado.");
+		
+		try {
+			LivroDAOMapping livroDAO = new LivroDAOMapping(connection);
+			livros = livroDAO.buscarPorAutor(autor.getCodigo());
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
+		
+		return livros;
+	}
+	
 	public List<Livro> buscarLivrosPorEditora(String nome) throws BusinessException {
 		List<Livro> livros = new ArrayList<>();
 		

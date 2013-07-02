@@ -11,6 +11,6 @@ public class ConsoleApp {
         //InitializeDb.createDb();
         
         System.out.println("populate db");
-        InitializeDb.PopulateDb();
+        //InitializeDb.PopulateDb();
 	}
 }

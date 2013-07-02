@@ -22,7 +22,7 @@ public class ItemVendaDAOderby {
 	public List<ItemVendaDTO> buscarPorCodigoVenda(int codigo) throws PersistenceException, ConnectionException {
 		PreparedStatement statement = null;
 		
-		List<ItemVendaDTO> itensVenda = new ArrayList<ItemVendaDTO>();
+		List<ItemVendaDTO> itensVenda = new ArrayList<ItemVendaDTO>(0);
 		try {
 			String query = "select * from ItensVenda where CodVenda = ?";
 			statement = connection.getConnection().prepareStatement(query);
@@ -48,7 +48,7 @@ public class ItemVendaDAOderby {
 	public List<ItemVendaDTO> buscarPorCodigoLivro(int codigo) throws PersistenceException, ConnectionException {
 		PreparedStatement statement = null;
 		
-		List<ItemVendaDTO> itensVenda = new ArrayList<>();
+		List<ItemVendaDTO> itensVenda = new ArrayList<>(0);
 		try {
 			String query = "select * from ItensVenda where CodLivro = ?";
 			statement = connection.getConnection().prepareStatement(query);

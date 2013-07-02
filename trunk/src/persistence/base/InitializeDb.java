@@ -15,13 +15,13 @@ public class InitializeDb {
         Connection connection = DriverManager.getConnection("jdbc:derby://localhost:1527/cadastro;create=true");
         Statement statement = connection.createStatement();
         
-        createAutores(statement);
-        createEditoras(statement);
-        createLivros(statement);
-        createLivrosAutores(statement);
+        //createAutores(statement);
+        //createEditoras(statement);
+        //createLivros(statement);
+        //createLivrosAutores(statement);
         //dropTables(statement);
-        createVendas(statement);
-        createItensVenda(statement);
+        //createVendas(statement);
+        //createItensVenda(statement);
         
         statement.close();
         connection.close();

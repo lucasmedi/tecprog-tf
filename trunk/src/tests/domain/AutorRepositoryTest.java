@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import business.bo.Autor;
+import business.bo.Editora;
 import business.domain.AutorRepository;
 import exceptions.BusinessException;
 import exceptions.ConnectionException;
@@ -24,6 +25,17 @@ public class AutorRepositoryTest {
 	public void buscarPorNomeTest() throws BusinessException, ConnectionException {
 		AutorRepository repo = new AutorRepository();
 		List<Autor> autores = repo.buscarPorNome("Frank");
+		
+		Assert.assertTrue(!autores.isEmpty());
+	}
+	
+	@Test
+	public void buscarPorEditoraTest() throws BusinessException, ConnectionException {
+		AutorRepository repo = new AutorRepository();
+		Editora editora = new Editora();
+		editora.setCodigo(1);
+		
+		List<Autor> autores = repo.buscarPorEditora(editora);
 		
 		Assert.assertTrue(!autores.isEmpty());
 	}

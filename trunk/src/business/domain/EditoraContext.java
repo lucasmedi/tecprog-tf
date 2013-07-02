@@ -1,6 +1,9 @@
 package business.domain;
 
+import java.util.List;
+
 import mapping.EditoraDAOMapping;
+import business.bo.AutorPagamento;
 import business.bo.Editora;
 import business.daobase.EditoraDAO;
 import exceptions.BusinessException;
@@ -59,6 +62,21 @@ public class EditoraContext {
 			dao.alterar(editora);
 		} catch (MappingException e) {
 			throw new BusinessException("Erro ao alterar editora.", e);
+		}
+	}
+
+	public List<AutorPagamento> calcularPagamento(Editora editora, TipoPolitica tipo, double valorFixo, int bonusVenda, int bonusExclusividade) throws BusinessException {
+		try {
+			ICalcularPagamento calcular = CalcularPagamentoFactory.getInstance(editora, tipo);
+			if (tipo == TipoPolitica.TipoUm) {
+				calcular.setValorLivro(valorFixo);
+				calcular.setBonusVenda(bonusVenda);
+				calcular.setBonusExclusividade(bonusExclusividade);
+			}
+			
+			return calcular.calcularValor();
+		} catch (ConnectionException e) {
+			throw new BusinessException("Erro de conexão com a base de dados.", e);
 		}
 	}
 }

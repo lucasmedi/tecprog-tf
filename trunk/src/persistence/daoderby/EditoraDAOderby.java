@@ -21,7 +21,7 @@ public class EditoraDAOderby {
 	}
 	
 	public List<EditoraDTO> buscarTodos() throws PersistenceException, ConnectionException {
-		List<EditoraDTO> editoras = new ArrayList<EditoraDTO>();
+		List<EditoraDTO> editoras = new ArrayList<EditoraDTO>(0);
 		Statement statement = null;
 		
 		try {
@@ -46,7 +46,7 @@ public class EditoraDAOderby {
 	}
 	
 	public List<EditoraDTO> buscarPorNome(String nome) throws PersistenceException, ConnectionException {
-		List<EditoraDTO> editoras = new ArrayList<EditoraDTO>();
+		List<EditoraDTO> editoras = new ArrayList<EditoraDTO>(0);
 		PreparedStatement statement = null;
 		
 		try {

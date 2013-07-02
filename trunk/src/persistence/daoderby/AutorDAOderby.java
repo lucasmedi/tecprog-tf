@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import persistence.dto.AutorDTO;
+import persistence.dto.EditoraDTO;
 import exceptions.ConnectionException;
 import exceptions.PersistenceException;
 import framework.IConnection;
@@ -21,7 +22,7 @@ public class AutorDAOderby {
 	}
 	
 	public List<AutorDTO> buscarTodos() throws PersistenceException, ConnectionException {
-		List<AutorDTO> autores = new ArrayList<AutorDTO>();
+		List<AutorDTO> autores = new ArrayList<AutorDTO>(0);
 		Statement statement = null;
 		
 		try {
@@ -49,12 +50,42 @@ public class AutorDAOderby {
 	public List<AutorDTO> buscarPorNome(String nome) throws PersistenceException, ConnectionException {
 		PreparedStatement statement = null;
 		
-		List<AutorDTO> autores = new ArrayList<>();
+		List<AutorDTO> autores = new ArrayList<>(0);
 		try {
 			String query = "select * from Autores where PrimeiroNome like ? or UltimoNome like ?";
 			statement = connection.getConnection().prepareStatement(query);
 			statement.setString(1, nome);
 			statement.setString(2, nome);
+			
+			ResultSet result = statement.executeQuery();
+			while (result.next()) {
+				autores.add(parseAutorDTO(result));
+			}
+		} catch (Exception e) {
+			throw new PersistenceException("Erro ao executar busca: " + e.getMessage(), e);
+		} finally {
+			try {
+				statement.close();
+			} catch (SQLException e) {
+				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
+			}
+		}
+
+		return autores;
+	}
+	
+	public List<AutorDTO> buscarPorEditora(EditoraDTO editora) throws PersistenceException, ConnectionException {
+		PreparedStatement statement = null;
+		
+		List<AutorDTO> autores = new ArrayList<>(0);
+		try {
+			String query = "select distinct aut.* "
+					+ "from Autores aut "
+					+ "inner join LivrosAutores lau on aut.Codigo = lau.CodAutor "
+					+ "inner join Livros liv on lau.CodLivro = liv.Codigo "
+					+ "where liv.CodEditora = ?";
+			statement = connection.getConnection().prepareStatement(query);
+			statement.setInt(1, editora.getCodigo());
 			
 			ResultSet result = statement.executeQuery();
 			while (result.next()) {
@@ -181,29 +212,6 @@ public class AutorDAOderby {
 		
 		if (result == 0)
 			throw new PersistenceException("Erro ao executar a atualização.");
-	}
-	
-	public void deletar(AutorDTO autor) throws PersistenceException, ConnectionException {
-		PreparedStatement statement = null;
-		
-		int result = 0;		
-		try {
-			String query = "delete Autores where Codigo = ?";
-			statement = connection.getConnection().prepareStatement(query);
-			statement.setInt(1, autor.getCodigo());
-			result = statement.executeUpdate();
-		} catch (Exception e) {
-			throw new PersistenceException("Erro ao executar a atualização: " + e.getMessage() , e);
-		} finally {
-			try {
-				statement.close();
-			} catch (SQLException e) {
-				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
-			}
-		}
-		
-		if (result == 0)
-			throw new PersistenceException("Erro ao executar a exclusão.");
 	}
 	
 	private AutorDTO parseAutorDTO(ResultSet o) throws SQLException {

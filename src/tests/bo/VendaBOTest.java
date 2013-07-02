@@ -30,6 +30,8 @@ public class VendaBOTest {
 			e.printStackTrace();
 		}
 		
+		connection.close();
+		
 		Assert.assertTrue(list.size() > 0);
 	}
 	
@@ -45,6 +47,8 @@ public class VendaBOTest {
 		} catch (MappingException e) {
 			e.printStackTrace();
 		}
+		
+		connection.close();
 		
 		Assert.assertTrue(venda != null);
 	}

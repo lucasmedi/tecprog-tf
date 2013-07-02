@@ -30,6 +30,8 @@ public class AutorDAOTest {
 			e.printStackTrace();
 		}
 		
+		connection.close();
+		
 		Assert.assertTrue(list.size() > 0);
 	}
 	
@@ -45,6 +47,8 @@ public class AutorDAOTest {
 		} catch (PersistenceException | ConnectionException e) {
 			e.printStackTrace();
 		}
+		
+		connection.close();
 		
 		Assert.assertTrue(list.size() > 0);
 	}
@@ -64,6 +68,8 @@ public class AutorDAOTest {
 			e.printStackTrace();
 		}
 		
+		connection.close();
+		
 		Assert.assertTrue(list.size() > 0);
 	}
 	
@@ -80,6 +86,8 @@ public class AutorDAOTest {
 			e.printStackTrace();
 		}
 		
+		connection.close();
+		
 		Assert.assertTrue(autor != null);
 	}
 	
@@ -95,6 +103,8 @@ public class AutorDAOTest {
 		} catch (PersistenceException | ConnectionException e) {
 			e.printStackTrace();
 		}
+		
+		connection.close();
 		
 		Assert.assertTrue(autor != null);
 	}

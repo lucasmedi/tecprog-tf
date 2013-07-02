@@ -29,6 +29,8 @@ public class VendaDAOTest {
 			e.printStackTrace();
 		}
 		
+		connection.close();
+		
 		Assert.assertTrue(list.size() > 0);
 	}
 	
@@ -44,6 +46,8 @@ public class VendaDAOTest {
 		} catch (PersistenceException | ConnectionException e) {
 			e.printStackTrace();
 		}
+		
+		connection.close();
 		
 		Assert.assertTrue(venda != null);
 	}

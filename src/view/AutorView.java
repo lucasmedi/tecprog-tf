@@ -1,34 +1,34 @@
 package view;
 
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
+import business.bo.Autor;
+import business.domain.AutorRepository;
 import exceptions.BusinessException;
 import exceptions.ConnectionException;
-import business.bo.Autor;
-import business.bo.Editora;
-import business.domain.AutorRepository;
-import business.domain.EditoraRepository;
 
 @ManagedBean(name="autorView")
 @SessionScoped
-public class AutorView {
+public class AutorView extends View {
 
 	private Autor autor;
 	private DataModel<Autor> autores;
 	private AutorRepository autorRepository;
+
+	public AutorView() throws ConnectionException {
+		super();
+	}
 	
 	@PostConstruct
 	public void init() {
 		autor = new Autor();
 	    try {
-	    	autorRepository = new AutorRepository();
-		} catch (BusinessException | ConnectionException e) {
+	    	autorRepository = new AutorRepository(connection);
+		} catch (BusinessException e) {
 			// Mostrar mensagem de erro.
 		}
 	}

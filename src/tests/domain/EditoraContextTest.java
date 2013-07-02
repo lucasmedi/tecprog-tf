@@ -16,8 +16,14 @@ import business.domain.TipoPolitica;
 public class EditoraContextTest {
 	
 	@Test
-	public void calcularPagamentoPoliticaUmTest() {
+	public void calcularPagamentoPoliticaUmTest() throws BusinessException, ConnectionException {
+		EditoraRepository editoraRepo = new EditoraRepository();
+		Editora editora = editoraRepo.buscarUmPorNome("Martins");
 		
+		EditoraContext editoraContext = new EditoraContext();
+		List<AutorPagamento> pagamentos = editoraContext.calcularPagamento(editora, TipoPolitica.TipoUm, 3.0, 5, 10);
+		
+		Assert.assertTrue(!pagamentos.isEmpty());
 	}
 	
 	@Test

@@ -31,6 +31,8 @@ public class LivroBOTest {
 			e.printStackTrace();
 		}
 		
+		connection.close();
+		
 		Assert.assertTrue(!list.isEmpty());
 	}
 	
@@ -46,6 +48,8 @@ public class LivroBOTest {
 		} catch (MappingException e) {
 			e.printStackTrace();
 		}
+		
+		connection.close();
 		
 		Assert.assertTrue(!livros.isEmpty());
 	}
@@ -63,6 +67,8 @@ public class LivroBOTest {
 			e.printStackTrace();
 		}
 		
+		connection.close();
+		
 		Assert.assertTrue(!livros.isEmpty());
 	}
 	
@@ -79,6 +85,8 @@ public class LivroBOTest {
 			e.printStackTrace();
 		}
 		
+		connection.close();
+		
 		Assert.assertTrue(!livros.isEmpty());
 	}
 	
@@ -94,6 +102,8 @@ public class LivroBOTest {
 		} catch (MappingException e) {
 			e.printStackTrace();
 		}
+		
+		connection.close();
 		
 		Assert.assertTrue(livro != null);
 	}

@@ -24,10 +24,12 @@ public class ItemVendaDAOTest {
 			
 		List<ItemVendaDTO> list = new ArrayList<>(0);
 		try {
-			list = dao.buscarPorCodigoLivro(1);
+			list = dao.buscarPorCodigoLivro(2);
 		} catch (PersistenceException | ConnectionException e) {
 			e.printStackTrace();
 		}
+		
+		connection.close();
 		
 		Assert.assertTrue(list.size() > 0);
 	}
@@ -45,6 +47,8 @@ public class ItemVendaDAOTest {
 			e.printStackTrace();
 		}
 
+		connection.close();
+		
 		Assert.assertTrue(list.size() > 0);
 	}
 }

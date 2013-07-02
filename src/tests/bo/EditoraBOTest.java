@@ -31,6 +31,8 @@ public class EditoraBOTest {
 			e.printStackTrace();
 		}
 		
+		connection.close();
+		
 		Assert.assertTrue(!list.isEmpty());
 	}
 	
@@ -46,6 +48,8 @@ public class EditoraBOTest {
 		} catch (MappingException e) {
 			e.printStackTrace();
 		}
+		
+		connection.close();
 		
 		Assert.assertTrue(!list.isEmpty());
 	}
@@ -63,6 +67,8 @@ public class EditoraBOTest {
 			e.printStackTrace();
 		}
 		
+		connection.close();
+		
 		Assert.assertTrue(editora != null);
 	}
 	
@@ -78,6 +84,8 @@ public class EditoraBOTest {
 		} catch (MappingException e) {
 			e.printStackTrace();
 		}
+		
+		connection.close();
 		
 		Assert.assertTrue(editora != null);
 	}

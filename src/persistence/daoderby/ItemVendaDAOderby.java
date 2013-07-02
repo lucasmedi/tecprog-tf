@@ -29,7 +29,7 @@ public class ItemVendaDAOderby {
 			statement.setInt(1, codigo);
 			
 			ResultSet result = statement.executeQuery();
-			if (result.next()) {
+			while (result.next()) {
 				itensVenda.add(parseItemVendaDTO(result));
 			}
 		} catch (Exception e) {
@@ -55,7 +55,7 @@ public class ItemVendaDAOderby {
 			statement.setInt(1, codigo);
 			
 			ResultSet result = statement.executeQuery();
-			if (result.next()) {
+			while (result.next()) {
 				itensVenda.add(parseItemVendaDTO(result));
 			}
 		} catch (Exception e) {

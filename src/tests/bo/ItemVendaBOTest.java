@@ -30,6 +30,8 @@ public class ItemVendaBOTest {
 			e.printStackTrace();
 		}
 		
+		connection.close();
+		
 		Assert.assertTrue(list.size() > 0);
 	}
 	
@@ -46,6 +48,8 @@ public class ItemVendaBOTest {
 			e.printStackTrace();
 		}
 
+		connection.close();
+		
 		Assert.assertTrue(list.size() > 0);
 	}
 }

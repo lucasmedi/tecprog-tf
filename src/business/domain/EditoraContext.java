@@ -5,16 +5,23 @@ import business.bo.Editora;
 import business.daobase.EditoraDAO;
 import exceptions.BusinessException;
 import exceptions.MappingException;
+import framework.IConnection;
 
 public class EditoraContext {
 
+	private IConnection connection;
+	
+	public EditoraContext(IConnection connection) {
+		this.connection = connection;
+	}
+	
 	public void cadastrarEditora(Editora editora) throws BusinessException {
 		if (editora.getNome() == null || editora.getNome().isEmpty())
 			throw new BusinessException("Nome não informado.");
 		
 		Editora res = null;
 		try {
-			res = new EditoraDAOMapping().buscarUmPorNome(editora.getNome());
+			res = new EditoraDAOMapping(connection).buscarUmPorNome(editora.getNome());
 		} catch (MappingException e) {
 			throw new BusinessException("Erro ao buscar editora.", e);
 		}
@@ -22,7 +29,7 @@ public class EditoraContext {
 		if (res != null)
 			throw new BusinessException("Editora já cadastrada.");
 		
-		EditoraDAO dao = new EditoraDAOMapping();
+		EditoraDAO dao = new EditoraDAOMapping(connection);
 		try {
 			dao.inserir(editora);
 		} catch (MappingException e) {
@@ -37,7 +44,7 @@ public class EditoraContext {
 		if (editora.getNome() == null || editora.getNome().isEmpty())
 			throw new BusinessException("Nome não informado.");
 		
-		EditoraDAO dao = new EditoraDAOMapping();
+		EditoraDAO dao = new EditoraDAOMapping(connection);
 		try {
 			dao.alterar(editora);
 		} catch (MappingException e) {

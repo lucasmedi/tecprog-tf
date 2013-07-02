@@ -1,6 +1,5 @@
 package persistence.daoderby;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,32 +7,25 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import persistence.base.ConnectionFactory;
 import persistence.dto.VendaDTO;
 import exceptions.ConnectionException;
 import exceptions.PersistenceException;
+import framework.IConnection;
 
 public class VendaDAOderby {
 
-	private Connection connection;
+	private IConnection connection;
 	
-	public VendaDAOderby() {
-		
-	}
-	
-	public VendaDAOderby(Connection connection) {
+	public VendaDAOderby(IConnection connection) {
 		this.connection = connection;
 	}
 	
 	public List<VendaDTO> buscarTodos() throws PersistenceException, ConnectionException {
 		List<VendaDTO> vendas = new ArrayList<VendaDTO>();
-		Connection connection = null;
 		Statement statement = null;
 		
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			connection.setAutoCommit(true);
-			statement = connection.createStatement();
+			statement = connection.getConnection().createStatement();
 			
 			String query = "select * from Vendas";
 			
@@ -46,7 +38,6 @@ public class VendaDAOderby {
 		} finally {
 			try {
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}
@@ -56,16 +47,12 @@ public class VendaDAOderby {
 	}
 	
 	public VendaDTO buscarPorCodigo(int codigo) throws PersistenceException, ConnectionException {
-		Connection connection = null;
 		PreparedStatement statement = null;
 		
 		VendaDTO venda = null;
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			connection.setAutoCommit(true);
-			
 			String query = "select * from Vendas where Codigo = ?";
-			statement = connection.prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query);
 			statement.setInt(1, codigo);
 			
 			ResultSet result = statement.executeQuery();
@@ -77,7 +64,6 @@ public class VendaDAOderby {
 		} finally {
 			try {
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}
@@ -94,7 +80,7 @@ public class VendaDAOderby {
 		int result = 0;
 		try {
 			String query = "insert into Vendas (NomeCliente, CpfCliente, CnpjCliente, Data) values (?, ?, ?, SYSDATE)";
-			statement = this.connection.prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query);
 			statement.setString(1, venda.getNomeCliente());
 			statement.setString(2, venda.getCpfCliente());
 			statement.setString(3, venda.getCnpjCliente());
@@ -126,7 +112,7 @@ public class VendaDAOderby {
 		int result = 0;		
 		try {
 			String query = "update Vendas set NomeCliente = ?, CpfCliente = ?, CnpjCliente = ? where Codigo = ?";
-			statement = this.connection.prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query);
 			statement.setString(1, venda.getNomeCliente());
 			statement.setString(2, venda.getCpfCliente());
 			statement.setString(3, venda.getCnpjCliente());

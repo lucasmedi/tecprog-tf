@@ -1,6 +1,5 @@
 package persistence.daoderby;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,22 +7,25 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import persistence.base.ConnectionFactory;
 import persistence.dto.AutorDTO;
 import exceptions.ConnectionException;
 import exceptions.PersistenceException;
+import framework.IConnection;
 
 public class AutorDAOderby {
 
+	private IConnection connection;
+	
+	public AutorDAOderby(IConnection connection) {
+		this.connection = connection;
+	}
+	
 	public List<AutorDTO> buscarTodos() throws PersistenceException, ConnectionException {
 		List<AutorDTO> autores = new ArrayList<AutorDTO>();
-		Connection connection = null;
 		Statement statement = null;
 		
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			connection.setAutoCommit(true);
-			statement = connection.createStatement();
+			statement = connection.getConnection().createStatement();
 			
 			String query = "select * from Autores";
 			
@@ -36,7 +38,6 @@ public class AutorDAOderby {
 		} finally {
 			try {
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}
@@ -46,16 +47,12 @@ public class AutorDAOderby {
 	}
 	
 	public List<AutorDTO> buscarPorNome(String nome) throws PersistenceException, ConnectionException {
-		Connection connection = null;
 		PreparedStatement statement = null;
 		
 		List<AutorDTO> autores = new ArrayList<>();
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			connection.setAutoCommit(true);
-			
 			String query = "select * from Autores where PrimeiroNome like ? or UltimoNome like ?";
-			statement = connection.prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query);
 			statement.setString(1, nome);
 			statement.setString(2, nome);
 			
@@ -68,7 +65,6 @@ public class AutorDAOderby {
 		} finally {
 			try {
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}
@@ -78,16 +74,12 @@ public class AutorDAOderby {
 	}
 	
 	public AutorDTO buscarPorCodigo(int codigo) throws PersistenceException, ConnectionException {
-		Connection connection = null;
 		PreparedStatement statement = null;
 		
 		AutorDTO autor = null;
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			connection.setAutoCommit(true);
-			
 			String query = "select * from Autores where Codigo = ?";
-			statement = connection.prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query);
 			statement.setInt(1, codigo);
 			
 			ResultSet result = statement.executeQuery();
@@ -99,7 +91,6 @@ public class AutorDAOderby {
 		} finally {
 			try {
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}
@@ -109,16 +100,12 @@ public class AutorDAOderby {
 	}
 	
 	public AutorDTO buscarUmPorNome(String nome) throws PersistenceException, ConnectionException {
-		Connection connection = null;
 		PreparedStatement statement = null;
 		
 		AutorDTO autor = null;
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			connection.setAutoCommit(true);
-			
 			String query = "select * from Autores where PrimeiroNome || ' ' || UltimoNome like ?";
-			statement = connection.prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query);
 			statement.setString(1, "%" + nome + "%");
 			
 			ResultSet result = statement.executeQuery();
@@ -130,7 +117,6 @@ public class AutorDAOderby {
 		} finally {
 			try {
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}
@@ -140,17 +126,14 @@ public class AutorDAOderby {
 	}
 	
 	public int inserir(AutorDTO autor) throws PersistenceException, ConnectionException {
-		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet generatedKeys = null;
 		int id = 0;
 		
 		int result = 0;
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			
 			String query = "insert into Autores (PrimeiroNome, UltimoNome) values (?, ?)";
-			statement = connection.prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query);
 			statement.setString(1, autor.getPrimeiroNome());
 			statement.setString(2, autor.getUltimoNome());
 			result = statement.executeUpdate();
@@ -158,19 +141,12 @@ public class AutorDAOderby {
 			generatedKeys = statement.getGeneratedKeys();
 	        if (generatedKeys.next())
 	            id = generatedKeys.getInt(1);
-			connection.commit();
 		} catch (Exception e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
-			}
 			throw new PersistenceException("Erro ao executar inserção: " + e.getMessage(), e);
 		} finally {
 			try {
 				generatedKeys.close();
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}
@@ -183,32 +159,21 @@ public class AutorDAOderby {
 	}
 	
 	public void alterar(AutorDTO autor) throws PersistenceException, ConnectionException {
-		Connection connection = null;
 		PreparedStatement statement = null;
 		
 		int result = 0;		
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			
 			String query = "update Autores set PrimeiroNome = ?, UltimoNome = ? where Codigo = ?";
-			statement = connection.prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query);
 			statement.setString(1, autor.getPrimeiroNome());
 			statement.setString(2, autor.getUltimoNome());
 			statement.setInt(3, autor.getCodigo());
 			result = statement.executeUpdate();
-			
-			connection.commit();
 		} catch (Exception e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
-			}
 			throw new PersistenceException("Erro ao executar a atualização: " + e.getMessage() , e);
 		} finally {
 			try {
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}
@@ -219,30 +184,19 @@ public class AutorDAOderby {
 	}
 	
 	public void deletar(AutorDTO autor) throws PersistenceException, ConnectionException {
-		Connection connection = null;
 		PreparedStatement statement = null;
 		
 		int result = 0;		
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			
 			String query = "delete Autores where Codigo = ?";
-			statement = connection.prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query);
 			statement.setInt(1, autor.getCodigo());
 			result = statement.executeUpdate();
-			
-			connection.commit();
 		} catch (Exception e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
-			}
 			throw new PersistenceException("Erro ao executar a atualização: " + e.getMessage() , e);
 		} finally {
 			try {
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}

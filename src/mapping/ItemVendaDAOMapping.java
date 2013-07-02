@@ -8,15 +8,22 @@ import persistence.dto.ItemVendaDTO;
 import business.bo.ItemVenda;
 import business.daobase.ItemVendaDAO;
 import exceptions.MappingException;
+import framework.IConnection;
 
 public class ItemVendaDAOMapping implements ItemVendaDAO, IMapping<ItemVenda, ItemVendaDTO> {
 
+	private IConnection connection;
+	
+	public ItemVendaDAOMapping(IConnection connection) {
+		this.connection = connection;
+	}
+	
 	@Override
 	public List<ItemVenda> buscarPorCodigoVenda(int codigo) throws MappingException {
 		List<ItemVenda> res = new ArrayList<ItemVenda>();
 		
 		try {
-			ItemVendaDAOderby dao = new ItemVendaDAOderby();
+			ItemVendaDAOderby dao = new ItemVendaDAOderby(connection);
 			for (ItemVendaDTO dto : dao.buscarPorCodigoVenda(codigo)) {
 				res.add(parseBO(dto));
 			}
@@ -32,7 +39,7 @@ public class ItemVendaDAOMapping implements ItemVendaDAO, IMapping<ItemVenda, It
 		List<ItemVenda> res = new ArrayList<ItemVenda>();
 		
 		try {
-			ItemVendaDAOderby dao = new ItemVendaDAOderby();
+			ItemVendaDAOderby dao = new ItemVendaDAOderby(connection);
 			for (ItemVendaDTO dto : dao.buscarPorCodigoLivro(codigo)) {
 				res.add(parseBO(dto));
 			}
@@ -45,8 +52,8 @@ public class ItemVendaDAOMapping implements ItemVendaDAO, IMapping<ItemVenda, It
 	
 	@Override
 	public ItemVenda parseBO(ItemVendaDTO dto) throws MappingException {
-		VendaDAOMapping vendaDAO = new VendaDAOMapping();
-		LivroDAOMapping livroDAO = new LivroDAOMapping();
+		VendaDAOMapping vendaDAO = new VendaDAOMapping(connection);
+		LivroDAOMapping livroDAO = new LivroDAOMapping(connection);
 		
 		ItemVenda bo = new ItemVenda();
 		bo.setVenda(vendaDAO.buscarPorCodigo(dto.getCodigoVenda()));

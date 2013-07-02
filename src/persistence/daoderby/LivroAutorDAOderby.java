@@ -1,40 +1,31 @@
 package persistence.daoderby;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import persistence.base.ConnectionFactory;
 import persistence.dto.LivroAutorDTO;
 import exceptions.ConnectionException;
 import exceptions.PersistenceException;
+import framework.IConnection;
 
 public class LivroAutorDAOderby {
 	
-	private Connection connection;
+	private IConnection connection;
 	
-	public LivroAutorDAOderby() {
-		
-	}
-	
-	public LivroAutorDAOderby(Connection connection) {
+	public LivroAutorDAOderby(IConnection connection) {
 		this.connection = connection;
 	}
 	
 	public List<LivroAutorDTO> buscarPorCodigoAutor(int codigo) throws PersistenceException, ConnectionException {
-		Connection connection = null;
 		PreparedStatement statement = null;
 		
 		List<LivroAutorDTO> livroAutor = new ArrayList<LivroAutorDTO>();
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			connection.setAutoCommit(true);
-			
 			String query = "select * from LivrosAutores where CodAutor = ?";
-			statement = connection.prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query);
 			statement.setInt(1, codigo);
 			
 			ResultSet result = statement.executeQuery();
@@ -46,7 +37,6 @@ public class LivroAutorDAOderby {
 		} finally {
 			try {
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}
@@ -56,16 +46,12 @@ public class LivroAutorDAOderby {
 	}
 	
 	public List<LivroAutorDTO> buscarPorCodigoLivro(int codigo) throws PersistenceException, ConnectionException {
-		Connection connection = null;
 		PreparedStatement statement = null;
 		
 		List<LivroAutorDTO> livroAutor = new ArrayList<>();
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			connection.setAutoCommit(true);
-			
 			String query = "select * from LivrosAutores where CodLivro = ?";
-			statement = connection.prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query);
 			statement.setInt(1, codigo);
 			
 			ResultSet result = statement.executeQuery();
@@ -77,7 +63,6 @@ public class LivroAutorDAOderby {
 		} finally {
 			try {
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}
@@ -92,7 +77,7 @@ public class LivroAutorDAOderby {
 		int result = 0;
 		try {
 			String query = "insert into LivrosAutores (CodAutor, CodLivro) values (?, ?)";
-			statement = this.connection.prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query);
 			statement.setInt(1, livroAutor.getCodigoAutor());
 			statement.setInt(1, livroAutor.getCodigoLivro());
 			result = statement.executeUpdate();
@@ -116,7 +101,7 @@ public class LivroAutorDAOderby {
 		int result = 0;
 		try {
 			String query = "delete LivrosAutores where CodAutor = ? and CodLivro = ?";
-			statement = this.connection.prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query);
 			statement.setInt(1, livroAutor.getCodigoAutor());
 			statement.setInt(2, livroAutor.getCodigoLivro());
 			result = statement.executeUpdate();

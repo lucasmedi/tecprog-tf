@@ -10,13 +10,18 @@ import persistence.daoderby.AutorDAOderby;
 import persistence.dto.AutorDTO;
 import exceptions.ConnectionException;
 import exceptions.PersistenceException;
+import framework.ConnectionFactory;
+import framework.DbType;
+import framework.IConnection;
 
 public class AutorDAOTest {
 	
 	@Test
-	public void buscarTodosTest() {
-		AutorDAOderby dao = new AutorDAOderby();
-		
+	public void buscarTodosTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+			
+		AutorDAOderby dao = new AutorDAOderby(connection);
+			
 		List<AutorDTO> list = new ArrayList<>();
 		try {
 			list = dao.buscarTodos();
@@ -28,8 +33,10 @@ public class AutorDAOTest {
 	}
 	
 	@Test
-	public void buscarPorNomeTest() {
-		AutorDAOderby dao = new AutorDAOderby();
+	public void buscarPorNomeTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+	
+		AutorDAOderby dao = new AutorDAOderby(connection);
 		
 		List<AutorDTO> list = new ArrayList<>();
 		try {
@@ -42,8 +49,10 @@ public class AutorDAOTest {
 	}
 	
 	@Test
-	public void buscarPorCodigoTest() {
-		AutorDAOderby dao = new AutorDAOderby();
+	public void buscarPorCodigoTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		AutorDAOderby dao = new AutorDAOderby(connection);
 		
 		AutorDTO autor = null;
 		try {
@@ -56,8 +65,10 @@ public class AutorDAOTest {
 	}
 	
 	@Test
-	public void buscarUmPorNomeTest() {
-		AutorDAOderby dao = new AutorDAOderby();
+	public void buscarUmPorNomeTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		AutorDAOderby dao = new AutorDAOderby(connection);
 		
 		AutorDTO autor = null;
 		try {

@@ -10,15 +10,22 @@ import business.daobase.EditoraDAO;
 import exceptions.ConnectionException;
 import exceptions.MappingException;
 import exceptions.PersistenceException;
+import framework.IConnection;
 
 public class EditoraDAOMapping implements EditoraDAO, IMapping<Editora, EditoraDTO> {
+	
+	private IConnection connection;
+	
+	public EditoraDAOMapping(IConnection connection) {
+		this.connection = connection;
+	}
 	
 	@Override
 	public List<Editora> buscarTodos() throws MappingException {
 		List<Editora> res = new ArrayList<Editora>();
 		
 		try {
-			EditoraDAOderby dao = new EditoraDAOderby();
+			EditoraDAOderby dao = new EditoraDAOderby(connection);
 			for (EditoraDTO dto : dao.buscarTodos()) {
 				res.add(parseBO(dto));
 			}
@@ -34,7 +41,7 @@ public class EditoraDAOMapping implements EditoraDAO, IMapping<Editora, EditoraD
 		List<Editora> res = new ArrayList<Editora>();
 		
 		try {
-			EditoraDAOderby dao = new EditoraDAOderby();
+			EditoraDAOderby dao = new EditoraDAOderby(connection);
 			for (EditoraDTO dto : dao.buscarPorNome(nome)) {
 				res.add(parseBO(dto));
 			}
@@ -50,7 +57,7 @@ public class EditoraDAOMapping implements EditoraDAO, IMapping<Editora, EditoraD
 		Editora editora = null;
 		
 		try {
-			EditoraDAOderby dao = new EditoraDAOderby();
+			EditoraDAOderby dao = new EditoraDAOderby(connection);
 			editora = parseBO(dao.buscarPorCodigo(codigo));
 		} catch (Exception ex) {
 			throw new MappingException(ex);
@@ -64,7 +71,7 @@ public class EditoraDAOMapping implements EditoraDAO, IMapping<Editora, EditoraD
 		Editora editora = null;
 		
 		try {
-			EditoraDAOderby dao = new EditoraDAOderby();
+			EditoraDAOderby dao = new EditoraDAOderby(connection);
 			editora = parseBO(dao.buscarUmPorNome(nome));
 		} catch (Exception ex) {
 			throw new MappingException(ex);
@@ -75,7 +82,7 @@ public class EditoraDAOMapping implements EditoraDAO, IMapping<Editora, EditoraD
 
 	@Override
 	public int inserir(Editora editora) throws MappingException {
-		EditoraDAOderby dao = new EditoraDAOderby();
+		EditoraDAOderby dao = new EditoraDAOderby(connection);
 		int id = 0;
 		try {
 			id = dao.inserir(parseDTO(editora));
@@ -88,7 +95,7 @@ public class EditoraDAOMapping implements EditoraDAO, IMapping<Editora, EditoraD
 
 	@Override
 	public void alterar(Editora editora) throws MappingException {
-		EditoraDAOderby dao = new EditoraDAOderby();
+		EditoraDAOderby dao = new EditoraDAOderby(connection);
 		
 		try {
 			dao.alterar(parseDTO(editora));

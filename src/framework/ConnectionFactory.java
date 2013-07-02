@@ -1,12 +1,10 @@
-package persistence.base;
-
-import java.sql.Connection;
+package framework;
 
 import persistence.daoderby.DerbyConnection;
 import exceptions.ConnectionException;
 
 public class ConnectionFactory {
-    public static Connection getInstance(DbType type) throws ConnectionException {
+    public static IConnection getInstance(DbType type) throws ConnectionException {
         IConnection conn = null;
     	
     	switch (type) {
@@ -17,10 +15,6 @@ public class ConnectionFactory {
     	if (conn == null)
     		throw new ConnectionException();
     	
-		return conn.createConnection();
-    }
-    
-    public static Connection getInstanceDerby() throws ConnectionException {
-    	return getInstance(DbType.Derby);
+		return conn;
     }
 }

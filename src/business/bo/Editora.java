@@ -7,9 +7,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import mapping.LivroDAOMapping;
 import exceptions.BusinessException;
-import exceptions.MappingException;
 
 @ManagedBean
 @SessionScoped
@@ -39,13 +37,7 @@ public class Editora {
 		this.nome = nome;
 	}
 	
-	public List<Livro> getLivros() throws BusinessException {
-		if (livros == null)
-			try {
-				livros = (new LivroDAOMapping()).buscarPorEditora(this.codigo);
-			} catch (MappingException e) {
-				throw new BusinessException(e);
-			}
+	public List<Livro> getLivros() {
 		return livros;
 	}
 
@@ -56,8 +48,4 @@ public class Editora {
 	public void setListaLivros(DataModel<Livro> listaLivros) {
 		this.listaLivros = listaLivros;
 	}
-	
-	
-	
-	
 }

@@ -1,15 +1,19 @@
 package view;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import business.bo.Autor;
-import business.domain.AutorRepository;
 import exceptions.BusinessException;
 import exceptions.ConnectionException;
+import business.bo.Autor;
+import business.bo.Editora;
+import business.domain.AutorRepository;
+import business.domain.EditoraRepository;
 
 @ManagedBean(name="autorView")
 @SessionScoped

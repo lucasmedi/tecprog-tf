@@ -20,15 +20,10 @@
 		Nome: <h:inputText value="#{editoraView.editora.nome}" id="nome"/><br/>
 		
 		<h:commandButton action="#{editoraView.cadastrarEditora}" id="cadastrar" class="cadastrar" value="Incluir"/>
-        <h:commandButton
-			id="submit"
-			value="Enviar"
-			actionListener="#{editoraView.pesquisarEditora}">
-		</h:commandButton>
-			
-        <br/>
-        
-        <h:dataTable value="#{editoraView.listarEditora}" var="item">
+		<h:commandButton actionListener="#{editoraView.pesquisarEditora}" id="pesquisar" class="pesquisar" value="Pesquisar"/>
+		
+
+        <h:dataTable value="#{editoraView.editoras}" var="item">
          <h:column>    				
             <f:facet name="header">Código</f:facet>    				
             #{item.codigo}
@@ -36,6 +31,12 @@
          <h:column>
             <f:facet name="header">Nome</f:facet>
             #{item.nome}
+         </h:column>
+         <h:column>
+         	<f:facet name="header">Alterar</f:facet>
+         	<h:form>
+         		<h:button action="#{editoraView.preparaAlterarEditora}" id="alterar" class="alterar" value="Alterar"/>
+         	</h:form>
          </h:column>
       </h:dataTable>
 	

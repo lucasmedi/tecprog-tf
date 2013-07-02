@@ -1,8 +1,5 @@
 package view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -17,19 +14,23 @@ import exceptions.ConnectionException;
 
 @ManagedBean(name="editoraView")
 @SessionScoped
-public class EditoraView {
+public class EditoraView extends View {
 
 	private Editora editora;
 	private EditoraRepository editoraRepository;
 	private EditoraContext editoraContext;
 	private DataModel<Editora> editoras;
 
+	public EditoraView() throws ConnectionException {
+		super();
+	}
+	
 	@PostConstruct
 	public void init() {
 		editora = new Editora();
 		try {
-			editoraRepository = new EditoraRepository();
-		} catch (BusinessException | ConnectionException e) {
+			editoraRepository = new EditoraRepository(this.connection);
+		} catch (BusinessException e) {
 			// Mostrar mensagem de erro.
 		}
 	}

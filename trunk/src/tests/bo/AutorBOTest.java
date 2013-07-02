@@ -32,6 +32,7 @@ public class AutorBOTest {
 			e.printStackTrace();
 		}
 		
+		connection.close();
 		
 		Assert.assertTrue(!list.isEmpty());
 	}
@@ -48,6 +49,8 @@ public class AutorBOTest {
 		} catch (MappingException e) {
 			e.printStackTrace();
 		}
+		
+		connection.close();
 		
 		Assert.assertTrue(!list.isEmpty());
 	}
@@ -67,6 +70,8 @@ public class AutorBOTest {
 			e.printStackTrace();
 		}
 		
+		connection.close();
+		
 		Assert.assertTrue(!list.isEmpty());
 	}
 	
@@ -83,6 +88,8 @@ public class AutorBOTest {
 			e.printStackTrace();
 		}
 		
+		connection.close();
+		
 		Assert.assertTrue(autor != null);
 	}
 	
@@ -98,6 +105,8 @@ public class AutorBOTest {
 		} catch (MappingException e) {
 			e.printStackTrace();
 		}
+		
+		connection.close();
 		
 		Assert.assertTrue(autor != null);
 	}

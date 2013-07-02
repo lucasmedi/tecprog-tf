@@ -29,6 +29,8 @@ public class EditoraDAOTest {
 			e.printStackTrace();
 		}
 		
+		connection.close();
+		
 		Assert.assertTrue(list.size() > 0);
 	}
 	
@@ -44,6 +46,8 @@ public class EditoraDAOTest {
 		} catch (PersistenceException | ConnectionException e) {
 			e.printStackTrace();
 		}
+		
+		connection.close();
 		
 		Assert.assertTrue(list.size() > 0);
 	}
@@ -61,6 +65,8 @@ public class EditoraDAOTest {
 			e.printStackTrace();
 		}
 		
+		connection.close();
+		
 		Assert.assertTrue(editora != null);
 	}
 	
@@ -76,6 +82,8 @@ public class EditoraDAOTest {
 		} catch (PersistenceException | ConnectionException e) {
 			e.printStackTrace();
 		}
+		
+		connection.close();
 		
 		Assert.assertTrue(editora != null);
 	}

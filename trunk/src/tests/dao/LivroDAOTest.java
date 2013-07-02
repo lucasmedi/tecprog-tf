@@ -29,6 +29,8 @@ public class LivroDAOTest {
 			e.printStackTrace();
 		}
 		
+		connection.close();
+		
 		Assert.assertTrue(list.size() > 0);
 	}
 	
@@ -44,6 +46,8 @@ public class LivroDAOTest {
 		} catch (PersistenceException | ConnectionException e) {
 			e.printStackTrace();
 		}
+		
+		connection.close();
 		
 		Assert.assertTrue(livros != null);
 	}
@@ -61,6 +65,8 @@ public class LivroDAOTest {
 			e.printStackTrace();
 		}
 		
+		connection.close();
+		
 		Assert.assertTrue(livros != null);
 	}
 	
@@ -77,6 +83,8 @@ public class LivroDAOTest {
 			e.printStackTrace();
 		}
 		
+		connection.close();
+		
 		Assert.assertTrue(livros != null);
 	}
 	
@@ -92,6 +100,8 @@ public class LivroDAOTest {
 		} catch (PersistenceException | ConnectionException e) {
 			e.printStackTrace();
 		}
+		
+		connection.close();
 		
 		Assert.assertTrue(livro != null);
 	}

@@ -58,12 +58,12 @@ public class CalcularPorVendas implements ICalcularPagamento {
 			}
 			
 			if (exclusividade)
-				valorAutor *= (bonusExclusividade / 100);
+				valorAutor += valorAutor * (bonusExclusividade / 100.0);
 			
 			result.add(new AutorPagamento(autor, valorAutor));
 		}
 		
-		double bonus = ((quantidadeTotal * valorFixo) * (bonusVendas / 100)) / result.size();
+		double bonus = ((quantidadeTotal * valorFixo) * (bonusVendas / 100.0)) / result.size();
 		for (AutorPagamento autor : result) {
 			autor.setValor(autor.getValor() + bonus);
 		}

@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import mapping.ItemVendaDAOMapping;
 import exceptions.BusinessException;
-import exceptions.MappingException;
 
 public class Venda {
 	private int codigo;
@@ -62,12 +60,6 @@ public class Venda {
 	}
 
 	public List<ItemVenda> getItensVenda() throws BusinessException {
-		if (itensVenda == null)
-			try {
-				itensVenda = (new ItemVendaDAOMapping()).buscarPorCodigoVenda(this.codigo);
-			} catch (MappingException e) {
-				throw new BusinessException(e);
-			}
 		return itensVenda;
 	}
 	

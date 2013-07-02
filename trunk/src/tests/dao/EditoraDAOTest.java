@@ -10,12 +10,17 @@ import persistence.daoderby.EditoraDAOderby;
 import persistence.dto.EditoraDTO;
 import exceptions.ConnectionException;
 import exceptions.PersistenceException;
+import framework.ConnectionFactory;
+import framework.DbType;
+import framework.IConnection;
 
 public class EditoraDAOTest {
 	
 	@Test
-	public void buscarTodosTest() {
-		EditoraDAOderby dao = new EditoraDAOderby();
+	public void buscarTodosTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		EditoraDAOderby dao = new EditoraDAOderby(connection);
 		
 		List<EditoraDTO> list = new ArrayList<>();
 		try {
@@ -28,8 +33,10 @@ public class EditoraDAOTest {
 	}
 	
 	@Test
-	public void buscarPorNomeTest() {
-		EditoraDAOderby dao = new EditoraDAOderby();
+	public void buscarPorNomeTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		EditoraDAOderby dao = new EditoraDAOderby(connection);
 		
 		List<EditoraDTO> list = new ArrayList<>();
 		try {
@@ -42,8 +49,10 @@ public class EditoraDAOTest {
 	}
 	
 	@Test
-	public void buscarPorCodigoTest() {
-		EditoraDAOderby dao = new EditoraDAOderby();
+	public void buscarPorCodigoTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		EditoraDAOderby dao = new EditoraDAOderby(connection);
 		
 		EditoraDTO editora = null;
 		try {
@@ -56,8 +65,10 @@ public class EditoraDAOTest {
 	}
 	
 	@Test
-	public void buscarUmPorNomeTest() {
-		EditoraDAOderby dao = new EditoraDAOderby();
+	public void buscarUmPorNomeTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		EditoraDAOderby dao = new EditoraDAOderby(connection);
 		
 		EditoraDTO editora = null;
 		try {

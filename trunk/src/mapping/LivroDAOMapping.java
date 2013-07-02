@@ -10,15 +10,22 @@ import business.daobase.LivroDAO;
 import exceptions.ConnectionException;
 import exceptions.MappingException;
 import exceptions.PersistenceException;
+import framework.IConnection;
 
 public class LivroDAOMapping implements LivroDAO, IMapping<Livro, LivroDTO> {
 
+	private IConnection connection;
+	
+	public LivroDAOMapping(IConnection connection) {
+		this.connection = connection;
+	}
+	
 	@Override
 	public List<Livro> buscarTodos() throws MappingException {
 		List<Livro> res = new ArrayList<Livro>();
 		
 		try {
-			LivroDAOderby dao = new LivroDAOderby();
+			LivroDAOderby dao = new LivroDAOderby(connection);
 			for (LivroDTO dto : dao.buscarTodos()) {
 				res.add(parseBO(dto));
 			}
@@ -34,7 +41,7 @@ public class LivroDAOMapping implements LivroDAO, IMapping<Livro, LivroDTO> {
 		List<Livro> res = new ArrayList<Livro>();
 		
 		try {
-			LivroDAOderby dao = new LivroDAOderby();
+			LivroDAOderby dao = new LivroDAOderby(connection);
 			for (LivroDTO dto : dao.buscarPorEditora(codigo)) {
 				res.add(parseBO(dto));
 			}
@@ -50,7 +57,7 @@ public class LivroDAOMapping implements LivroDAO, IMapping<Livro, LivroDTO> {
 		List<Livro> res = new ArrayList<Livro>();
 		
 		try {
-			LivroDAOderby dao = new LivroDAOderby();
+			LivroDAOderby dao = new LivroDAOderby(connection);
 			for (LivroDTO dto : dao.buscarPorAutor(codigo)) {
 				res.add(parseBO(dto));
 			}
@@ -65,7 +72,7 @@ public class LivroDAOMapping implements LivroDAO, IMapping<Livro, LivroDTO> {
 		List<Livro> res = new ArrayList<>();
 		
 		try {
-			LivroDAOderby dao = new LivroDAOderby();
+			LivroDAOderby dao = new LivroDAOderby(connection);
 			for (LivroDTO dto : dao.buscarPorTitulo(titulo)) {
 				res.add(parseBO(dto));
 			}
@@ -81,7 +88,7 @@ public class LivroDAOMapping implements LivroDAO, IMapping<Livro, LivroDTO> {
 		Livro livro = null;
 		
 		try {
-			LivroDAOderby dao = new LivroDAOderby();
+			LivroDAOderby dao = new LivroDAOderby(connection);
 			livro = parseBO(dao.buscarPorCodigo(codigo));
 		} catch (Exception ex) {
 			throw new MappingException(ex);
@@ -93,7 +100,7 @@ public class LivroDAOMapping implements LivroDAO, IMapping<Livro, LivroDTO> {
 	@Override
 	public int inserir(Livro livro) throws MappingException {
 		LivroDTO livroDTO = parseDTO(livro);
-		LivroDAOderby livroDAO = new LivroDAOderby();
+		LivroDAOderby livroDAO = new LivroDAOderby(connection);
 		try {
 			int codigo = livroDAO.inserir(livroDTO);
 			livroDTO.setCodigo(codigo);
@@ -107,7 +114,7 @@ public class LivroDAOMapping implements LivroDAO, IMapping<Livro, LivroDTO> {
 	@Override
 	public void alterar(Livro livro) throws MappingException {
 		LivroDTO livroDTO = parseDTO(livro);
-		LivroDAOderby livroDAO = new LivroDAOderby();
+		LivroDAOderby livroDAO = new LivroDAOderby(connection);
 		try {
 			livroDAO.alterar(livroDTO);
 		} catch (PersistenceException | ConnectionException e) {
@@ -117,7 +124,7 @@ public class LivroDAOMapping implements LivroDAO, IMapping<Livro, LivroDTO> {
 	
 	@Override
 	public Livro parseBO(LivroDTO dto) throws MappingException {
-		EditoraDAOMapping dao = new EditoraDAOMapping();
+		EditoraDAOMapping dao = new EditoraDAOMapping(connection);
 		
 		Livro bo = new Livro();
 		bo.setCodigo(dto.getCodigo());

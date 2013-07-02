@@ -10,13 +10,19 @@ import org.junit.Test;
 
 import business.bo.Editora;
 import business.daobase.EditoraDAO;
+import exceptions.ConnectionException;
 import exceptions.MappingException;
+import framework.ConnectionFactory;
+import framework.DbType;
+import framework.IConnection;
 
 public class EditoraBOTest {
 	
 	@Test
-	public void buscarTodosTest() {
-		EditoraDAO dao = new EditoraDAOMapping();
+	public void buscarTodosTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		EditoraDAO dao = new EditoraDAOMapping(connection);
 		
 		List<Editora> list = new ArrayList<>();
 		try {
@@ -29,8 +35,10 @@ public class EditoraBOTest {
 	}
 	
 	@Test
-	public void buscarPorNomeTest() {
-		EditoraDAO dao = new EditoraDAOMapping();
+	public void buscarPorNomeTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		EditoraDAO dao = new EditoraDAOMapping(connection);
 		
 		List<Editora> list = new ArrayList<>();
 		try {
@@ -43,8 +51,10 @@ public class EditoraBOTest {
 	}
 	
 	@Test
-	public void buscarPorCodigoTest() {
-		EditoraDAO dao = new EditoraDAOMapping();
+	public void buscarPorCodigoTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		EditoraDAO dao = new EditoraDAOMapping(connection);
 		
 		Editora editora = null;
 		try {
@@ -57,8 +67,10 @@ public class EditoraBOTest {
 	}
 	
 	@Test
-	public void buscarUmPorNomeTest() {
-		EditoraDAO dao = new EditoraDAOMapping();
+	public void buscarUmPorNomeTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		EditoraDAO dao = new EditoraDAOMapping(connection);
 		
 		Editora editora = null;
 		try {

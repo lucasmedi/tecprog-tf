@@ -26,7 +26,7 @@ public class EditoraView {
 	@PostConstruct
 	public void init() {
 	    editora = new Editora();
-	    editoraRepository = new EditoraRepository();
+	    //editoraRepository = new EditoraRepository();
 	}
 	
 	public String cadastrarEditora(){

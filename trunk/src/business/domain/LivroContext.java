@@ -5,8 +5,16 @@ import business.bo.Editora;
 import business.bo.Livro;
 import exceptions.BusinessException;
 import exceptions.MappingException;
+import framework.IConnection;
 
 public class LivroContext {
+	
+	private IConnection connection;
+	
+	public LivroContext(IConnection connection) {
+		this.connection = connection;
+	}
+	
 	public void cadastrarLivro(Livro livro) throws BusinessException {
 		if (livro == null)
 			throw new BusinessException("Livro não informado.");
@@ -21,7 +29,7 @@ public class LivroContext {
 		if (editora == null)
 			throw new BusinessException("Editora não informada.");
 		
-		LivroDAOMapping dao = new LivroDAOMapping();
+		LivroDAOMapping dao = new LivroDAOMapping(connection);
 		try {
 			dao.inserir(livro);
 		} catch (MappingException e) {
@@ -43,7 +51,7 @@ public class LivroContext {
 		if (editora == null)
 			throw new BusinessException("Editora não informada.");
 		
-		LivroDAOMapping dao = new LivroDAOMapping();
+		LivroDAOMapping dao = new LivroDAOMapping(connection);
 		try {
 			dao.alterar(livro);
 		} catch (MappingException e) {

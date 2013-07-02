@@ -10,13 +10,19 @@ import org.junit.Test;
 
 import business.bo.Livro;
 import business.daobase.LivroDAO;
+import exceptions.ConnectionException;
 import exceptions.MappingException;
+import framework.ConnectionFactory;
+import framework.DbType;
+import framework.IConnection;
 
 public class LivroBOTest {
 	
 	@Test
-	public void buscarTodosTest() {
-		LivroDAO dao = new LivroDAOMapping();
+	public void buscarTodosTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		LivroDAO dao = new LivroDAOMapping(connection);
 		
 		List<Livro> list = new ArrayList<>();
 		try {
@@ -29,8 +35,10 @@ public class LivroBOTest {
 	}
 	
 	@Test
-	public void buscarPorEditoraTest() {
-		LivroDAO dao = new LivroDAOMapping();
+	public void buscarPorEditoraTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		LivroDAO dao = new LivroDAOMapping(connection);
 		
 		List<Livro> livros = null;
 		try {
@@ -43,8 +51,10 @@ public class LivroBOTest {
 	}
 	
 	@Test
-	public void buscarPorAutorTest() {
-		LivroDAO dao = new LivroDAOMapping();
+	public void buscarPorAutorTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		LivroDAO dao = new LivroDAOMapping(connection);
 		
 		List<Livro> livros = null;
 		try {
@@ -57,8 +67,10 @@ public class LivroBOTest {
 	}
 	
 	@Test
-	public void buscarPorTituloTest() {
-		LivroDAO dao = new LivroDAOMapping();
+	public void buscarPorTituloTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		LivroDAO dao = new LivroDAOMapping(connection);
 		
 		List<Livro> livros = null;
 		try {
@@ -71,8 +83,10 @@ public class LivroBOTest {
 	}
 	
 	@Test
-	public void buscarPorCodigoTest() {
-		LivroDAO dao = new LivroDAOMapping();
+	public void buscarPorCodigoTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		LivroDAO dao = new LivroDAOMapping(connection);
 		
 		Livro livro = null;
 		try {

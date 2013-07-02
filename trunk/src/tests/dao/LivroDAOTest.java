@@ -10,12 +10,17 @@ import persistence.daoderby.LivroDAOderby;
 import persistence.dto.LivroDTO;
 import exceptions.ConnectionException;
 import exceptions.PersistenceException;
+import framework.ConnectionFactory;
+import framework.DbType;
+import framework.IConnection;
 
 public class LivroDAOTest {
 	
 	@Test
-	public void buscarTodosTest() {
-		LivroDAOderby dao = new LivroDAOderby();
+	public void buscarTodosTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		LivroDAOderby dao = new LivroDAOderby(connection);
 		
 		List<LivroDTO> list = new ArrayList<>();
 		try {
@@ -28,8 +33,10 @@ public class LivroDAOTest {
 	}
 	
 	@Test
-	public void buscarPorEditoraTest() {
-		LivroDAOderby dao = new LivroDAOderby();
+	public void buscarPorEditoraTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		LivroDAOderby dao = new LivroDAOderby(connection);
 		
 		List<LivroDTO> livros = null;
 		try {
@@ -42,8 +49,10 @@ public class LivroDAOTest {
 	}
 	
 	@Test
-	public void buscarPorAutorTest() {
-		LivroDAOderby dao = new LivroDAOderby();
+	public void buscarPorAutorTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		LivroDAOderby dao = new LivroDAOderby(connection);
 		
 		List<LivroDTO> livros = null;
 		try {
@@ -56,8 +65,10 @@ public class LivroDAOTest {
 	}
 	
 	@Test
-	public void buscarPorTituloTest() {
-		LivroDAOderby dao = new LivroDAOderby();
+	public void buscarPorTituloTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		LivroDAOderby dao = new LivroDAOderby(connection);
 		
 		List<LivroDTO> livros = null;
 		try {
@@ -70,8 +81,10 @@ public class LivroDAOTest {
 	}
 	
 	@Test
-	public void buscarPorCodigoTest() {
-		LivroDAOderby dao = new LivroDAOderby();
+	public void buscarPorCodigoTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		LivroDAOderby dao = new LivroDAOderby(connection);
 		
 		LivroDTO livro = null;
 		try {

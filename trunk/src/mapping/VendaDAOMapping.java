@@ -8,15 +8,22 @@ import persistence.dto.VendaDTO;
 import business.bo.Venda;
 import business.daobase.VendaDAO;
 import exceptions.MappingException;
+import framework.IConnection;
 
 public class VendaDAOMapping implements VendaDAO, IMapping<Venda, VendaDTO> {
+	
+	private IConnection connection;
+	
+	public VendaDAOMapping(IConnection connection) {
+		this.connection = connection;
+	}
 	
 	@Override
 	public List<Venda> buscarTodos() throws MappingException {
 		List<Venda> res = new ArrayList<Venda>();
 		
 		try {
-			VendaDAOderby dao = new VendaDAOderby();
+			VendaDAOderby dao = new VendaDAOderby(connection);
 			for (VendaDTO dto : dao.buscarTodos()) {
 				res.add(parseBO(dto));
 			}
@@ -32,7 +39,7 @@ public class VendaDAOMapping implements VendaDAO, IMapping<Venda, VendaDTO> {
 		Venda venda = null;
 		
 		try {
-			VendaDAOderby dao = new VendaDAOderby();
+			VendaDAOderby dao = new VendaDAOderby(connection);
 			venda = parseBO(dao.buscarPorCodigo(codigo));
 		} catch (Exception ex) {
 			throw new MappingException(ex);

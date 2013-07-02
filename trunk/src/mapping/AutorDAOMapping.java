@@ -8,15 +8,22 @@ import persistence.dto.AutorDTO;
 import business.bo.Autor;
 import business.daobase.AutorDAO;
 import exceptions.MappingException;
+import framework.IConnection;
 
 public class AutorDAOMapping implements AutorDAO, IMapping<Autor, AutorDTO> {
-
+	
+	private IConnection connection;
+	
+	public AutorDAOMapping(IConnection connection) {
+		this.connection = connection;
+	}
+	
 	@Override
 	public List<Autor> buscarTodos() throws MappingException {
 		List<Autor> res = new ArrayList<Autor>();
 		
 		try {
-			AutorDAOderby dao = new AutorDAOderby();
+			AutorDAOderby dao = new AutorDAOderby(connection);
 			for (AutorDTO dto : dao.buscarTodos()) {
 				res.add(parseBO(dto));
 			}
@@ -32,7 +39,7 @@ public class AutorDAOMapping implements AutorDAO, IMapping<Autor, AutorDTO> {
 		List<Autor> res = new ArrayList<Autor>();
 		
 		try {
-			AutorDAOderby dao = new AutorDAOderby();
+			AutorDAOderby dao = new AutorDAOderby(connection);
 			for (AutorDTO dto : dao.buscarPorNome(nome)) {
 				res.add(parseBO(dto));
 			}
@@ -48,7 +55,7 @@ public class AutorDAOMapping implements AutorDAO, IMapping<Autor, AutorDTO> {
 		Autor autor = null;
 		
 		try {
-			AutorDAOderby dao = new AutorDAOderby();
+			AutorDAOderby dao = new AutorDAOderby(connection);
 			autor = parseBO(dao.buscarPorCodigo(codigo));
 		} catch (Exception ex) {
 			throw new MappingException(ex);
@@ -62,7 +69,7 @@ public class AutorDAOMapping implements AutorDAO, IMapping<Autor, AutorDTO> {
 		Autor autor = null;
 		
 		try {
-			AutorDAOderby dao = new AutorDAOderby();
+			AutorDAOderby dao = new AutorDAOderby(connection);
 			autor = parseBO(dao.buscarUmPorNome(nome));
 		} catch (Exception ex) {
 			throw new MappingException(ex);

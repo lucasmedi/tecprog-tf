@@ -10,13 +10,22 @@ import business.bo.Autor;
 import business.bo.Editora;
 import business.bo.Livro;
 import exceptions.BusinessException;
+import framework.IConnection;
 
 public class LivroRepository {
+	private IConnection connection;
+	
+	public LivroRepository(IConnection connection) throws BusinessException {
+		if (connection == null)
+			throw new BusinessException("Conexão não informada.");
+		this.connection = connection;
+	}
+	
 	public List<Livro> buscarTodos() throws BusinessException {
 		List<Livro> livros = new ArrayList<>();
 		
 		try {
-			LivroDAOMapping livroDAO = new LivroDAOMapping();
+			LivroDAOMapping livroDAO = new LivroDAOMapping(connection);
 			livros = livroDAO.buscarTodos();
 		} catch (Exception e) {
 			throw new BusinessException(e);
@@ -28,13 +37,13 @@ public class LivroRepository {
 	public List<Livro> buscarLivrosPorAutor(String nome) throws BusinessException {
 		List<Livro> livros = new ArrayList<>();
 		
-		AutorDAOMapping autorDAO = new AutorDAOMapping();
+		AutorDAOMapping autorDAO = new AutorDAOMapping(connection);
 		try {
 			Autor autor = autorDAO.buscarUmPorNome(nome);
 			if (autor == null)
 				throw new BusinessException("Autor não encontrado");
 			
-			LivroDAOMapping livroDAO = new LivroDAOMapping();
+			LivroDAOMapping livroDAO = new LivroDAOMapping(connection);
 			livros = livroDAO.buscarPorAutor(autor.getCodigo());
 		} catch (Exception e) {
 			throw new BusinessException(e);
@@ -46,13 +55,13 @@ public class LivroRepository {
 	public List<Livro> buscarLivrosPorEditora(String nome) throws BusinessException {
 		List<Livro> livros = new ArrayList<>();
 		
-		EditoraDAOMapping editoraDAO = new EditoraDAOMapping();
+		EditoraDAOMapping editoraDAO = new EditoraDAOMapping(connection);
 		try {
 			Editora editora = editoraDAO.buscarUmPorNome(nome);
 			if (editora == null)
 				throw new BusinessException("Editora não encontradas");
 			
-			LivroDAOMapping livroDAO = new LivroDAOMapping();
+			LivroDAOMapping livroDAO = new LivroDAOMapping(connection);
 			livros = livroDAO.buscarPorEditora(editora.getCodigo());
 		} catch (Exception e) {
 			throw new BusinessException(e);
@@ -65,7 +74,7 @@ public class LivroRepository {
 		List<Livro> livros = new ArrayList<>();
 		
 		try {
-			LivroDAOMapping livroDAO = new LivroDAOMapping();
+			LivroDAOMapping livroDAO = new LivroDAOMapping(connection);
 			livros = livroDAO.buscarPorTitulo(titulo);
 		} catch (Exception e) {
 			throw new BusinessException(e);

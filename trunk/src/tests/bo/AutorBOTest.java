@@ -10,13 +10,19 @@ import org.junit.Test;
 
 import business.bo.Autor;
 import business.daobase.AutorDAO;
+import exceptions.ConnectionException;
 import exceptions.MappingException;
+import framework.ConnectionFactory;
+import framework.DbType;
+import framework.IConnection;
 
 public class AutorBOTest {
 	
 	@Test
-	public void buscarTodosTest() {
-		AutorDAO dao = new AutorDAOMapping();
+	public void buscarTodosTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		AutorDAO dao = new AutorDAOMapping(connection);
 		
 		List<Autor> list = new ArrayList<>();
 		try {
@@ -30,8 +36,10 @@ public class AutorBOTest {
 	}
 	
 	@Test
-	public void buscarPorNomeTest() {
-		AutorDAO dao = new AutorDAOMapping();
+	public void buscarPorNomeTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		AutorDAO dao = new AutorDAOMapping(connection);
 		
 		List<Autor> list = new ArrayList<>();
 		try {
@@ -44,8 +52,10 @@ public class AutorBOTest {
 	}
 	
 	@Test
-	public void buscarPorCodigoTest() {
-		AutorDAO dao = new AutorDAOMapping();
+	public void buscarPorCodigoTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		AutorDAO dao = new AutorDAOMapping(connection);
 		
 		Autor autor = null;
 		try {
@@ -58,8 +68,10 @@ public class AutorBOTest {
 	}
 	
 	@Test
-	public void buscarUmPorNomeTest() {
-		AutorDAO dao = new AutorDAOMapping();
+	public void buscarUmPorNomeTest() throws ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		
+		AutorDAO dao = new AutorDAOMapping(connection);
 		
 		Autor autor = null;
 		try {

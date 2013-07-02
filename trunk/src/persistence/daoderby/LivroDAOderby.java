@@ -1,6 +1,5 @@
 package persistence.daoderby;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,32 +7,25 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import persistence.base.ConnectionFactory;
 import persistence.dto.LivroDTO;
 import exceptions.ConnectionException;
 import exceptions.PersistenceException;
+import framework.IConnection;
 
 public class LivroDAOderby {
 
-	private Connection connection;
+	private IConnection connection;
 	
-	public LivroDAOderby() {
-		
-	}
-	
-	public LivroDAOderby(Connection connection) {
+	public LivroDAOderby(IConnection connection) {
 		this.connection = connection;
 	}
 	
 	public List<LivroDTO> buscarTodos() throws PersistenceException, ConnectionException {
 		List<LivroDTO> livros = new ArrayList<LivroDTO>();
-		Connection connection = null;
 		Statement statement = null;
 		
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			connection.setAutoCommit(true);
-			statement = connection.createStatement();
+			statement = connection.getConnection().createStatement();
 			
 			String query = "select * from Livros";
 			ResultSet result = statement.executeQuery(query);
@@ -45,7 +37,6 @@ public class LivroDAOderby {
 		} finally {
 			try {
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}
@@ -55,16 +46,12 @@ public class LivroDAOderby {
 	}
 	
 	public List<LivroDTO> buscarPorEditora(int codigo) throws PersistenceException, ConnectionException {
-		Connection connection = null;
 		PreparedStatement statement = null;
 		
 		List<LivroDTO> livros = new ArrayList<>();
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			connection.setAutoCommit(true);
-			
 			String query = "select * from Livros where CodEditora = ?";
-			statement = connection.prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query);
 			statement.setInt(1, codigo);
 			ResultSet result = statement.executeQuery();
 			while (result.next()) {
@@ -75,7 +62,6 @@ public class LivroDAOderby {
 		} finally {
 			try {
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}
@@ -85,19 +71,15 @@ public class LivroDAOderby {
 	}
 	
 	public List<LivroDTO> buscarPorAutor(int codigo) throws PersistenceException, ConnectionException {
-		Connection connection = null;
 		PreparedStatement statement = null;
 		
 		List<LivroDTO> livros = new ArrayList<>();
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			connection.setAutoCommit(true);
-			
 			String query = "select liv.* " +
 				"from Livros liv " +
 				"inner join LivrosAutores lau on liv.Codigo = lau.CodLivro " +
 				"where lau.CodAutor = ?";
-			statement = connection.prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query);
 			statement.setInt(1, codigo);
 			ResultSet result = statement.executeQuery();
 			while (result.next()) {
@@ -108,7 +90,6 @@ public class LivroDAOderby {
 		} finally {
 			try {
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}
@@ -118,16 +99,12 @@ public class LivroDAOderby {
 	}
 	
 	public List<LivroDTO> buscarPorTitulo(String titulo) throws PersistenceException, ConnectionException {
-		Connection connection = null;
 		PreparedStatement statement = null;
 		
 		List<LivroDTO> livros = new ArrayList<>();
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			connection.setAutoCommit(true);
-			
 			String query = "select * from Livros where Titulo like ?";
-			statement = connection.prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query);
 			statement.setString(1, "%" + titulo + "%");
 			ResultSet result = statement.executeQuery();
 			while (result.next()) {
@@ -138,7 +115,6 @@ public class LivroDAOderby {
 		} finally {
 			try {
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}
@@ -148,16 +124,12 @@ public class LivroDAOderby {
 	}
 	
 	public LivroDTO buscarPorCodigo(int codigo) throws PersistenceException, ConnectionException {
-		Connection connection = null;
 		PreparedStatement statement = null;
 	
 		LivroDTO livro = null;
 		try {
-			connection = ConnectionFactory.getInstanceDerby();
-			connection.setAutoCommit(true);
-			
 			String query = "select * from Livros where Codigo = ?";
-			statement = connection.prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query);
 			statement.setInt(1,codigo);
 			ResultSet result = statement.executeQuery();
 			if (result.next()) {
@@ -168,7 +140,6 @@ public class LivroDAOderby {
 		} finally {
 			try {
 				statement.close();
-				connection.close();
 			} catch (SQLException e) {
 				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
 			}
@@ -185,7 +156,7 @@ public class LivroDAOderby {
 		int result = 0;
 		try {
 			String query = "insert into Livros (Titulo, Ano, CodEditora) values (?, ?, ?)";
-			statement = this.connection.prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query);
 			statement.setString(1, livro.getTitulo());
 			statement.setInt(2, livro.getAno());
 			statement.setInt(3, livro.getCodigoEditora());
@@ -217,7 +188,7 @@ public class LivroDAOderby {
 		int result = 0;		
 		try {
 			String query = "update Livros set Titulo = ?, Ano = ?, CodEditora = ? where Codigo = ?";
-			statement = this.connection.prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query);
 			statement.setString(1, livro.getTitulo());
 			statement.setInt(2, livro.getAno());
 			statement.setInt(3, livro.getCodigoEditora());

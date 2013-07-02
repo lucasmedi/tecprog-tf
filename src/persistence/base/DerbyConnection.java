@@ -1,4 +1,4 @@
-package persistence.daoderby;
+package persistence.base;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,9 +14,9 @@ public class DerbyConnection implements IConnection {
         Connection connection = null;
         
         try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            connection = DriverManager.getConnection("jdbc:derby:cadastro");
-        } catch (SQLException | ClassNotFoundException ex) {
+            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
+            connection = DriverManager.getConnection("jdbc:derby://localhost:1527/cadastro");
+        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
         	throw new ConnectionException(ex);
         }
         

@@ -20,7 +20,7 @@ public class EditoraView {
 
 	private Editora editora;
 	private EditoraRepository editoraRepository;
-	private DataModel<Editora> editoraDataModel;
+	private DataModel editoraDataModel;
 	
 	@PostConstruct
 	public void init() {
@@ -62,9 +62,10 @@ public class EditoraView {
 		this.editora = editora;
 	}
 	
-	public DataModel<Editora> getListarEditora() {
+	public DataModel getListarEditora() {
 		try {
-			setEditoraDataModel(new ListDataModel<>(editoraRepository.buscarTodos()));
+			List<Editora> list = editoraRepository.buscarTodos();
+			editoraDataModel = new ListDataModel<>(list);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
@@ -72,11 +73,11 @@ public class EditoraView {
 		
 	}
 	
-	public DataModel<Editora> getEditoraDataModel() {
+	public DataModel getEditoraDataModel() {
 		return editoraDataModel;
 	}
 
-	public void setEditoraDataModel(DataModel<Editora> editoraDataModel) {
+	public void setEditoraDataModel(DataModel editoraDataModel) {
 		this.editoraDataModel = editoraDataModel;
 	}	
 }

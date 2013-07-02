@@ -28,37 +28,16 @@
 			
         <br/>
         
-        <h:dataTable var="editora" value="#{editoraView.editoraDataModel}">
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Código"/>
-                </f:facet>
-                <h:outputText value="#{editora.codigo}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Nome"/>
-                </f:facet>
-                <h:outputText value="#{editora.nome}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Alterar"/>
-                </f:facet>
-                <h:form>
-                    <h:button action="#{editoraView.preparaAlterarEditora}" class="alterar" name="alterar" value="Alterar"/>
-                    </h:form>
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="Excluir"/>
-                </f:facet>
-                <h:form>
-                    <h:commandButton action="#{editoraView.excluirEditora}" value="Excluir"/>
-                    </h:form>
-            </h:column>
-        </h:dataTable>
-        
+        <h:dataTable value="#{editoraView.listarEditora}" var="item">
+         <h:column>    				
+            <f:facet name="header">Código</f:facet>    				
+            #{item.codigo}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Nome</f:facet>
+            #{item.nome}
+         </h:column>
+      </h:dataTable>
 	
 	</h:form>
 </h:body>

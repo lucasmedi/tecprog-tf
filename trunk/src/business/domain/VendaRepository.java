@@ -7,19 +7,11 @@ import mapping.ItemVendaDAOMapping;
 import business.bo.ItemVenda;
 import business.bo.Livro;
 import exceptions.BusinessException;
-import exceptions.ConnectionException;
 import exceptions.MappingException;
-import framework.ConnectionFactory;
-import framework.DbType;
 import framework.IConnection;
 
 public class VendaRepository {
 	private IConnection connection;
-	
-	public VendaRepository() throws BusinessException, ConnectionException {
-		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
-		this.connection = connection;
-	}
 	
 	public VendaRepository(IConnection connection) throws BusinessException {
 		if (connection == null)

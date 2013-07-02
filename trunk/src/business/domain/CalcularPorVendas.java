@@ -7,29 +7,25 @@ import business.bo.Autor;
 import business.bo.AutorPagamento;
 import business.bo.Livro;
 import exceptions.BusinessException;
-import exceptions.ConnectionException;
+import framework.IConnection;
 
 public class CalcularPorVendas implements ICalcularPagamento {
 
+	private IConnection connection;
 	private List<Autor> autores;
 	private double valorFixo;
 	private int bonusVendas;
 	private int bonusExclusividade;
 	
-	public CalcularPorVendas(List<Autor> autores) {
+	public CalcularPorVendas(IConnection connection, List<Autor> autores) {
+		this.connection = connection;
 		this.autores = autores;
 	}
 	
 	@Override
 	public List<AutorPagamento> calcularValor() throws BusinessException {
-		VendaRepository vendaRepo;
-		LivroRepository livroRepo;
-		try {
-			vendaRepo = new VendaRepository();
-			livroRepo = new LivroRepository();
-		} catch (ConnectionException e) {
-			throw new BusinessException("Erro ao abrir conexão com a base de dados", e);
-		}
+		VendaRepository vendaRepo = new VendaRepository(connection); 
+		LivroRepository livroRepo  = new LivroRepository(connection);
 		
 		List<AutorPagamento> result = new ArrayList<>(0);
 		List<Livro> livros = new ArrayList<>(0);

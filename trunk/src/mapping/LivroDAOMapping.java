@@ -98,6 +98,20 @@ public class LivroDAOMapping implements LivroDAO, IMapping<Livro, LivroDTO> {
 	}
 	
 	@Override
+	public Livro buscarLivroPorTitulo(String titulo) throws MappingException {
+		Livro livro = null;
+		
+		try {
+			LivroDAOderby dao = new LivroDAOderby(connection);
+			livro = parseBO(dao.buscarLivroPorTitulo(titulo));
+		} catch (Exception ex) {
+			throw new MappingException(ex);
+		}
+		
+		return livro;
+	}
+	
+	@Override
 	public int inserir(Livro livro) throws MappingException {
 		LivroDTO livroDTO = parseDTO(livro);
 		LivroDAOderby livroDAO = new LivroDAOderby(connection);
@@ -124,6 +138,9 @@ public class LivroDAOMapping implements LivroDAO, IMapping<Livro, LivroDTO> {
 	
 	@Override
 	public Livro parseBO(LivroDTO dto) throws MappingException {
+		if (dto == null)
+			return null;
+		
 		EditoraDAOMapping dao = new EditoraDAOMapping(connection);
 		
 		Livro bo = new Livro();
@@ -136,6 +153,9 @@ public class LivroDAOMapping implements LivroDAO, IMapping<Livro, LivroDTO> {
 	
 	@Override
 	public LivroDTO parseDTO(Livro bo) {
+		if (bo == null)
+			return null;
+		
 		LivroDTO dto = new LivroDTO();
 		dto.setCodigo(bo.getCodigo());
 		dto.setTitulo(bo.getTitulo());

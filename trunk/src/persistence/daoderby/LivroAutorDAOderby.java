@@ -3,6 +3,7 @@ package persistence.daoderby;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +78,7 @@ public class LivroAutorDAOderby {
 		int result = 0;
 		try {
 			String query = "insert into LivrosAutores (CodAutor, CodLivro) values (?, ?)";
-			statement = connection.getConnection().prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			statement.setInt(1, livroAutor.getCodigoAutor());
 			statement.setInt(1, livroAutor.getCodigoLivro());
 			result = statement.executeUpdate();

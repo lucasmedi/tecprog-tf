@@ -164,7 +164,7 @@ public class AutorDAOderby {
 		int result = 0;
 		try {
 			String query = "insert into Autores (PrimeiroNome, UltimoNome) values (?, ?)";
-			statement = connection.getConnection().prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, autor.getPrimeiroNome());
 			statement.setString(2, autor.getUltimoNome());
 			result = statement.executeUpdate();

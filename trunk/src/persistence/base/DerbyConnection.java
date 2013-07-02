@@ -64,6 +64,16 @@ public class DerbyConnection implements IConnection {
 	}
 	
 	@Override
+	public void closeTransaction() throws ConnectionException {
+		try {
+			if (!hasTransaction())
+				connection.setAutoCommit(true);
+		} catch (SQLException e) {
+			throw new ConnectionException(e);
+		}
+	}
+	
+	@Override
 	public void commit() throws ConnectionException {
 		try {
 			if (hasTransaction())

@@ -7,7 +7,9 @@ import persistence.daoderby.ItemVendaDAOderby;
 import persistence.dto.ItemVendaDTO;
 import business.bo.ItemVenda;
 import business.daobase.ItemVendaDAO;
+import exceptions.ConnectionException;
 import exceptions.MappingException;
+import exceptions.PersistenceException;
 import framework.IConnection;
 
 public class ItemVendaDAOMapping implements ItemVendaDAO, IMapping<ItemVenda, ItemVendaDTO> {
@@ -51,7 +53,23 @@ public class ItemVendaDAOMapping implements ItemVendaDAO, IMapping<ItemVenda, It
 	}
 	
 	@Override
+	public int inserir(ItemVenda itemVenda) throws MappingException {
+		ItemVendaDAOderby dao = new ItemVendaDAOderby(connection);
+		int id = 0;
+		try {
+			id = dao.inserir(parseDTO(itemVenda));
+		} catch (PersistenceException | ConnectionException e) {
+			throw new MappingException("Erro ao inserir item de venda.", e);
+		}
+		
+		return id;
+	}
+	
+	@Override
 	public ItemVenda parseBO(ItemVendaDTO dto) throws MappingException {
+		if (dto == null)
+			return null;
+		
 		VendaDAOMapping vendaDAO = new VendaDAOMapping(connection);
 		LivroDAOMapping livroDAO = new LivroDAOMapping(connection);
 		
@@ -64,10 +82,13 @@ public class ItemVendaDAOMapping implements ItemVendaDAO, IMapping<ItemVenda, It
 
 	@Override
 	public ItemVendaDTO parseDTO(ItemVenda bo) {
+		if (bo == null)
+			return null;
+		
 		ItemVendaDTO dto = new ItemVendaDTO();
 		dto.setCodigoVenda(bo.getVenda().getCodigo());
 		dto.setCodigoLivro(bo.getLivro().getCodigo());
 		dto.setQuantidade(bo.getQuantidade());
 		return dto;
-	}
+	}	
 }

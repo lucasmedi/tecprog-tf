@@ -9,5 +9,4 @@ public interface VendaDAO {
     List<Venda> buscarTodos() throws MappingException;
     Venda buscarPorCodigo(int codigo) throws MappingException;
     int inserir(Venda venda) throws MappingException;
-    void alterar(Venda venda) throws MappingException;
 }

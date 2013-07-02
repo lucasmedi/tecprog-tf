@@ -7,7 +7,9 @@ import persistence.daoderby.VendaDAOderby;
 import persistence.dto.VendaDTO;
 import business.bo.Venda;
 import business.daobase.VendaDAO;
+import exceptions.ConnectionException;
 import exceptions.MappingException;
+import exceptions.PersistenceException;
 import framework.IConnection;
 
 public class VendaDAOMapping implements VendaDAO, IMapping<Venda, VendaDTO> {
@@ -49,18 +51,23 @@ public class VendaDAOMapping implements VendaDAO, IMapping<Venda, VendaDTO> {
 	}
 
 	@Override
-	public int inserir(Venda venda) {
-		return 0;
+	public int inserir(Venda venda) throws MappingException {
+		VendaDAOderby dao = new VendaDAOderby(connection);
+		int id = 0;
+		try {
+			id = dao.inserir(parseDTO(venda));
+		} catch (PersistenceException | ConnectionException e) {
+			throw new MappingException("Erro ao inserir venda.", e);
+		}
 		
-	}
-
-	@Override
-	public void alterar(Venda venda) {
-		
+		return id;
 	}
 
 	@Override
 	public Venda parseBO(VendaDTO dto) {
+		if (dto == null)
+			return null;
+		
 		Venda bo = new Venda();
 		bo.setCodigo(dto.getCodigo());
 		bo.setNomeCliente(dto.getNomeCliente());
@@ -72,6 +79,9 @@ public class VendaDAOMapping implements VendaDAO, IMapping<Venda, VendaDTO> {
 
 	@Override
 	public VendaDTO parseDTO(Venda bo) {
+		if (bo == null)
+			return null;
+		
 		VendaDTO dto = new VendaDTO();
 		dto.setCodigo(bo.getCodigo());
 		dto.setNomeCliente(bo.getNomeCliente());

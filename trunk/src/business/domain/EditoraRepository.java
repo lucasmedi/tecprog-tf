@@ -6,19 +6,11 @@ import java.util.List;
 import mapping.EditoraDAOMapping;
 import business.bo.Editora;
 import exceptions.BusinessException;
-import exceptions.ConnectionException;
-import framework.ConnectionFactory;
-import framework.DbType;
 import framework.IConnection;
 
 public class EditoraRepository {
 	
 	private IConnection connection;
-	
-	public EditoraRepository() throws BusinessException, ConnectionException {
-		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
-		this.connection = connection;
-	}
 	
 	public EditoraRepository(IConnection connection) throws BusinessException {
 		if (connection == null)

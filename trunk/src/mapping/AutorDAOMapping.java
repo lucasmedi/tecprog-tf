@@ -109,6 +109,9 @@ public class AutorDAOMapping implements AutorDAO, IMapping<Autor, AutorDTO> {
 	
 	@Override
 	public Autor parseBO(AutorDTO dto) {
+		if (dto == null)
+			return null;
+		
 		Autor bo = new Autor();
 		bo.setCodigo(dto.getCodigo());
 		bo.setPrimeiroNome(dto.getPrimeiroNome());
@@ -118,6 +121,9 @@ public class AutorDAOMapping implements AutorDAO, IMapping<Autor, AutorDTO> {
 	
 	@Override
 	public AutorDTO parseDTO(Autor bo) {
+		if (bo == null)
+			return null;
+		
 		AutorDTO dto = new AutorDTO();
 		dto.setCodigo(bo.getCodigo());
 		dto.setPrimeiroNome(bo.getPrimeiroNome());

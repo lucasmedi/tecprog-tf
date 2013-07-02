@@ -9,6 +9,7 @@ public interface IConnection {
 	void open() throws ConnectionException;
 	void close() throws ConnectionException;
 	void openTransaction() throws ConnectionException;
+	void closeTransaction() throws ConnectionException;
 	void commit() throws ConnectionException;
 	void rollback() throws ConnectionException;
 }

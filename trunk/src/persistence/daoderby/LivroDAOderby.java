@@ -148,6 +148,31 @@ public class LivroDAOderby {
 		return livro;
 	}
 	
+	public LivroDTO buscarLivroPorTitulo(String titulo) throws PersistenceException, ConnectionException {
+		PreparedStatement statement = null;
+	
+		LivroDTO livro = null;
+		try {
+			String query = "select * from Livros where Titulo like ?";
+			statement = connection.getConnection().prepareStatement(query);
+			statement.setString(1, "%" + titulo + "%");
+			ResultSet result = statement.executeQuery();
+			if (result.next()) {
+				livro = parseLivroDTO(result);
+			}
+		} catch (Exception e) {
+			throw new PersistenceException("Erro ao executar busca: " + e.getMessage(), e);
+		} finally {
+			try {
+				statement.close();
+			} catch (SQLException e) {
+				throw new ConnectionException("Erro ao encerrar conexão com a base de dados.", e);
+			}
+		}
+		
+		return livro;
+	}
+	
 	public int inserir(LivroDTO livro) throws PersistenceException, ConnectionException {
 		PreparedStatement statement = null;
 		ResultSet generatedKeys = null;
@@ -156,7 +181,7 @@ public class LivroDAOderby {
 		int result = 0;
 		try {
 			String query = "insert into Livros (Titulo, Ano, CodEditora) values (?, ?, ?)";
-			statement = connection.getConnection().prepareStatement(query);
+			statement = connection.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, livro.getTitulo());
 			statement.setInt(2, livro.getAno());
 			statement.setInt(3, livro.getCodigoEditora());

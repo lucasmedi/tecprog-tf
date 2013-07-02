@@ -40,8 +40,13 @@ public class EditoraView {
 		return "editora";
 	}
 	
-	public String pesquisarEditora() {
-		return "editora";
+	public void pesquisarEditora() {
+		try {
+			List<Editora> list = editoraRepository.buscarTodos();
+			editoraDataModel = new ListDataModel<>(list);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void preparaAlterarEditora() {
@@ -63,12 +68,7 @@ public class EditoraView {
 	}
 	
 	public DataModel getListarEditora() {
-		try {
-			List<Editora> list = editoraRepository.buscarTodos();
-			editoraDataModel = new ListDataModel<>(list);
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
+		
 		return getEditoraDataModel();
 		
 	}

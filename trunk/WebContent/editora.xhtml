@@ -17,9 +17,11 @@
 </ui:include>
 	<h2>Editora</h2>
 	<h:form id="form">
+		<h:messages id="messages" globalOnly="true" infoStyle="color:darkgreen" errorStyle="color:red" />
+		
 		Nome: <h:inputText value="#{editoraView.editora.nome}" id="nome"/><br/>
 		
-		<h:commandButton action="#{editoraView.cadastrarEditora}" id="cadastrar" class="cadastrar" value="Incluir"/>
+		<h:commandButton actionListener="#{editoraView.cadastrarEditora}" id="cadastrar" class="cadastrar" value="Incluir" update=":messages" />
 		<h:commandButton actionListener="#{editoraView.pesquisarEditora}" id="pesquisar" class="pesquisar" value="Pesquisar"/>
 		
 
@@ -33,11 +35,11 @@
             #{item.nome}
          </h:column>
          <h:column>
-         	<f:facet name="header">Alterar</f:facet>
-         	<h:form>
-         		<h:button action="#{editoraView.preparaAlterarEditora}" id="alterar" class="alterar" value="Alterar"/>
-         	</h:form>
+            <f:facet name="header"></f:facet>
+            <h:commandButton actionListener="#{editoraView.excluirEditora}" id="excluir" class="excluir" value="Excluir"/>
          </h:column>
+         
+        
       </h:dataTable>
 	
 	</h:form>

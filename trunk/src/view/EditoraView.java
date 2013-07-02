@@ -1,8 +1,13 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
@@ -11,6 +16,9 @@ import business.domain.EditoraContext;
 import business.domain.EditoraRepository;
 import exceptions.BusinessException;
 import exceptions.ConnectionException;
+import framework.ConnectionFactory;
+import framework.DbType;
+import framework.IConnection;
 
 @ManagedBean(name="editoraView")
 @SessionScoped
@@ -29,31 +37,39 @@ public class EditoraView extends View {
 	public void init() {
 		editora = new Editora();
 		try {
-			editoraRepository = new EditoraRepository(this.connection);
-		} catch (BusinessException e) {
-			// Mostrar mensagem de erro.
+			IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+			editoraRepository = new EditoraRepository(connection);
+			editoraContext = new EditoraContext(connection);
+		} catch (BusinessException | ConnectionException e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,e.getMessage() , null));
 		}
 	}
  
-	public String cadastrarEditora() {
+	public void cadastrarEditora() {
 		try {
 			if(editora.getCodigo() == 0)
 				editoraContext.cadastrarEditora(editora);
 			else
 				editoraContext.alterarEditora(editora);
+			
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cadastro feito com sucesso!", null));
+			
 			pesquisarEditora();
 		} catch (BusinessException e) {
-			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,e.getMessage() , null));
 		}
-		return "editora";
+		//return "editora";
 	}
 
 	public void pesquisarEditora() {
 		try {
-			editoras= new ListDataModel<>(editoraRepository.buscarTodos());
-			//editoraDataModel = new ListDataModel<>(list);
+			if(editora.getNome() !=null && !editora.getNome().isEmpty())
+				editoras= new ListDataModel<>(editoraRepository.buscarPorNome(editora.getNome()));
+			else
+				editoras= new ListDataModel<>(editoraRepository.buscarTodos());
+				
 		} catch (BusinessException e) {
-			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,e.getMessage() , null));
 		}
 	}
 
@@ -62,8 +78,8 @@ public class EditoraView extends View {
 		return "editora";
 	}
 
-	public String excluirEditora() {
-		return "editora";
+	public void excluirEditora() {
+		//return "editora";
 	}
 
 	//GETs and SETs 

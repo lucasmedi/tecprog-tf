@@ -1,6 +1,6 @@
 package framework;
 
-import persistence.daoderby.DerbyConnection;
+import persistence.base.DerbyConnection;
 import exceptions.ConnectionException;
 
 public class ConnectionFactory {

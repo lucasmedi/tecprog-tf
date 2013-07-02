@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class InitializeDb {
 	
     public static void initialize() throws Exception {
-        Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+        Class.forName("org.apache.derby.jdbc.ClientDriver");
     }
     
     public static Connection connectDb() throws Exception {
@@ -16,7 +16,7 @@ public class InitializeDb {
     }
     
     public static void createDb() throws Exception {
-        Connection connection = DriverManager.getConnection("jdbc:derby:cadastro;create=true");
+        Connection connection = DriverManager.getConnection("jdbc:derby://localhost:1527/cadastro;create=true");
         Statement statement = connection.createStatement();
         
         createAutores(statement);
@@ -114,16 +114,34 @@ public class InitializeDb {
 		Statement statement = connection.createStatement();
 		
 		try {
-		insertEditoras(statement);
-		insertAutores(statement);
-		insertLivros(statement);
-		insertLivrosAutores(statement);
+			delete(statement);
+			
+			insertEditoras(statement);
+			insertAutores(statement);
+			insertLivros(statement);
+			insertLivrosAutores(statement);
 		} catch (Exception ex) {
 			connection.rollback();
 			throw ex;
 		}
 		
 		connection.commit();
+	}
+	
+	private static void delete(Statement statement) throws SQLException {
+		String query = null;
+		
+		query = "delete from LivrosAutores";
+		statement.executeUpdate(query);
+		
+		query = "delete from Livros";
+		statement.executeUpdate(query);
+		
+		query = "delete from Autores";
+		statement.executeUpdate(query);
+		
+		query = "delete from Editoras";
+		statement.executeUpdate(query);
 	}
 	
 	private static void insertEditoras(Statement statement) throws SQLException {

@@ -125,7 +125,7 @@ public class InitializeDb {
 			//insertAutores(statement);
 			//insertLivros(statement);
 			//insertLivrosAutores(statement);
-			insertVendas(statement);
+			//insertVendas(statement);
 		} catch (Exception ex) {
 			connection.rollback();
 			throw ex;

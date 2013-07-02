@@ -10,6 +10,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
 import business.bo.Editora;
+import business.domain.EditoraContext;
 import business.domain.EditoraRepository;
 import exceptions.BusinessException;
 import exceptions.ConnectionException;
@@ -20,63 +21,55 @@ public class EditoraView {
 
 	private Editora editora;
 	private EditoraRepository editoraRepository;
-	private List<Editora> editoras;
-	
+	private EditoraContext editoraContext;
+	private DataModel<Editora> editoras;
+
 	@PostConstruct
 	public void init() {
-	    editora = new Editora();
-	    try {
+		editora = new Editora();
+		try {
 			editoraRepository = new EditoraRepository();
 		} catch (BusinessException | ConnectionException e) {
 			// Mostrar mensagem de erro.
 		}
 	}
-	
+ 
 	public String cadastrarEditora() {
-		editora.setCodigo(0);
-		List<Editora> list = new ArrayList<Editora>();
-		list.add(editora);
-		//editoraDataModel = new ListDataModel<>(list);
+		try {
+			if(editora.getCodigo() == 0)
+				editoraContext.cadastrarEditora(editora);
+			else
+				editoraContext.alterarEditora(editora);
+			pesquisarEditora();
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
 		return "editora";
 	}
-	
+
 	public void pesquisarEditora() {
 		try {
-			List<Editora> list = editoraRepository.buscarTodos();
+			editoras= new ListDataModel<>(editoraRepository.buscarTodos());
 			//editoraDataModel = new ListDataModel<>(list);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void preparaAlterarEditora() {
-		editora.setCodigo(1);
-		editora.setNome("Giovanni");
-		//return "editora";
+
+	public String preparaAlterarEditora() {
+		editora = editoras.getRowData();
+		return "editora";
 	}
-	
+
 	public String excluirEditora() {
 		return "editora";
 	}
-	
-	
-	public List<Editora> getListarEditora() {
-		try {
-			editoras = editoraRepository.buscarTodos();
-			//editoraDataModel = new ListDataModel<>(list);
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
-		return editoras;
-		
-	}
 
-	
 	//GETs and SETs 
 	public Editora getEditora() {
 		return editora;
 	}
-	
+
 	public void setEditora(Editora editora) {
 		this.editora = editora;
 	}
@@ -88,13 +81,13 @@ public class EditoraView {
 		this.editoraRepository = editoraRepository;
 	}
 
-	public List<Editora> getEditoras() {
+	public DataModel<Editora> getEditoras() {
 		return editoras;
 	}
 
-	public void setEditoras(List<Editora> editoras) {
+	public void setEditoras(DataModel<Editora> editoras) {
 		this.editoras = editoras;
 	}
-	
-	
-	}
+
+
+}

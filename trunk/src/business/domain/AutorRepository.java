@@ -6,10 +6,18 @@ import java.util.List;
 import mapping.AutorDAOMapping;
 import business.bo.Autor;
 import exceptions.BusinessException;
+import exceptions.ConnectionException;
+import framework.ConnectionFactory;
+import framework.DbType;
 import framework.IConnection;
 
 public class AutorRepository {
 	private IConnection connection;
+	
+	public AutorRepository() throws BusinessException, ConnectionException {
+		IConnection connection = ConnectionFactory.getInstance(DbType.Derby);
+		this.connection = connection;
+	}
 	
 	public AutorRepository(IConnection connection) throws BusinessException {
 		if (connection == null)

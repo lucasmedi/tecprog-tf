@@ -9,11 +9,10 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import exceptions.BusinessException;
-
-import business.bo.*;
-import business.domain.EditoraContext;
+import business.bo.Editora;
 import business.domain.EditoraRepository;
+import exceptions.BusinessException;
+import exceptions.ConnectionException;
 
 @ManagedBean(name="editoraView")
 @SessionScoped
@@ -26,10 +25,14 @@ public class EditoraView {
 	@PostConstruct
 	public void init() {
 	    editora = new Editora();
-	    //editoraRepository = new EditoraRepository();
+	    try {
+			editoraRepository = new EditoraRepository();
+		} catch (BusinessException | ConnectionException e) {
+			// Mostrar mensagem de erro.
+		}
 	}
 	
-	public String cadastrarEditora(){
+	public String cadastrarEditora() {
 		editora.setCodigo(0);
 		List<Editora> list = new ArrayList<Editora>();
 		list.add(editora);
@@ -37,17 +40,17 @@ public class EditoraView {
 		return "editora";
 	}
 	
-	public String pesquisarEditora(){
+	public String pesquisarEditora() {
 		return "editora";
 	}
 	
-	public void preparaAlterarEditora(){
+	public void preparaAlterarEditora() {
 		editora.setCodigo(1);
 		editora.setNome("Giovanni");
 		//return "editora";
 	}
 	
-	public String excluirEditora(){
+	public String excluirEditora() {
 		return "editora";
 	}
 	
@@ -59,7 +62,7 @@ public class EditoraView {
 		this.editora = editora;
 	}
 	
-	public DataModel<Editora> getListarEditora(){
+	public DataModel<Editora> getListarEditora() {
 		try {
 			setEditoraDataModel(new ListDataModel<>(editoraRepository.buscarTodos()));
 		} catch (BusinessException e) {
@@ -69,15 +72,11 @@ public class EditoraView {
 		
 	}
 	
-	
 	public DataModel<Editora> getEditoraDataModel() {
 		return editoraDataModel;
 	}
 
 	public void setEditoraDataModel(DataModel<Editora> editoraDataModel) {
 		this.editoraDataModel = editoraDataModel;
-	}
-	
-	
-	
+	}	
 }
